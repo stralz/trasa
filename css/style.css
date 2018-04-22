@@ -1,0 +1,16 @@
+#prvi, #drugi, #treci {
+    border: 1px solid #f6f6f6;
+    padding: 10px;
+}
+
+#drugi-tab {
+	display: none;
+}
+
+table {
+	font-size: 12px;
+}
+
+datalist {
+   overflow-y: auto;
+}
