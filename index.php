@@ -23,7 +23,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 		
-		<script src="js/main.js"></script>
+		<script src="js/index.js"></script>
 		<script src="js/slovima.js"></script>
 	</head>
 	<body>
@@ -53,7 +53,7 @@
 			     </div>
 				 <div class="form-row">
 					<div class="form-group col-md-3">
-						<label for="racun_broj">Racun broj:</label>
+						<label for="racun_broj">Komplet:</label>
 						<input type="text" class="form-control" id="racun_broj">
 					</div>
 					<div class="form-group col-md-3">
@@ -361,4 +361,5 @@
 			?>
 		</a>
 	</body>
+	<script src="js/main.js"></script>
 </html>

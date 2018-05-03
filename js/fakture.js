@@ -74,6 +74,8 @@ $(function () {
 						$("#cmr1").val(data.cmr1);
 						$("#tezina1").val(data.tezina1);
 						$("#iznos1").val(data.iznos1);
+						$("#mesto_utovara1").val(data.mesto_utovara1);
+						$("#mesto_istovara1").val(data.mesto_istovara1);
 						
 						var date = data.datum_izdavanja;
 						var day = date.substr(0, 2);
@@ -133,10 +135,27 @@ $(function () {
 					// Kraj sakrivanja svih sa '2' u imenu
 				} else {
 					if(data.sablon.includes("Dinarski")) {
+						// Sakrije broj naloga 1
+						$("#broj_naloga1").hide();
+						$("label[for='broj_naloga1']").hide();
 						// Sakrije broj naloga 2
 						$("#broj_naloga2").hide();
 						$("label[for='broj_naloga2']").hide();
 						
+						// Ubacuje Posiljaoca 2
+						$("#mesto_utovara2").val(data.mesto_utovara2);
+						// Ubacuje Primaoca 2
+						$("#mesto_istovara2").val(data.mesto_istovara2);
+						// Ubacuje CMR 2
+						$("#cmr2").val(data.cmr2);
+						// Ubacuje Tezina 2
+						$("#tezina2").val(data.tezina2);
+						//Ubacuje  Iznos 2
+						$("#iznos2").val(data.iznos2);
+						// Ubacuje Od 2
+						$("#od2").val(data.od2);
+						// Ubacuje Do 2
+						$("#do2").val(data.do2);
 						// Ubacuje Posiljaoca 2
 						$("#mesto_utovara2").val(data.mesto_utovara2);
 						// Ubacuje Primaoca 2
@@ -158,7 +177,7 @@ $(function () {
 						// Ubacuje Broj naloga 1
 						$("#broj_naloga1").val(data.broj_naloga1);
 						// Ubacuje Broj naloga 2
-						$("#broj_naloga2").val(data.broj_naloga2);
+						$("#broj_naloga2").val("DDD");
 						// Ubacuje CMR 2
 						$("#cmr2").val(data.cmr2);
 						// Ubacuje Tezina 2

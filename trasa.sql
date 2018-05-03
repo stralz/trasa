@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2018 at 05:43 PM
+-- Generation Time: May 03, 2018 at 10:50 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -107,7 +107,40 @@ CREATE TABLE `fakture` (
 --
 
 INSERT INTO `fakture` (`id`, `racun_broj`, `datum_izdavanja`, `valuta_placanja`, `datum_prometa`, `mesto_prometa`, `mesto_izdavanja_racuna`, `broj_naloga1`, `broj_naloga2`, `od1`, `od2`, `do1`, `do2`, `cmr1`, `cmr2`, `mesto_utovara1`, `mesto_utovara2`, `mesto_istovara1`, `mesto_istovara2`, `tezina1`, `tezina2`, `fk_tegljac`, `fk_prikolica`, `iznos1`, `iznos2`, `iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`, `lokacija`) VALUES
-(153, '123', '22.04.2018', '21.05.2018', '05.04.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Beograd', '', 'Kragujevac', '', '123', '', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '123', '', 34, 52, '1237.00', 'NaN', '123.00', '1.04', '118.1377', 'DinarskiSablon1Tura', 11, '');
+(153, '123', '22.04.2018', '21.05.2018', '05.04.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Beograd', '', 'Kragujevac', '', '123', '', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '123', '', 34, 52, '1237.00', 'NaN', '123.00', '1.04', '118.1377', 'DinarskiSablon1Tura', 11, ''),
+(154, '1', '02.05.2018', '2.06.2018', '04.05.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Beograd', '', 'Polomilica', '', '123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '123', '', 34, 52, '123.00', 'NaN', '123.00', '1.04', '118.1901', 'DinarskiSablon1Tura', 11, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fakture_troskovi`
+--
+
+CREATE TABLE `fakture_troskovi` (
+  `fk_fakture` int(11) NOT NULL,
+  `fk_troskovi` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fakture_troskovi`
+--
+
+INSERT INTO `fakture_troskovi` (`fk_fakture`, `fk_troskovi`) VALUES
+(154, 17),
+(154, 20),
+(154, 21),
+(154, 22),
+(154, 23),
+(154, 22),
+(154, 25),
+(154, 26),
+(154, 23),
+(154, 28),
+(154, 29),
+(154, 30),
+(154, 31),
+(154, 21),
+(154, 31);
 
 -- --------------------------------------------------------
 
@@ -219,9 +252,9 @@ CREATE TABLE `nalogodavci_gradovi` (
 --
 
 INSERT INTO `nalogodavci_gradovi` (`id`, `fk_nalogodavac`, `fk_grad`, `broj`) VALUES
-(1, 11, 1, 54),
-(2, 11, 27, 42),
-(3, 11, 28, 40),
+(1, 11, 1, 56),
+(2, 11, 27, 43),
+(3, 11, 28, 43),
 (4, 16, 2, 25),
 (5, 16, 3, 12),
 (6, 12, 29, 6),
@@ -265,9 +298,9 @@ INSERT INTO `nalogodavci_relacije` (`id`, `fk_od`, `fk_do`, `fk_nalogodavac`, `b
 (16, 1, 1, 11, 1),
 (17, 27, 28, 11, 12),
 (18, 27, 1, 11, 1),
-(19, 1, 28, 11, 11),
+(19, 1, 28, 11, 13),
 (20, 28, 28, 11, 1),
-(21, 28, 27, 11, 3),
+(21, 28, 27, 11, 4),
 (22, 35, 1, 13, 1),
 (23, 2, 36, 13, 1),
 (24, 36, 2, 13, 1),
@@ -331,17 +364,6 @@ CREATE TABLE `putarine` (
   `id` int(11) NOT NULL,
   `zemlja` varchar(50) NOT NULL,
   `iznos` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `recenice`
---
-
-CREATE TABLE `recenice` (
-  `id` int(11) NOT NULL,
-  `sadrzaj` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -427,6 +449,36 @@ INSERT INTO `tegljaci` (`id`, `broj_registracije`, `marka`, `model`, `tip_tahogr
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `troskovi`
+--
+
+CREATE TABLE `troskovi` (
+  `id` int(11) NOT NULL,
+  `naziv` varchar(40) NOT NULL,
+  `datum` varchar(10) NOT NULL,
+  `iznos` float NOT NULL,
+  `valuta` varchar(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `troskovi`
+--
+
+INSERT INTO `troskovi` (`id`, `naziv`, `datum`, `iznos`, `valuta`) VALUES
+(16, 'ninja', '04.05.2018', 123, 'EUR'),
+(17, 'ninja', '03.05.2018', 123, 'EUR'),
+(18, 'ninja', '03.05.2018', 123, 'EUR'),
+(19, 'ninja', '03.05.2018', 123, 'EUR'),
+(20, 'terminalka', '03.05.2018', 1000, 'RSD'),
+(21, 'terminalka', '10.05.2018', 123, 'EUR'),
+(30, 'terminalka', '11.05.2018', 123, 'KN'),
+(31, 'terminalka', '11.05.2018', 123, 'EUR'),
+(32, 'terminalka', '10.05.2018', 123, 'EUR'),
+(33, 'terminalka', '11.05.2018', 123, 'EUR');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `uvoznici_izvoznici`
 --
 
@@ -465,15 +517,15 @@ CREATE TABLE `u_i_nalogodavac` (
 --
 
 INSERT INTO `u_i_nalogodavac` (`fk_nalogodavac`, `fk_u_i`, `broj`) VALUES
-(11, 23, 23),
-(11, 24, 20),
+(11, 23, 24),
+(11, 24, 22),
 (11, 22, 18),
-(11, 20, 19),
+(11, 20, 21),
 (13, 23, 5),
 (13, 24, 3),
 (13, 22, 3),
 (13, 20, 1),
-(11, 21, 5),
+(11, 21, 6),
 (11, 25, 3),
 (12, 20, 1),
 (12, 22, 1);
@@ -541,6 +593,13 @@ ALTER TABLE `fakture`
   ADD KEY `fakture_prikolica_FK` (`fk_prikolica`);
 
 --
+-- Indexes for table `fakture_troskovi`
+--
+ALTER TABLE `fakture_troskovi`
+  ADD KEY `fakture_FK` (`fk_fakture`),
+  ADD KEY `troskovi_FK` (`fk_troskovi`);
+
+--
 -- Indexes for table `gradovi`
 --
 ALTER TABLE `gradovi`
@@ -599,12 +658,6 @@ ALTER TABLE `putarine`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `recenice`
---
-ALTER TABLE `recenice`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `relacije`
 --
 ALTER TABLE `relacije`
@@ -623,6 +676,12 @@ ALTER TABLE `sleperi_vozaci`
 -- Indexes for table `tegljaci`
 --
 ALTER TABLE `tegljaci`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `troskovi`
+--
+ALTER TABLE `troskovi`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -652,7 +711,7 @@ ALTER TABLE `vozaci`
 -- AUTO_INCREMENT for table `fakture`
 --
 ALTER TABLE `fakture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT for table `gradovi`
@@ -679,6 +738,12 @@ ALTER TABLE `relacije`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `troskovi`
+--
+ALTER TABLE `troskovi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
 -- AUTO_INCREMENT for table `uvoznici_izvoznici`
 --
 ALTER TABLE `uvoznici_izvoznici`
@@ -695,6 +760,13 @@ ALTER TABLE `fakture`
   ADD CONSTRAINT `fakture_nalogodavac_FK` FOREIGN KEY (`fk_nalogodavac`) REFERENCES `nalogodavci` (`id`),
   ADD CONSTRAINT `fakture_prikolica_FK` FOREIGN KEY (`fk_prikolica`) REFERENCES `prikolice` (`id`),
   ADD CONSTRAINT `fakture_tegljac_FK` FOREIGN KEY (`fk_tegljac`) REFERENCES `tegljaci` (`id`);
+
+--
+-- Constraints for table `fakture_troskovi`
+--
+ALTER TABLE `fakture_troskovi`
+  ADD CONSTRAINT `fakture_FK` FOREIGN KEY (`fk_fakture`) REFERENCES `fakture` (`id`),
+  ADD CONSTRAINT `troskovi_FK` FOREIGN KEY (`fk_troskovi`) REFERENCES `troskovi` (`id`);
 
 --
 -- Constraints for table `kompleti`

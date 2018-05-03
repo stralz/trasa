@@ -338,5 +338,6 @@
 				$(this).attr("data-target", "#myModal");
 			});
 		</script>
+		<script src="js/main.js"></script>
 	</body>
 </html>

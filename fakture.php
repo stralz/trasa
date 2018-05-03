@@ -56,7 +56,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="racun_broj">Racun broj:</label>
+							<label for="racun_broj">Komplet:</label>
 							<input type="text" id="racun_broj" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
@@ -334,4 +334,5 @@
 		</script>
 		<button id="pomocniKurs" style="display: none;">ss</button>
 	</body>
+	<script src="js/main.js"></script>
 </html>

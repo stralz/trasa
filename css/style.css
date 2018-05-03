@@ -14,3 +14,7 @@ table {
 datalist {
    overflow-y: auto;
 }
+
+.trenutni {
+	background: #222222;
+}
