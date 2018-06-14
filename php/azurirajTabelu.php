@@ -18,8 +18,15 @@
 	$id_entiteta = $conn->escape_string($_POST['id_entiteta']);
 	$baza = $conn->escape_string($_POST['baza']);
 	
-	$sql = "UPDATE " . $baza . " SET `" . $kolona .
-	"`=\"" . $vrednost . "\" WHERE `id`=" . $id_entiteta . ";";
+	if($baza == "pregledi_prikolice") {
+		$sql = "UPDATE " . $baza . " SET `" . $kolona .
+		"`=\"" . $vrednost . "\" WHERE `fk_prikolica`=" . $id_entiteta . ";";
+		$conn->query($sql);
+		echo $sql;
+	} else {
+		$sql = "UPDATE " . $baza . " SET `" . $kolona .
+		"`=\"" . $vrednost . "\" WHERE `id`=" . $id_entiteta . ";";
+		$conn->query($sql);
+	}
 	
-	$conn->query($sql);
 ?>

@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="js/jquery.min.js"></script>
 		<script src="js/docxtemplater.js"></script>
 		<script src="js/jszip.js"></script>
 		<script src="vendor/file-saver.js"></script>
@@ -17,12 +17,12 @@
 		<!--[if IE]>
 			<script type="text/javascript" src="examples/vendor/jszip-utils-ie.js"></script>
 		<![endif]-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/theme.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-		<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+        <!-- <link rel="stylesheet" href="css/theme.css"> -->
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script defer src="js/all.js"></script>
 		
 		<script src="js/obracuni.js"></script>
 	</head>
@@ -77,8 +77,66 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="modalGorivo">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title pull-left">Sipanje</h2>
+						<button class="close" type="button" data-dismiss="modal" onclick="clearModalBody()">x</button>
+					</div>
+					<div class="modal-body" id="gorivoModalBody">
+						<form>
+							<div class="form-group">
+								<label for="gorivoDatum">Datum:</label>
+								<input type="date" id="gorivoDatum" style="margin-left: 10px;" class="col-sm-4 form-control" autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label for="kilometraza">Kilometraza:</label>
+								<input type="text" id="kilometraza" class="col-sm-4 form-control" style="margin-left: 10px;" autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label for="mestoTankiranja">Mesto tankiranja:</label>
+								<input type="text" id="mestoTankiranja" list="listMestoTankiranja" style="margin-left: 10px;" class="col-sm-4 form-control" autocomplete="off">
+								<datalist id="listMestoTankiranja">
+									<?php
+										$sql = "SELECT * FROM benzinske_stanice";
+										$result = $conn->query($sql);
+										if($result->num_rows > 0) {
+											while($row = $result->fetch_assoc()) {
+												echo "<option value=\"" . $row["naziv"] . "\">";
+											}
+										}
+									?>
+								</datalist>
+							</div>
+							<div class="form-group">
+								<label for="kolicinaLitara">Kolicina litara:</label>
+								<input type="text" id="kolicinaLitara" style="margin-left: 10px;" class="col-sm-4 form-control" autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label for="cenaPoLitru">Cena po litru:</label>
+								<input type="text" id="cenaPoLitru" style="margin-left: 10px;" class="col-sm-4 form-control" autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label for="kojaFaktura">Faktura:</label>
+									<div class="radio">
+										<label><input type="radio" name="valuta"> EUR</label>
+									</div>
+									<div class="radio">
+										<label><input type="radio" name="valuta"> RSD</label>
+									</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<a class="btn btn-success" data-dismiss="modal" id="dodajGorivo">Dodaj sipanje</a>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="container-fluid">
-			<!-- Gornji deo stranice, fakutra -->
+			<!-- Gornji deo stranice, FAKTURA -->
+			
 			<div class="row" style="margin-top: 40px;">
 			
 				<div class="col-md-6">
@@ -104,50 +162,29 @@
 						<input type="text" list="listaFaktura" id="faktura2" class="form-control">
 					</div>
 				</div>
-				<div class="col-md-6">
-					<table class="table table-bordered">
-						<thead class="thead">
-							<tr>
-								<th>Company</th>
-								<th>Contact</th>
-								<th>Country</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Alfreds Futterkiste</td>
-								<td>Maria Anders</td>
-								<td>Germany</td>
-							</tr>
-							<tr>
-								<td>Centro comercial Moctezuma</td>
-								<td>Francisco Chang</td>
-								<td>Mexico</td>
-							</tr>
-							<tr>
-								<td>Ernst Handel</td>
-								<td>Roland Mendel</td>
-								<td>Austria</td>
-							</tr>
-						</tbody>
-					</table> 
+				<div class="col-md-6" id="rekapitulacija">
+					<h5 id="odlazak">Odlazak: </h5>
+					<h5 id="povratak" style="text-decoration: line-through">Povratak: </h5>
+					<h5 id="plata">Plata: </h5>
+					<h3 id="ostalo"><strong>Ostalo: </strong></h5>
 				</div>
 			</div>
-			<!-- Srednji deo stranice, troskovi -->
+			
+			<!-- Srednji deo stranice, TROSKOVI -->
+			
 			<div class="row" style="margin-top: 40px;">
 				<div class="col-md-6">
-					<h3>Troskovi</h3>
+					<h3><strong>Troskovi</strong> <a id="otvoriModal" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalTrosak">
+									Dodaj trosak
+								  </a>
+					</h3>
 					<table class="table table-bordered" id="tableTroskovi">
 						<thead class="thead">
 							<tr>
 								<th></th>
 								<th id="racun_broj1">Racun br. 1</th>
 								<th id="racun_broj2"></th>
-								<th>
-									<a style="margin: -10 -7 -7 -7;" id="otvoriModal" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalTrosak">
-										Dodaj trosak
-									</a>
-								</th>
+								<th></th>
 							</tr>
 							<tr>
 								<th>R.B</th>
@@ -159,7 +196,7 @@
 						<tbody>
 						</tbody>
 						<thead>
-							<tr>
+							<tr id="pomocniRed1">
 								<th></th>
 								<th></th>
 								<th></th>
@@ -167,12 +204,96 @@
 							</tr>
 							<tr>
 								<th>TOTAL</th>
-								<th id="totalEUR">EUR: 0</th>
-								<th id="totalKN">KN: 0</th>
-								<th id="totalRSD">RSD: 0</th>
+								<th id="troskoviTotalEUR">EUR: 0</th>
+								<th id="troskoviTotalKN">KN: 0</th>
+								<th id="troskoviTotalRSD">RSD: 0</th>
 							</tr>
 						</thead>
 					</table>
+				</div>
+			</div>
+			
+			<!-- Donji deo stranice, GORIVO, PONDERISANA CENA-->
+			<div class="row" style="margin-top: 40px;">
+				<div class="col-md-9">
+					<h3><strong>Sipanja</strong> <a id="otvoriModalGorivo" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalGorivo">
+							Dodaj sipanje
+						</a>
+					</h3>
+					<table id="tableGorivo" class="table table-bordered">
+						<thead class="thead">
+							<tr>
+								<th>R.B</th>
+								<th>Datum</th>
+								<th>Kilometraza</th>
+								<th>Mesto tankiranja</th>
+								<th>Iznos</th>
+								<th>Kolicina litra</th>
+								<th>Cena po litru</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+						<thead>
+							<tr id="pomocniRed2">
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+							<tr>
+								<th>TOTAL</th>
+								<th id="gorivoTotalEUR">EUR: 0</th>
+								<th id="gorivoTotalRSD">RSD: 0</th>
+								<th id="gorivoTotalL">L: 0</th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<!-- Donji deo stranice, PONDERISANA CENA-->
+				<div class="col-md-3">
+					<h5>Ponderisana cena 1. </h6><span><strong style="font-size: 25px;" id="ponderisana1"><u></u></strong></span>
+					<h5>Ponderisana cena 2. </h6><span><strong style="font-size: 25px;" id="ponderisana2"><u></u></strong></span>
+				</div>
+			</div>
+			
+			<!-- Donji deo stranice, KILOMETRAZA I POTROSNJA -->
+			<div class="row" style="margin-top: 40px;">
+				<div class="col-md-4">
+					<h3><strong>Kilometraza i potrosnja</strong>
+					</h3>
+					<form>
+						<div class="form-row">
+							<label for="pocetnaKilometraza">Pocetna kilometraza: </label>
+							<input type="text" class="form-control kip" id="pocetnaKilometraza">
+						</div>
+						<div class="form-row">
+							<label for="zavrsnaKilometraza">Zavrsna kilometraza: </label>
+							<input type="text" class="form-control kip" id="zavrsnaKilometraza">
+						</div>
+						<div class="form-row">
+							<label for="ukupnoKilometara">Ukupno kilometara: </label>
+							<input type="text" class="form-control kip font-weight-bold" id="ukupnoKilometara" style="color: black;">
+						</div>
+						<div class="form-row">
+							<label for="potrosnja">Potrosnja: </label>
+							<input type="text" class="form-control kip" id="potrosnja">
+						</div>
+						<div class="form-row">
+							<label for="ukupnoPotrosenoLitara">Ukupno potroseno litara: </label>
+							<input type="text" class="form-control kip font-weight-bold" id="ukupnoPotrosenoLitara" style="color: black;">
+						</div>
+						<div class="form-row" style="margin-top: 10px;">
+							<button class="btn btn-success" id="azurirajKiP">Azuriraj</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -196,7 +317,6 @@
 				}
 			?>
 		</a>
-		<a style="display: none;" id="tmp">
 		</a>
 	</body>
 	<script src="js/main.js"></script>

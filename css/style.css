@@ -18,3 +18,7 @@ datalist {
 .trenutni {
 	background: #222222;
 }
+
+#statistika {
+	/* position: fixed; */
+}

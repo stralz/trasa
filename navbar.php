@@ -14,6 +14,9 @@
 			<li class="nav-item">
 				<a class="nav-link" href="podesavanja.php">Podesavanja</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="vp.php">Vozni park</a>
+			</li>
 		</ul>
 	</div>  
 </nav>

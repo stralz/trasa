@@ -4,7 +4,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="js/jquery.min.js"></script>
 		<script src="js/docxtemplater.js"></script>
 		<script src="js/jszip.js"></script>
 		<script src="vendor/file-saver.js"></script>
@@ -16,12 +16,12 @@
 		<!--[if IE]>
 			<script type="text/javascript" src="examples/vendor/jszip-utils-ie.js"></script>
 		<![endif]-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/theme.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-		<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script defer src="js/all.js"></script>
 		
 		<script src="js/index.js"></script>
 		<script src="js/slovima.js"></script>
@@ -190,8 +190,6 @@
 												while($row = $result->fetch_assoc()) {
 													echo "<option value=\"" . $row["ime"] . "\">";
 												}
-											} else {
-												print "0 podataka pronadjeno.";
 											}
 										?>
 									</datalist>

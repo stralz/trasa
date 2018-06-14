@@ -33,21 +33,48 @@
 		echo $idTroska;
 	}
 	
-	if (isset($_POST['pomocni']) && isset($_POST['faktura'])) {
+	if (isset($_POST['pomocni']) && isset($_POST['faktura']) && isset($_POST['brojTroskova'])) {
 		$faktura = $conn->escape_string($_POST['faktura']);
+		$brojTroskova = $conn->escape_string($_POST['brojTroskova']);
 		
 		$sql = "SELECT fk_troskovi, naziv, datum, troskovi.iznos, valuta FROM fakture_troskovi INNER JOIN troskovi ON (troskovi.id=fakture_troskovi.fk_troskovi)
 		INNER JOIN fakture ON (fakture_troskovi.fk_fakture=fakture.id )
 		WHERE fakture.racun_broj='$faktura'";
 		
-		$brojac = 0;
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$brojac++;
-				echo "<tr id=\"" . $row['fk_troskovi'] . "\"><td class=\"redni_broj\">$brojac. &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td><td>" . $row['datum'] . "</td><td>" . $row['naziv'] . "</td><td class=\"iznos\">" . $row['iznos'] . ' ' . $row['valuta'] . "</td></tr>";
+				$brojTroskova++;
+				echo "<tr id=\"" . $row['fk_troskovi'] . "\"><td class=\"troskoviRedniBroj\">$brojTroskova. &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td><td>" . $row['datum'] . "</td><td>" . $row['naziv'] . "</td><td class=\"troskoviIznos\">" . $row['iznos'] . ' ' . $row['valuta'] . "</td></tr>";
+			}
+		} else {
+			echo "";
+		}
+	}
+	
+	if(isset($_POST['red_id']) && isset($_POST['baza'])) {
+		$red_id = $conn->escape_string($_POST['red_id']);
+		$baza = $conn->escape_string($_POST['baza']);
+		
+		$sql = "DELETE FROM fakture_troskovi WHERE fk_troskovi=" . $red_id;
+		$conn->query($sql);
+		$sql = "DELETE FROM troskovi WHERE id=" . $red_id;
+		$conn->query($sql);
+	}
+	
+	if(isset($_POST['faktura']) && isset($_POST['pomocni'])) {
+		$faktura = $conn->escape_string($_POST["faktura"]);
+		$pomocni = $conn->escape_string($_POST["pomocni"]);
+		
+		if($pomocni == 12) {
+			$idFakture = 0;
+			
+			$sql = "SELECT iznos FROM fakture WHERE racun_broj='$faktura'";
+			$result = $conn->query($sql);
+			if($result->num_rows > 0) {
+				$row = $result->fetch_assoc();
+				echo $row['iznos'];
 			}
 		}
-		
 	}
 ?>
