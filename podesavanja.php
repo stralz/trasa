@@ -216,7 +216,7 @@
 
 								$brojac = 1;
 								if($result->num_rows > 0) {
-									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>IME</th><th>PREZIME</th><th>BROJ PASOSA</th><th>PROCENAT</th><th>UVERENJE</th></tr></thead>";								
+									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>IME</th><th>PREZIME</th><th>BROJ PASOSA</th><th>PROCENAT</th><th>UVERENJE</th><th>LEKARSKO</th></tr></thead>";
 									while ($row = $result->fetch_assoc()) {
 										if($row['uverenje'] == "Da") {
 											echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>
@@ -224,7 +224,7 @@
 											"\" class=\"brPasosa\"></td><td><input value=\"" . $row['procenat'] . "\" class=\"procenat\"></td><td><select class=\"u_i\">
 														<option value=\"1\" selected>Da</option>
 														<option value=\"2\">Ne</option>
-													</select></td></tr>";
+													</select><td><input type=\"text\" value=\"" . $row['lekarsko'] . "\" class=\"lekarsko\"></td></td></tr>";
 										} else {
 											echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>
 											<td><input value=\"" .
@@ -232,7 +232,7 @@
 											"\" class=\"brPasosa\"></td><td><input value=\"" . $row['procenat'] . "\" class=\"procenat\"></td><td><select class=\"u_i\">
 														<option value=\"1\">Da</option>
 														<option value=\"2\" selected>Ne</option>
-													</select></td></tr>";
+													</select></td><td><input type=\"text\" value=\"" . $row['lekarsko'] . "\" class=\"lekarsko\"></td></tr>";
 										}
 										
 									}

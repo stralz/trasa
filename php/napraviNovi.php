@@ -56,13 +56,54 @@
 				
 				$sql = "INSERT INTO `vozaci` (`id`, `ime`, `prezime`, `br_pasosa`, `procenat`, `uverenje`)
 						VALUES (NULL, '$ime', '$prezime', '$br_pasosa', '$procenat', '$uverenje')";
-				echo $sql;
 				break;
 			case "pregledi_prikolice":
-				$ /*
-					************************************************************************************************
-					************************************************************************************************
-				*/
+				$prikolica = $conn->escape_string($_POST["fk_prikolica"]);
+				$registracija = $conn->escape_string($_POST["registracija"]);
+				$sertifikat = $conn->escape_string($_POST["sertifikat"]);
+				$sesto_mesecni = $conn->escape_string($_POST["sesto_mesecni"]);
+				
+				$sql = "SELECT id FROM prikolice WHERE broj_registracije='$prikolica'";
+				$id_prikolice = 0;
+				$result = $conn->query($sql);
+				if($result->num_rows > 0) {
+					$row = $result->fetch_assoc();
+					$id_prikolice = $row["id"];
+				}
+				
+				$sql = "INSERT INTO `pregledi_prikolice` (`id`, `fk_prikolica`, `registracija`, `sertifikat`, `sesto_mesecni`)
+						VALUES (NULL, $id_prikolice, '$registracija', '$sertifikat', '$sesto_mesecni')";
+				break;
+			case "pregledi_tegljaci":
+				$tegljac = $conn->escape_string($_POST["fk_tegljac"]);
+				$vozac = $conn->escape_string($_POST["fk_vozac"]);
+				$registracija = $conn->escape_string($_POST["registracija"]);
+				$sertifikat = $conn->escape_string($_POST["sertifikat"]);
+				$sesto_mesecni = $conn->escape_string($_POST["sesto_mesecni"]);
+				$tahograf = $conn->escape_string($_POST["tahograf"]);
+				
+				$id_tegljaca = 0;
+				$sql = "SELECT id FROM tegljaci WHERE broj_registracije='$tegljac'";
+				$result = $conn->query($sql);
+				if($result->num_rows > 0) {
+					$row = $result->fetch_assoc();
+					$id_tegljaca = $row["id"];
+				}
+				
+				$id_vozaca = 0;
+				$a = explode(" ", $vozac);
+				$ime = $a[0];
+				$prezime = $a[1];
+				
+				$sql = "SELECT id FROM vozaci WHERE ime='$ime' AND prezime='$prezime'";
+				$result = $conn->query($sql);
+				if($result->num_rows > 0) {
+					$row = $result->fetch_assoc();
+					$id_vozaca = $row["id"];
+				}
+				
+				$sql = "INSERT INTO `pregledi_tegljaci`(`id`, `fk_tegljac`, `fk_vozac`, `registracija`, `sertifikat`, `sesto_mesecni`, `tahograf`) VALUES (NULL, $id_tegljaca, $id_vozaca, '$registracija', '$sertifikat', '$sesto_mesecni', '$tahograf')";
+				echo $sql;
 				break;
 			default:
 				break;

@@ -19,7 +19,7 @@
 		<![endif]-->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
-        <!-- <link rel="stylesheet" href="css/theme.css"> -->
+        <link rel="stylesheet" href="css/theme.css">
 		<script src="js/popper.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script defer src="js/all.js"></script>

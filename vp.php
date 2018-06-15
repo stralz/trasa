@@ -81,24 +81,50 @@
 						<div id="tableTegljac" class="tab-pane fade active show" role="tabpanel" aria-labelledby="buttonTegljaci">
 							<table class="table table-bordered table-hover" id="tegljaciTabela">
 							<?php
-								$sql = "SELECT * FROM vozaci_tegljaci INNER JOIN tegljaci ON (vozaci_tegljaci.fk_tegljac=tegljaci.id) INNER JOIN vozaci ON (vozaci.id=vozaci_tegljaci.fk_vozac)";
+								$sql = "SELECT vozaci.id AS \"vozac\", pregledi_tegljaci.id, broj_registracije, marka, ime, prezime, registracija, sertifikat, sesto_mesecni, tahograf, lekarsko FROM pregledi_tegljaci INNER JOIN tegljaci ON (pregledi_tegljaci.fk_tegljac=tegljaci.id) INNER JOIN vozaci ON (pregledi_tegljaci.fk_vozac=vozaci.id)";
 								$result = $conn->query($sql);
 								
 								$brojac = 1;
 								if($result->num_rows > 0) {
-									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>TEGLJAC</th><th>VOZAC</th><th>REGISTRACIJA</th><th>SERTIFIKAT</th><th>6-MESECNI</th><th>TAHOGRAF</th><th>LEKARSKO</th></tr></thead>";
+									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>TEGLJAC/VOZAC</th><th>REGISTRACIJA</th><th>SERTIFIKAT(bela potvrda)</th><th>6-MESECNI</th><th>6-TAHOGRAF</th><th>LEKARSKO</th></tr></thead>";
 									while($row = $result->fetch_assoc()) {
-										echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>
-										<td><input value=\"" .
-										$row['broj_registracije'] . "\" class=\"broj_registracije\"></td><td><input value=\"" . $row['marka'] .
-										"\" class=\"marka\"></td><td><input value=\"" . $row['model'] . "\" class=\"model\"></td><td><input value=\"" .
-										$row['tip_tahografa'] . "\" class=\"tip_tahografa\"></td></tr>";
+										echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>";
+										echo "<td>" . $row['broj_registracije'] . " / " . $row['marka'] . " / " . $row['ime'] . " " . $row['prezime'] . "</td>";
+										echo "<td><input value=\"" . $row['registracija'] . "\" class=\"registracija datum\"></td>";
+										echo "<td><input value=\"" . $row['sertifikat'] . "\" class=\"sertifikat datum\"></td>";
+										echo "<td><input value=\"" . $row['sesto_mesecni'] . "\" class=\"sesto_mesecni datum\"></td>";
+										echo "<td><input value=\"" . $row['tahograf'] . "\" class=\"tahograf datum\"></td>";
+										echo "<td><input value=\"" . $row['lekarsko'] . "\" class=\"lekarsko datum\" id=\"" . $row['vozac'] . "\"></td></tr>";
 									}
-									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Azuriraj</a></td></tr>";
+									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Azuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								} else {
 									echo "0 podataka pronadjeno.";
 								}
 							?>
+							<datalist id="tegljaci">
+								<?php
+									$sql = "SELECT DISTINCT broj_registracije FROM tegljaci";
+									
+									$result = $conn->query($sql);
+									if($result->num_rows > 0) {
+										while($row = $result->fetch_assoc()) {
+											echo "<option value=\"" . $row["broj_registracije"] . "\">";
+										}
+									}
+								?>
+							</datalist>
+							<datalist id="vozaci">
+								<?php
+									$sql = "SELECT DISTINCT ime, prezime FROM vozaci";
+									
+									$result = $conn->query($sql);
+									if($result->num_rows > 0) {
+										while($row = $result->fetch_assoc()) {
+											echo "<option value=\"" . $row["ime"] . " " . $row['prezime'] . "\">";
+										}
+									}
+								?>
+							</datalist>
 							</table>
 						</div>
 						<div id="tablePrikolice" class="tab-pane fade" role="tabpanel" aria-labelledby="buttonPrikolice">
@@ -112,8 +138,8 @@
 									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>BROJ REGISTRACIJE</th><th>MARKA</th><th>REGISTRACIJA</th><th>SERTIFIKAT</th><th>6-MESECNI</th></tr></thead>";								
 									while ($row = $result->fetch_assoc()) {
 										echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>
-										<td>" . $row['broj_registracije'] . "</td><td>" . $row['marka'] . "</td><td><input value=\"" . $row['registracija'] . "\" class=\"registracija\"></td>
-										<td><input value=\"" . $row['sertifikat'] . "\" class=\"sertifikat\"</td><td><input value=\"" . $row['sesto_mesecni'] . "\" class=\"sesto_mesecni\"></td></tr>";
+										<td>" . $row['broj_registracije'] . "</td><td>" . $row['marka'] . "</td><td><input value=\"" . $row['registracija'] . "\" class=\"registracija datum\"></td>
+										<td><input value=\"" . $row['sertifikat'] . "\" class=\"sertifikat datum\"</td><td><input value=\"" . $row['sesto_mesecni'] . "\" class=\"sesto_mesecni datum\"></td></tr>";
 									}
 									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Azuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								} else {
@@ -136,13 +162,13 @@
 						</div>
 					</div>
 					<script>
-						$("input").each(function () {
+						$(".datum").each(function () {
 							var d = $(this).val();
-							var d1 = new Date(d.split('.')[2], d.split('.')[1], d.split('.')[0], 0, 0, 0, 0);
+							var d1 = new Date(d.split('.')[2], +(d.split('.')[1]) - +1, d.split('.')[0], 0, 0, 0, 0);
 							var d2 = new Date();
-							d1.setDate(d1.getDate() + 15);
-							if(d1 > d2) {
-								$(this).css("background", "red");
+							d2.setDate(d2.getDate() + 15);
+							if(d1 < d2) {
+								$(this).css("background", "#FD4239");
 							}
 						});
 					</script>

@@ -118,7 +118,7 @@
 							<select class="custom-select" name="od1" id="od1">
 					           <option selected>Izaberite grad:</option>
 					           <?php
-                                    $sql = "SELECT * FROM gradovi";
+                                    $sql = "SELECT * FROM gradovi ORDER BY ime";
                                     $result = $conn->query($sql);
 
                                     if($result->num_rows > 0)
@@ -137,7 +137,7 @@
 							<select class="custom-select" name="do1" id="do1">
 					           <option selected>Izaberite grad:</option>
 					           <?php
-                                    $sql = "SELECT * FROM gradovi";
+                                    $sql = "SELECT * FROM gradovi ORDER BY IME";
                                     $result = $conn->query($sql);
 
                                     if($result->num_rows > 0)

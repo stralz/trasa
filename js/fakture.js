@@ -22,7 +22,7 @@ function addDays(date, days, domaci) {
 		}
 	  
 		result.setDate(result.getDate() + days);
-	  
+		
 		var dd = result.getDate();
 		var mm = result.getMonth() + 1;
 		var yyyy = result.getFullYear();

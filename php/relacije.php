@@ -1,26 +1,15 @@
 <?php
 	include 'dbh.php';
 
-	if(isset($_POST['ime'])) {
+	if(isset($_POST['ime']) && isset($_POST['pomocni'])) {
 		$ime = $conn->escape_string($_POST['ime']);
-		$sql = "SELECT g.ime AS \"imeGrada\" FROM nalogodavci_gradovi AS n_g
-		INNER JOIN gradovi AS g ON g.id=n_g.fk_grad
-		INNER JOIN nalogodavci AS n ON n.id=n_g.fk_nalogodavac
-		WHERE n.ime='" . $ime . "' ORDER BY broj DESC";
+		$sql = "SELECT * FROM gradovi ORDER BY ime";
 		$result = $conn->query($sql);
 
 		if($result->num_rows > 0)
 		{
 			while($row = $result->fetch_assoc()) {
-				echo "<option value=\"" . $row["imeGrada"] . "\">";
-			}
-		} else {
-			$sql = "SELECT ime FROM gradovi ORDER BY ime";
-			$result = $conn->query($sql);
-			if($result->num_rows > 0) {
-				while($row = $result->fetch_assoc()) {
-					echo "<option value=\"" . $row["ime"] . "\">";
-				}
+				echo "<option value=\"" . $row["ime"] . "\">";
 			}
 		}
 	}
@@ -39,7 +28,8 @@
 		if($result->num_rows > 0)
 		{
 			while($row = $result->fetch_assoc()) {
-				echo '<a class="dropdown-item grupa1" href="#" onclick="izaberiRelaciju(\'' . $row['od'] . '\', \'' . $row['do'] . '\', ' . $grupa . ')">' . $row['od'] . ' - ' . $row['do'] . '</a>';
+				echo "<a class=\"dropdown-item\" href=\"#\" onclick=\"izaberiRelaciju('" . $row["od"] . "', '" . $row["do"] . "', '$grupa')\">" . $row["od"] . "
+				- " . $row["do"] ."</a>";
 			}
 		} else {
 			print "0 results";
@@ -55,25 +45,9 @@
 		echo "ECHO ZA UBACIVANJE GRADA: $sql <br>";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
-			$row = $result->fetch_assoc();
-			$idGrada = $row['id'];
-			$sql1 = "SELECT * FROM nalogodavci_gradovi WHERE fk_grad=" . $idGrada . " AND fk_nalogodavac=" . $idNalogodavca;
-			$result1 = $conn->query($sql1);
-			if($result1->num_rows > 0) {
-				$sql1 = "UPDATE nalogodavci_gradovi SET broj = broj + 1 WHERE fk_grad=" . $idGrada . " AND fk_nalogodavac=" . $idNalogodavca;
-				$conn->query($sql1);
-			} else {
-				$sql1 = "INSERT INTO `nalogodavci_gradovi` (`id`, `fk_nalogodavac`, `fk_grad`, `broj`) VALUES (NULL, " . $idNalogodavca . ", " . $idGrada . ", 1)";
-				$conn->query($sql1);
-			}
+			
 		} else {
 			$sql = "INSERT INTO `gradovi` (`id`, `ime`, `drzava`) VALUES (NULL, '" . $od1 . "', '" . $od1Drzava . "')";
-			$conn->query($sql);
-			$sql = "SELECT id FROM gradovi WHERE ime='" . $od1 . "' AND drzava='" . $od1Drzava . "'";
-			$result1 = $conn->query($sql);
-			$row = $result1->fetch_assoc();
-			$idGrada = $row['id'];
-			$sql = "INSERT INTO `nalogodavci_gradovi` (`id`, `fk_nalogodavac`, `fk_grad`, `broj`) VALUES (NULL, " . $idNalogodavca . ", " . $idGrada . ", 1)";
 			$conn->query($sql);
 		}
 	}
@@ -87,25 +61,9 @@
 		echo "ECHO ZA UBACIVANJE GRADA: $sql <br>";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
-			$row = $result->fetch_assoc();
-			$idGrada = $row['id'];
-			$sql1 = "SELECT * FROM nalogodavci_gradovi WHERE fk_grad=" . $idGrada . " AND fk_nalogodavac=" . $idNalogodavca;
-			$result1 = $conn->query($sql1);
-			if($result1->num_rows > 0) {
-				$sql1 = "UPDATE nalogodavci_gradovi SET broj = broj + 1 WHERE fk_grad=" . $idGrada . " AND fk_nalogodavac=" . $idNalogodavca;
-				$conn->query($sql1);
-			} else {
-				$sql1 = "INSERT INTO `nalogodavci_gradovi` (`id`, `fk_nalogodavac`, `fk_grad`, `broj`) VALUES (NULL, " . $idNalogodavca . ", " . $idGrada . ", 1)";
-				$conn->query($sql1);
-			}
+			
 		} else {
 			$sql = "INSERT INTO `gradovi` (`id`, `ime`, `drzava`) VALUES (NULL, '" . $do1 . "', '" . $do1Drzava . "')";
-			$conn->query($sql);
-			$sql = "SELECT id FROM gradovi WHERE ime='" . $do1 . "' AND drzava='" . $do1Drzava . "'";
-			$result1 = $conn->query($sql);
-			$row = $result1->fetch_assoc();
-			$idGrada = $row['id'];
-			$sql = "INSERT INTO `nalogodavci_gradovi` (`id`, `fk_nalogodavac`, `fk_grad`, `broj`) VALUES (NULL, " . $idNalogodavca . ", " . $idGrada . ", 1)";
 			$conn->query($sql);
 		}
 	}
@@ -119,25 +77,9 @@
 		echo "ECHO ZA UBACIVANJE GRADA: $sql <br>";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
-			$row = $result->fetch_assoc();
-			$idGrada = $row['id'];
-			$sql1 = "SELECT * FROM nalogodavci_gradovi WHERE fk_grad=" . $idGrada . " AND fk_nalogodavac=" . $idNalogodavca;
-			$result1 = $conn->query($sql1);
-			if($result1->num_rows > 0) {
-				$sql1 = "UPDATE nalogodavci_gradovi SET broj = broj + 1 WHERE fk_grad=" . $idGrada . " AND fk_nalogodavac=" . $idNalogodavca;
-				$conn->query($sql1);
-			} else {
-				$sql1 = "INSERT INTO `nalogodavci_gradovi` (`id`, `fk_nalogodavac`, `fk_grad`, `broj`) VALUES (NULL, " . $idNalogodavca . ", " . $idGrada . ", 1)";
-				$conn->query($sql1);
-			}
+			
 		} else {
 			$sql = "INSERT INTO `gradovi` (`id`, `ime`, `drzava`) VALUES (NULL, '" . $od2 . "', '" . $od2Drzava . "')";
-			$conn->query($sql);
-			$sql = "SELECT id FROM gradovi WHERE ime='" . $od2 . "' AND drzava='" . $od2Drzava . "'";
-			$result1 = $conn->query($sql);
-			$row = $result1->fetch_assoc();
-			$idGrada = $row['id'];
-			$sql = "INSERT INTO `nalogodavci_gradovi` (`id`, `fk_nalogodavac`, `fk_grad`, `broj`) VALUES (NULL, " . $idNalogodavca . ", " . $idGrada . ", 1)";
 			$conn->query($sql);
 		}
 	}
@@ -151,25 +93,9 @@
 		echo "ECHO ZA UBACIVANJE GRADA: $sql <br>";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
-			$row = $result->fetch_assoc();
-			$idGrada = $row['id'];
-			$sql1 = "SELECT * FROM nalogodavci_gradovi WHERE fk_grad=" . $idGrada . " AND fk_nalogodavac=" . $idNalogodavca;
-			$result1 = $conn->query($sql1);
-			if($result1->num_rows > 0) {
-				$sql1 = "UPDATE nalogodavci_gradovi SET broj = broj + 1 WHERE fk_grad=" . $idGrada . " AND fk_nalogodavac=" . $idNalogodavca;
-				$conn->query($sql1);
-			} else {
-				$sql1 = "INSERT INTO `nalogodavci_gradovi` (`id`, `fk_nalogodavac`, `fk_grad`, `broj`) VALUES (NULL, " . $idNalogodavca . ", " . $idGrada . ", 1)";
-				$conn->query($sql1);
-			}
+			
 		} else {
 			$sql = "INSERT INTO `gradovi` (`id`, `ime`, `drzava`) VALUES (NULL, '" . $do2 . "', '" . $do2Drzava . "')";
-			$conn->query($sql);
-			$sql = "SELECT id FROM gradovi WHERE ime='" . $do2 . "' AND drzava='" . $do2Drzava . "'";
-			$result1 = $conn->query($sql);
-			$row = $result1->fetch_assoc();
-			$idGrada = $row['id'];
-			$sql = "INSERT INTO `nalogodavci_gradovi` (`id`, `fk_nalogodavac`, `fk_grad`, `broj`) VALUES (NULL, " . $idNalogodavca . ", " . $idGrada . ", 1)";
 			$conn->query($sql);
 		}
 	}
@@ -187,8 +113,6 @@
 				$idOd1 = $row['id'];
 			}
 		}
-		
-		echo "<br>idOd1: $idOd1<br>";
 		
 		$sql = "SELECT id FROM gradovi WHERE ime='" . $do1 . "'";
 		$idDo1 = "";

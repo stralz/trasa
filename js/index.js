@@ -347,6 +347,7 @@ $(function() {
 		
 		$.post('php/relacije.php', {
 			ime: imeNalogodavca,
+			pomocni: 0,
 		}, function (data) {
 			$('#listaGradovi').html(data);
 		});
