@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2018 at 11:18 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Generation Time: Jun 15, 2018 at 01:05 PM
+-- Server version: 10.1.22-MariaDB
+-- PHP Version: 7.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -406,6 +406,22 @@ INSERT INTO `pregledi_prikolice` (`id`, `fk_prikolica`, `registracija`, `sertifi
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pregledi_tegljaci`
+--
+
+CREATE TABLE `pregledi_tegljaci` (
+  `id` int(11) NOT NULL,
+  `fk_tegljac` int(11) NOT NULL,
+  `fk_vozac` int(11) NOT NULL,
+  `registracija` varchar(30) NOT NULL,
+  `sertifikat` varchar(30) NOT NULL,
+  `sesto_mesecni` varchar(30) NOT NULL,
+  `tahograf` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `prikolice`
 --
 
@@ -649,18 +665,6 @@ INSERT INTO `vozaci` (`id`, `ime`, `prezime`, `br_pasosa`, `procenat`, `uverenje
 (9, 'Dejan', 'Mrckovic', '006793173', 11, 'Da', ''),
 (10, 'Zeljko', 'Popovic', '012396926', 12, 'Da', '');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `vozaci_tegljaci`
---
-
-CREATE TABLE `vozaci_tegljaci` (
-  `id` int(11) NOT NULL,
-  `fk_vozac` int(11) NOT NULL,
-  `fk_tegljac` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 --
 -- Indexes for dumped tables
 --
@@ -765,6 +769,14 @@ ALTER TABLE `pregledi_prikolice`
   ADD KEY `prikolica_FK` (`fk_prikolica`);
 
 --
+-- Indexes for table `pregledi_tegljaci`
+--
+ALTER TABLE `pregledi_tegljaci`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pregled_tegljac_FK` (`fk_tegljac`),
+  ADD KEY `pregled_vozac_FK` (`fk_vozac`);
+
+--
 -- Indexes for table `prikolice`
 --
 ALTER TABLE `prikolice`
@@ -823,14 +835,6 @@ ALTER TABLE `vozaci`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `vozaci_tegljaci`
---
-ALTER TABLE `vozaci_tegljaci`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `tegljac_FK` (`fk_tegljac`),
-  ADD KEY `vozac_FK` (`fk_vozac`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -839,97 +843,81 @@ ALTER TABLE `vozaci_tegljaci`
 --
 ALTER TABLE `benzinske_stanice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `fakture`
 --
 ALTER TABLE `fakture`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
-
 --
 -- AUTO_INCREMENT for table `gorivo`
 --
 ALTER TABLE `gorivo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
 --
 -- AUTO_INCREMENT for table `gradovi`
 --
 ALTER TABLE `gradovi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
 --
 -- AUTO_INCREMENT for table `kip`
 --
 ALTER TABLE `kip`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `nalogodavci`
 --
 ALTER TABLE `nalogodavci`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
 --
 -- AUTO_INCREMENT for table `nalogodavci_gradovi`
 --
 ALTER TABLE `nalogodavci_gradovi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-
 --
 -- AUTO_INCREMENT for table `nalogodavci_relacije`
 --
 ALTER TABLE `nalogodavci_relacije`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
 --
 -- AUTO_INCREMENT for table `pregledi_prikolice`
 --
 ALTER TABLE `pregledi_prikolice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+--
+-- AUTO_INCREMENT for table `pregledi_tegljaci`
+--
+ALTER TABLE `pregledi_tegljaci`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `prikolice`
 --
 ALTER TABLE `prikolice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
-
 --
 -- AUTO_INCREMENT for table `relacije`
 --
 ALTER TABLE `relacije`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `tegljaci`
 --
 ALTER TABLE `tegljaci`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
 --
 -- AUTO_INCREMENT for table `troskovi`
 --
 ALTER TABLE `troskovi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
-
 --
 -- AUTO_INCREMENT for table `uvoznici_izvoznici`
 --
 ALTER TABLE `uvoznici_izvoznici`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
 --
 -- AUTO_INCREMENT for table `vozaci`
 --
 ALTER TABLE `vozaci`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `vozaci_tegljaci`
---
-ALTER TABLE `vozaci_tegljaci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- Constraints for dumped tables
 --
@@ -991,6 +979,13 @@ ALTER TABLE `pregledi_prikolice`
   ADD CONSTRAINT `prikolica_FK` FOREIGN KEY (`fk_prikolica`) REFERENCES `prikolice` (`id`);
 
 --
+-- Constraints for table `pregledi_tegljaci`
+--
+ALTER TABLE `pregledi_tegljaci`
+  ADD CONSTRAINT `pregled_tegljac_FK` FOREIGN KEY (`fk_tegljac`) REFERENCES `tegljaci` (`id`),
+  ADD CONSTRAINT `pregled_vozac_FK` FOREIGN KEY (`fk_vozac`) REFERENCES `vozaci` (`id`);
+
+--
 -- Constraints for table `relacije`
 --
 ALTER TABLE `relacije`
@@ -1010,13 +1005,6 @@ ALTER TABLE `sleperi_vozaci`
 ALTER TABLE `u_i_nalogodavac`
   ADD CONSTRAINT `nalogodavac_FK` FOREIGN KEY (`fk_nalogodavac`) REFERENCES `nalogodavci` (`id`),
   ADD CONSTRAINT `u_i_FK` FOREIGN KEY (`fk_u_i`) REFERENCES `uvoznici_izvoznici` (`id`);
-
---
--- Constraints for table `vozaci_tegljaci`
---
-ALTER TABLE `vozaci_tegljaci`
-  ADD CONSTRAINT `tegljac_FK` FOREIGN KEY (`fk_tegljac`) REFERENCES `tegljaci` (`id`),
-  ADD CONSTRAINT `vozac_FK` FOREIGN KEY (`fk_vozac`) REFERENCES `vozaci` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
