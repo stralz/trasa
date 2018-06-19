@@ -6,3 +6,6 @@ if ($("nav ul li a") != null) {
 	currentLink.addClass("trenutni");
 }
 
+function loadFile(url,callback){
+	JSZipUtils.getBinaryContent(url,callback);
+}

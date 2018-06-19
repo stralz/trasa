@@ -31,6 +31,10 @@
 				border: none;
 				color: white;
 			}
+			
+			.tip_tahografa {
+				display: none;
+			}
 		</style>
 		<script src="js/vp.js"></script>
 	</head>
@@ -63,7 +67,7 @@
 			<br>
 			<div class="row">
 				<nav class="col-sm-3 col-md-2 hidden-xs-down bg-light sidebar">
-					<ul class="nav nav-pills flex-column">
+					<ul class="nav nav-pills nav-stacked">
 						<li class="nav-item">
 							<a class="nav-link active" id="buttonTegljaci" href="#tableTegljac" role="tab" data-toggle="tab" aria-controls="tableTegljac" aria-selected="true">
 								Tegljaci
@@ -81,7 +85,7 @@
 						<div id="tableTegljac" class="tab-pane fade active show" role="tabpanel" aria-labelledby="buttonTegljaci">
 							<table class="table table-bordered table-hover" id="tegljaciTabela">
 							<?php
-								$sql = "SELECT vozaci.id AS \"vozac\", pregledi_tegljaci.id, broj_registracije, marka, ime, prezime, registracija, sertifikat, sesto_mesecni, tahograf, lekarsko FROM pregledi_tegljaci INNER JOIN tegljaci ON (pregledi_tegljaci.fk_tegljac=tegljaci.id) INNER JOIN vozaci ON (pregledi_tegljaci.fk_vozac=vozaci.id)";
+								$sql = "SELECT vozaci.id AS \"vozac\", pregledi_tegljaci.id, broj_registracije, marka, ime, prezime, registracija, sertifikat, sesto_mesecni, tahograf, lekarsko, tip_tahografa FROM pregledi_tegljaci INNER JOIN tegljaci ON (pregledi_tegljaci.fk_tegljac=tegljaci.id) INNER JOIN vozaci ON (pregledi_tegljaci.fk_vozac=vozaci.id)";
 								$result = $conn->query($sql);
 								
 								$brojac = 1;
@@ -93,7 +97,7 @@
 										echo "<td><input value=\"" . $row['registracija'] . "\" class=\"registracija datum\"></td>";
 										echo "<td><input value=\"" . $row['sertifikat'] . "\" class=\"sertifikat datum\"></td>";
 										echo "<td><input value=\"" . $row['sesto_mesecni'] . "\" class=\"sesto_mesecni datum\"></td>";
-										echo "<td><input value=\"" . $row['tahograf'] . "\" class=\"tahograf datum\"></td>";
+										echo "<td><input value=\"" . $row['tahograf'] . "\" class=\"tahograf datum " . strtolower($row['tip_tahografa']) . "\"></td>";
 										echo "<td><input value=\"" . $row['lekarsko'] . "\" class=\"lekarsko datum\" id=\"" . $row['vozac'] . "\"></td></tr>";
 									}
 									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Azuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
@@ -135,7 +139,7 @@
 
 								$brojac = 1;
 								if($result->num_rows > 0) {
-									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>BROJ REGISTRACIJE</th><th>MARKA</th><th>REGISTRACIJA</th><th>SERTIFIKAT</th><th>6-MESECNI</th></tr></thead>";								
+									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>BROJ REGISTRACIJE</th><th>MARKA</th><th>REGISTRACIJA</th><th>SERTIFIKAT(bela potvrda)</th><th>6-MESECNI</th></tr></thead>";								
 									while ($row = $result->fetch_assoc()) {
 										echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>
 										<td>" . $row['broj_registracije'] . "</td><td>" . $row['marka'] . "</td><td><input value=\"" . $row['registracija'] . "\" class=\"registracija datum\"></td>
@@ -163,10 +167,16 @@
 					</div>
 					<script>
 						$(".datum").each(function () {
-							var d = $(this).val();
+							var d = $(this);
+							var brojDana;
+							if(d.hasClass('digitalni'))
+								brojDana = 30;
+							else
+								brojDana = 15;
+							d = d.val();
 							var d1 = new Date(d.split('.')[2], +(d.split('.')[1]) - +1, d.split('.')[0], 0, 0, 0, 0);
 							var d2 = new Date();
-							d2.setDate(d2.getDate() + 15);
+							d2.setDate(d2.getDate() + brojDana);
 							if(d1 < d2) {
 								$(this).css("background", "#FD4239");
 							}

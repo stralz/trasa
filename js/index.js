@@ -92,10 +92,6 @@ function addDays(date, days) {
 	}
 }
 
-function loadFile(url,callback){
-	JSZipUtils.getBinaryContent(url,callback);
-}
-
 $(function() {
 	$("#napravi").click(function(e) {
 		e.preventDefault();

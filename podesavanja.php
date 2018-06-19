@@ -31,6 +31,11 @@
 				border: none;
 				color: white;
 			}
+			
+			tr td{
+				max-width:100%;
+				white-space:nowrap;
+			}
 		</style>
 		<script src="js/podesavanja.js"></script>
 	</head>
@@ -51,15 +56,13 @@
 				</div>
 			</div>
 		</div>
-		
 		<?php
 			include 'navbar.php';
 		?>
-		
 		<div class="container-fluid" style="margin-top: 40px;">
 			<div class="row">
 				<nav class="col-sm-3 col-md-2 hidden-xs-down bg-light sidebar">
-					<ul class="nav nav-pills flex-column">
+					<ul class="nav nav-pills nav-stacked" id="navigacija">
 						<li class="nav-item">
 							<a class="nav-link active" id="buttonNalogodavci" href="#tableNalogodavac" role="tab" data-toggle="tab" aria-controls="tableNalogodavac" aria-selected="true">
 								Nalogodavci <span class="sr-only">(current)</span>
@@ -166,7 +169,7 @@
 									
 									$brojac = 1;
 									if($result->num_rows > 0) {
-										echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>ime</th><th>u_i</th></tr></thead>";
+										echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>IME</th><th>UVOZNIK ILI IZVOZNIK</th></tr></thead>";
 										
 										while ($row = $result->fetch_assoc()) {
 											if($row['u_i'] == 'Uvoznik') {

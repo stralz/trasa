@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 15, 2018 at 01:05 PM
+-- Generation Time: Jun 19, 2018 at 11:08 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -418,6 +418,13 @@ CREATE TABLE `pregledi_tegljaci` (
   `sesto_mesecni` varchar(30) NOT NULL,
   `tahograf` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pregledi_tegljaci`
+--
+
+INSERT INTO `pregledi_tegljaci` (`id`, `fk_tegljac`, `fk_vozac`, `registracija`, `sertifikat`, `sesto_mesecni`, `tahograf`) VALUES
+(1, 30, 9, '16.03.2018', '23.03.2018', '16.09.2017', '20.09.2018');
 
 -- --------------------------------------------------------
 
@@ -867,7 +874,7 @@ ALTER TABLE `kip`
 -- AUTO_INCREMENT for table `nalogodavci`
 --
 ALTER TABLE `nalogodavci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `nalogodavci_gradovi`
 --
@@ -887,7 +894,7 @@ ALTER TABLE `pregledi_prikolice`
 -- AUTO_INCREMENT for table `pregledi_tegljaci`
 --
 ALTER TABLE `pregledi_tegljaci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `prikolice`
 --
@@ -917,7 +924,7 @@ ALTER TABLE `uvoznici_izvoznici`
 -- AUTO_INCREMENT for table `vozaci`
 --
 ALTER TABLE `vozaci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- Constraints for dumped tables
 --

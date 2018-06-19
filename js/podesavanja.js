@@ -13,6 +13,18 @@ var tmpData = null;
 var obj = {};
 
 $(function () {
+	var hash = document.URL;
+	if(hash.includes("#")) {
+		console.log("usao");
+		var x = hash.substr(39, hash.length).replace('#', '');
+		console.log(x);
+		$('a[href="#' + x + '"]').click();
+	}
+	
+	$(".nav-link").click(function () {
+		window.location.href = hash + $(this).attr("href");
+	});
+	
 	$("input").focus(function () {
 		var def = $(this).val();
 		$(this).keyup(function () {
@@ -56,6 +68,7 @@ $(function () {
 			});
 			
 			alert("UPDATE " + baza + " SET `" + kolona + "`=" + vrednost + " WHERE `id`=" + id_entiteta + ";");
+			location.reload(true);
 		});
 	});
 	

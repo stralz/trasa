@@ -109,6 +109,7 @@ function ponderisana(i, brRac) {
 var dveFakture = false;
 var brojTroskova = 0;
 var brojGoriva = 0;
+var plata = 0;
 var defaultTrosakModal = "";
 var defaultGorivoModal = "";
 
@@ -123,7 +124,7 @@ $(function () {
 			$(this).html('<i class="fas fa-minus">');
 			dveFakture = true;
 			$("#divFaktura2").show();
-			$("#povratak").css("text-decoration", "none");
+			$("#povratak").css("display", "block");
 		} else {
 			$(this).removeClass("btn-danger");
 			$(this).addClass("btn-success");
@@ -131,7 +132,7 @@ $(function () {
 			dveFakture = false;
 			$("#divFaktura2").hide();
 			$("#faktura2").val("");
-			$("#povratak").css("text-decoration", "line-through");
+			$("#povratak").css("display", "none");
 		}
 	});
 	
@@ -162,7 +163,7 @@ $(function () {
 		});
 		
 		clearModalBody();
-		$('.obrisi').click(function () {
+		/*$('.obrisi').click(function () {
 			if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
 				var red_id = $(this).closest('tr').attr('id');
 				
@@ -175,7 +176,7 @@ $(function () {
 			else{
 				return false;
 			}
-		});
+		});*/
 		
 		if(valuta == "EUR") {
 			var trenutno = $("#troskoviTotalEUR").text().substr(4, $("#troskoviTotalEUR").text().length);
@@ -250,7 +251,7 @@ $(function () {
 		// **********************************************************************************************
 		// ** Ovde treba stajati kod za brisanje svih "onclick" eventa za svaki element klase "obrisi" **
 		// **********************************************************************************************
-		$('.obrisi').click(function() {
+		/*$('.obrisi').click(function() {
 			e.preventDefault();
 			if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
 				var red_id = $(this).closest('tr').attr('id');
@@ -264,7 +265,7 @@ $(function () {
 			else{
 				return false;
 			}
-		});
+		});*/
 	});
 	
 	$("#otvoriModal").click(function () {
@@ -284,12 +285,16 @@ $(function () {
 	});
 	
 	$("#faktura1").change(function () {
+		if($(this).val() == "") {
+			$("#tableTroskovi > tbody").empty();
+			$("#tableGorivo > tbody").empty();
+		}
 		var brojRacuna = $(this).val();
 		$("#racun_broj1").text(brojRacuna);
 		var faktura = $(this).val();
 		
 		$.post("php/troskovi.php", {
-			pomocni: "pomocni",
+		    pomocni: "pomocni",
 			faktura: faktura,
 			brojTroskova: 0,
 		}, function (data) {
@@ -300,7 +305,7 @@ $(function () {
 				if(data != "")
 					$("#pomocniRed1").remove();
 				iznosi();
-				$('.obrisi').click(function(e) {
+				/*$('.obrisi').click(function(e) {
 					e.preventDefault();
 					if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
 						var red_id = $(this).closest('tr').attr('id');
@@ -314,7 +319,7 @@ $(function () {
 					else{
 						return false;
 					}
-				});
+				});*/
 			}
 		});
 		
@@ -333,7 +338,7 @@ $(function () {
 				if(data != "")
 					$("#pomocniRed2").remove();
 				iznosiLitri();
-				$('.obrisi').click(function(e) {
+				/*$('.obrisi').click(function(e) {
 						e.preventDefault();
 						if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
 							var red_id = $(this).closest('tr').attr('id');
@@ -347,7 +352,7 @@ $(function () {
 						else{
 							return false;
 						}
-				});
+				});*/
 			});
 		brojGoriva = $(".gorivoRedniBroj").last().text().split('.')[0];
 		
@@ -371,10 +376,22 @@ $(function () {
 			pomocni: 12,
 		}, function (data) {
 			$("#odlazak").append(data);
+				$.post('php/plata.php', {
+				komplet: $("#faktura1").val(),
+			}, function (data) {
+				plata += (parseFloat($("#odlazak").text().substr(14, $("#odlazak").text().length)) * +data / 100);
+				$("#plata").text("Plata: " + plata);
+				$("#procenat").text(data);
+				console.log(data);
+			});
 		});
 	});
 	
 	$("#faktura2").change(function () {
+		if($(this).val() == "") {
+			$("#tableTroskovi > tbody").empty();
+			$("#tableGorivo > tbody").empty();
+		}
 		$("#racun_broj2").text($(this).val());
 		var faktura = $(this).val();
 		var brojRacuna = $(this).val();
@@ -390,7 +407,7 @@ $(function () {
 			} else {
 				$("#tableTroskovi > tbody").append(data);
 				iznosi();
-				$('.obrisi').click(function(e) {
+				/*$('.obrisi').click(function(e) {
 					e.preventDefault();
 					if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
 						var red_id = $(this).closest('tr').attr('id');
@@ -404,7 +421,7 @@ $(function () {
 					else{
 						return false;
 					}
-				});
+				});*/
 			}
 		});
 		
@@ -421,7 +438,7 @@ $(function () {
 					$("#pomocniRed2").remove();
 				iznosiLitri();
 				ponderisana(2, brojRacuna);
-				$('.obrisi').click(function(e) {
+				/*$('.obrisi').click(function(e) {
 						e.preventDefault();
 						if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
 							var red_id = $(this).closest('tr').attr('id');
@@ -435,7 +452,7 @@ $(function () {
 						else{
 							return false;
 						}
-				});
+				});*/
 		});
 		
 		$.post("php/troskovi.php", {
@@ -443,6 +460,12 @@ $(function () {
 			pomocni: 12,
 		}, function (data) {
 			$("#povratak").append(data);
+			console.log($("#povratak").text());
+			console.log("plata1: " + plata);
+			console.log("dodatak: " + parseFloat($("#povratak").text().substr(15, $("#povratak").text().length)) * +($("#procenat").text()) / 100);
+			plata += parseFloat($("#povratak").text().substr(15, $("#povratak").text().length)) * +($("#procenat").text()) / 100;
+			console.log(plata);
+			$("#plata").text("Plata: " + plata);
 		});
 	});
 	
@@ -494,4 +517,122 @@ $(function () {
 		}
 	});
 	
+	$("#sacuvaj").click(function () {
+		if(dveFakture) {
+			var odlazak = parseFloat($("#odlazak").text().substr(9, $("#odlazak").text().length));
+			var povratak = parseFloat($("#povratak").text().substr(10, $("#povratak").text().length));
+			var plata = parseFloat($("#plata").text().substr(7, $("#plata").text().length));
+			var ostalo = parseFloat($("#ostalo").text().substr(7, $("#ostalo").text().length));
+			var obj = {
+				faktura1: $("#faktura1").val(),
+				faktura2: $("#faktura2").val(),
+				odlazak: odlazak,
+				povratak: povratak,
+				plata: plata,
+				ostalo: ostalo,
+			};
+			
+			loadFile("sabloni/DveFakture.docx",function(error,content){
+				if (error) { throw error };
+				var zip = new JSZip(content);
+				var doc=new Docxtemplater().loadZip(zip)
+				doc.setData(obj);
+				try {
+					doc.render()
+				}
+				catch (error) {
+					var e = {
+						message: error.message,
+						name: error.name,
+						stack: error.stack,
+						properties: error.properties,
+					}
+					console.log(JSON.stringify({error: e}));
+					throw error;
+				}
+
+				var out=doc.getZip().generate({
+					type:"blob",
+					mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+				})
+				saveAs(out, $("#faktura1").val() + " i " + $("#faktura2").val() + ".docx")
+			});
+		} else {
+			var odlazak = parseFloat($("#odlazak").text().substr(9, $("#odlazak").text().length));
+			var plata = parseFloat($("#plata").text().substr(7, $("#plata").text().length));
+			var ostalo = parseFloat($("#ostalo").text().substr(7, $("#ostalo").text().length));
+			
+			var obj = {
+				faktura1: $("#faktura1").val(),
+				odlazak: odlazak,
+				povratak: povratak,
+				plata: plata,
+				ostalo: ostalo,
+			};
+			
+			loadFile("sabloni/DveFakture.docx",function(error,content){
+				if (error) { throw error };
+				var zip = new JSZip(content);
+				var doc=new Docxtemplater().loadZip(zip)
+				doc.setData(obj);
+				try {
+					doc.render()
+				}
+				catch (error) {
+					var e = {
+						message: error.message,
+						name: error.name,
+						stack: error.stack,
+						properties: error.properties,
+					}
+					console.log(JSON.stringify({error: e}));
+					throw error;
+				}
+
+				var out=doc.getZip().generate({
+					type:"blob",
+					mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+				})
+				saveAs(out, $("#faktura1").val() + ".docx")
+			});
+		}
+	});
+	
+	$('.obrisi').click(function () {
+		if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
+			var red_id = $(this).closest('tr').attr('id');
+			
+			$.post('php/obrisiRed.php', {
+				'red_id': red_id,
+				'baza': "troskovi"
+			});
+			$("tr[id='" + red_id +"']").remove();
+		}
+		else{
+			return false;
+		}
+	});
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

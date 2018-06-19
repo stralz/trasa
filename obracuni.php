@@ -139,7 +139,7 @@
 			
 			<div class="row" style="margin-top: 40px;">
 			
-				<div class="col-md-6">
+				<div class="col-md-6" id="fakture">
 					<label for="faktura1">Faktura: </label> &nbsp;<a class="btn btn-success btn-sm" id="dodajFakturu" style="margin-bottom: 5px;"><i class="fas fa-plus"></i></a>
 					<input type="text" list="listaFaktura" id="faktura1" class="form-control">
 					<datalist id="listaFaktura">
@@ -157,14 +157,19 @@
 						?>
 					</datalist>
 					<br>
-					<div id="divFaktura2" style="display: none;">
+					<div id="divFaktura2" style="display: none; margin-bottom: 15px;">
 						<label for="faktura2">Faktura:</label>
 						<input type="text" list="listaFaktura" id="faktura2" class="form-control">
 					</div>
+					<div id="sacuvajDugme">
+						<button id="sacuvaj" class="btn btn-success btn-sm">
+							<i class="far fa-save"></i> Sacuvaj
+						</button>
+					</div>
 				</div>
 				<div class="col-md-6" id="rekapitulacija">
-					<h5 id="odlazak">Odlazak: </h5>
-					<h5 id="povratak" style="text-decoration: line-through">Povratak: </h5>
+					<h5 id="odlazak">Odlazna tura: </h5>
+					<h5 id="povratak" style="display: none;">Povratna tura: </h5>
 					<h5 id="plata">Plata: </h5>
 					<h3 id="ostalo"><strong>Ostalo: </strong></h5>
 				</div>
@@ -317,6 +322,7 @@
 				}
 			?>
 		</a>
+		<a id="procenat" style="display: none;">
 		</a>
 	</body>
 	<script src="js/main.js"></script>
