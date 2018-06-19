@@ -75,6 +75,13 @@
 				$row = $result->fetch_assoc();
 				echo $row['iznos'];
 			}
+			
+			$sql = "SELECT ime FROM nalogodavci INNER JOIN fakture ON (nalogodavci.id=fakture.fk_nalogodavac) WHERE racun_broj='$faktura'";
+			$result = $conn->query($sql);
+			if($result->num_rows > 0) {
+				$row = $result->fetch_assoc();
+				echo "<a style=\"display: none;\" class=\"imeNalogodavca\">" . $row['ime'] . "</a>";
+			}
 		}
 	}
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2018 at 11:08 AM
+-- Generation Time: Jun 19, 2018 at 01:18 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -117,7 +117,7 @@ CREATE TABLE `fakture` (
 
 INSERT INTO `fakture` (`id`, `racun_broj`, `datum_izdavanja`, `valuta_placanja`, `datum_prometa`, `mesto_prometa`, `mesto_izdavanja_racuna`, `broj_naloga1`, `broj_naloga2`, `od1`, `od2`, `do1`, `do2`, `cmr1`, `cmr2`, `mesto_utovara1`, `mesto_utovara2`, `mesto_istovara1`, `mesto_istovara2`, `tezina1`, `tezina2`, `fk_tegljac`, `fk_prikolica`, `iznos1`, `iznos2`, `iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`, `lokacija`) VALUES
 (153, '123', '22.04.2018', '21.05.2018', '05.04.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Beograd', '', 'Kragujevac', '', '123', '', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '123', '', 34, 52, '1237.00', 'NaN', '123.00', '1.04', '118.1377', 'DinarskiSablon1Tura', 11, ''),
-(154, '1', '02.05.2018', '2.06.2018', '04.05.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Beograd', '', 'Polomilica', '', '123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '123', '', 34, 52, '123.00', 'NaN', '123.00', '1.04', '118.1901', 'DinarskiSablon1Tura', 11, '');
+(156, '1', '19.06.2018', '31.07.2018', '09.06.2018', 'Mesto prometa', 'Mesto izdavanja', 123, 0, '123', '', 'Cittie tittie', '', '123', '', '', '', '', '', '123', '', 34, 52, '123.00', 'NaN', '123.00', '1.04', '118.1454', 'DevizniSablon1Tura', 16, '');
 
 -- --------------------------------------------------------
 
@@ -135,12 +135,10 @@ CREATE TABLE `fakture_gorivo` (
 --
 
 INSERT INTO `fakture_gorivo` (`fk_fakture`, `fk_gorivo`) VALUES
-(154, 1),
 (153, 8),
 (153, 9),
 (153, 12),
 (153, 13),
-(154, 14),
 (153, 15),
 (153, 16);
 
@@ -160,9 +158,7 @@ CREATE TABLE `fakture_troskovi` (
 --
 
 INSERT INTO `fakture_troskovi` (`fk_fakture`, `fk_troskovi`) VALUES
-(153, 46),
-(154, 47),
-(154, 48);
+(153, 46);
 
 -- --------------------------------------------------------
 
@@ -185,14 +181,14 @@ CREATE TABLE `gorivo` (
 --
 
 INSERT INTO `gorivo` (`id`, `datum`, `kilometraza`, `kolicina_litara`, `cena_po_litru`, `iznos`, `fk_benzinska_stanica`) VALUES
-(1, '16.05.2018', 53477, '4324.00', '12.00', '51888.00 RSD', 1),
 (8, '07.06.2018', 1343, '434.00', '123.00', '53382.00 RSD', 1),
 (9, '15.06.2018', 1324, '123.00', '123.00', '15129.00 RSD', 1),
 (12, '08.06.2018', 41234, '411.00', '123.00', '50553.00 RSD', 1),
 (13, '08.06.2018', 43214, '4231.00', '1.00', '4231.00 RSD', 2),
-(14, '22.06.2018', 1234, '432.00', '55.00', '23760.00 RSD', 2),
 (15, '08.06.2018', 42314, '1233.00', '123.00', '151659.00 ', 3),
-(16, '14.06.2018', 4234, '43.00', '12.00', '516.00 RSD', 3);
+(16, '14.06.2018', 4234, '43.00', '12.00', '516.00 RSD', 3),
+(18, '15.06.2018', 43242, '432.00', '23.00', '9936.00 RSD', 1),
+(19, '22.06.2018', 3413, '3232.00', '43.00', '138976.00 RSD', 2);
 
 -- --------------------------------------------------------
 
@@ -304,7 +300,7 @@ INSERT INTO `nalogodavci` (`id`, `ime`, `mesto`, `adresa`, `postanski_broj`, `pi
 (13, 'Milsped d.o.o.', 'Novi Beograd', 'Bulevar Zorana Djindjica 121', 11000, '100423446', '', '60'),
 (14, 'Maverick Logistic Solutions d.o.o.', 'Beograd', 'Urosa Martinovica 19/3', 11070, '109647276', '', '60'),
 (15, 'Kolibri Oil d.o.o.', 'Beograd', 'Mokroluska 32', 11000, '100372851', '', '30'),
-(16, 'Autotrasporti Cambianica s.r.l.', 'San Paolo D’ Argon', 'Via Bergamo 12', 24060, 'IT 00 231 300 161', '', '60'),
+(16, 'Autotrasporti Cambianica s.r.l.', 'San Paolo D’ Argon', 'Via Bergamo 12', 24060, 'IT 00 231 300 161', '', '30'),
 (17, 'Ubv Torino s.r.l.', 'San Mauro Torinese', 'Corso Piemonte 19/21', 10099, 'IT 10 593 090 011', '', '60');
 
 -- --------------------------------------------------------
@@ -380,7 +376,9 @@ INSERT INTO `nalogodavci_relacije` (`id`, `fk_od`, `fk_do`, `fk_nalogodavac`, `b
 (25, 2, 35, 13, 1),
 (26, 1, 1, 17, 1),
 (27, 27, 27, 11, 1),
-(28, 28, 1, 11, 2);
+(28, 28, 1, 11, 2),
+(29, 39, 30, 16, 2),
+(30, 39, 38, 11, 1);
 
 -- --------------------------------------------------------
 
@@ -629,8 +627,8 @@ CREATE TABLE `u_i_nalogodavac` (
 INSERT INTO `u_i_nalogodavac` (`fk_nalogodavac`, `fk_u_i`, `broj`) VALUES
 (11, 23, 24),
 (11, 24, 22),
-(11, 22, 18),
-(11, 20, 21),
+(11, 22, 19),
+(11, 20, 22),
 (13, 23, 5),
 (13, 24, 3),
 (13, 22, 3),
@@ -854,12 +852,12 @@ ALTER TABLE `benzinske_stanice`
 -- AUTO_INCREMENT for table `fakture`
 --
 ALTER TABLE `fakture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
 --
 -- AUTO_INCREMENT for table `gorivo`
 --
 ALTER TABLE `gorivo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `gradovi`
 --
@@ -884,7 +882,7 @@ ALTER TABLE `nalogodavci_gradovi`
 -- AUTO_INCREMENT for table `nalogodavci_relacije`
 --
 ALTER TABLE `nalogodavci_relacije`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `pregledi_prikolice`
 --

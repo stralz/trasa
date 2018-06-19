@@ -106,16 +106,29 @@ function ponderisana(i, brRac) {
 	$("#ponderisana" + i).text(parseFloat(+ukIznos / +litri).toFixed(2));
 }
 
+//******************************************************
+//**********************GLOBALE*************************
+//******************************************************
+
 var dveFakture = false;
 var brojTroskova = 0;
 var brojGoriva = 0;
 var plata = 0;
 var defaultTrosakModal = "";
 var defaultGorivoModal = "";
+var odlazak = 0;
+var povratak =  0;
+var plataUEUR = 0;
+var kursEUR = 0;
+var strano = false;
+var valuta = " din.";
 
 $(function () {
 	defaultTrosakModal = $("#trosakModalBody").html();
 	defaultGorivoModal = $("#gorivoModalBody").html();
+	
+	kursEUR = parseFloat($("#kursEUR").text().trim().replace(',','.')).toFixed(2);
+	console.log(kursEUR);
 	
 	$("#dodajFakturu").click(function () {
 		if(dveFakture == false) {
@@ -163,7 +176,8 @@ $(function () {
 		});
 		
 		clearModalBody();
-		/*$('.obrisi').click(function () {
+		$('.obrisi').unbind();
+		$('.obrisi').click(function () {
 			if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
 				var red_id = $(this).closest('tr').attr('id');
 				
@@ -176,8 +190,8 @@ $(function () {
 			else{
 				return false;
 			}
-		});*/
-		
+		});
+
 		if(valuta == "EUR") {
 			var trenutno = $("#troskoviTotalEUR").text().substr(4, $("#troskoviTotalEUR").text().length);
 			iznos = parseFloat(iznos);
@@ -251,7 +265,8 @@ $(function () {
 		// **********************************************************************************************
 		// ** Ovde treba stajati kod za brisanje svih "onclick" eventa za svaki element klase "obrisi" **
 		// **********************************************************************************************
-		/*$('.obrisi').click(function() {
+		$('.obrisi').unbind();
+		$('.obrisi').click(function(e) {
 			e.preventDefault();
 			if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
 				var red_id = $(this).closest('tr').attr('id');
@@ -265,7 +280,7 @@ $(function () {
 			else{
 				return false;
 			}
-		});*/
+		});
 	});
 	
 	$("#otvoriModal").click(function () {
@@ -305,7 +320,8 @@ $(function () {
 				if(data != "")
 					$("#pomocniRed1").remove();
 				iznosi();
-				/*$('.obrisi').click(function(e) {
+				$('.obrisi').unbind();
+				$('.obrisi').click(function(e) {
 					e.preventDefault();
 					if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
 						var red_id = $(this).closest('tr').attr('id');
@@ -319,7 +335,7 @@ $(function () {
 					else{
 						return false;
 					}
-				});*/
+				});
 			}
 		});
 		
@@ -338,21 +354,22 @@ $(function () {
 				if(data != "")
 					$("#pomocniRed2").remove();
 				iznosiLitri();
-				/*$('.obrisi').click(function(e) {
-						e.preventDefault();
-						if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
-							var red_id = $(this).closest('tr').attr('id');
-							
-							$.post('php/gorivo.php', {
-								'red_id': red_id,
-								'baza': "gorivo"
-							});
-							$("tr[id='" + red_id +"']").remove();
-						}
-						else{
-							return false;
-						}
-				});*/
+				$('.obrisi').unbind();
+				$('.obrisi').click(function(e) {
+					e.preventDefault();
+					if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
+						var red_id = $(this).closest('tr').attr('id');
+						
+						$.post('php/gorivo.php', {
+							'red_id': red_id,
+							'baza': "gorivo"
+						});
+						$("tr[id='" + red_id +"']").remove();
+					}
+					else{
+						return false;
+					}
+				});
 			});
 		brojGoriva = $(".gorivoRedniBroj").last().text().split('.')[0];
 		
@@ -375,12 +392,25 @@ $(function () {
 			faktura: faktura,
 			pomocni: 12,
 		}, function (data) {
-			$("#odlazak").append(data);
-				$.post('php/plata.php', {
+			odlazak = data;
+			console.log(odlazak);
+			if(odlazak.includes("d.o.o."))
+				valuta = " din.";
+			else {
+				valuta = " EUR";
+				strano = true;
+			}
+			$("#odlazak").append(data).append(valuta);
+			$.post('php/plata.php', {
 				komplet: $("#faktura1").val(),
 			}, function (data) {
 				plata += (parseFloat($("#odlazak").text().substr(14, $("#odlazak").text().length)) * +data / 100);
-				$("#plata").text("Plata: " + plata);
+				plataUEUR += parseFloat(+plata / kursEUR).toFixed(2);
+				if(odlazak.includes("d.o.o."))
+					$("#plata").text("Plata: " + plata).append(" din.");
+				else {
+					$("#plata").text("Plata: " + plataUEUR).append(" EUR");
+				}
 				$("#procenat").text(data);
 				console.log(data);
 			});
@@ -407,7 +437,8 @@ $(function () {
 			} else {
 				$("#tableTroskovi > tbody").append(data);
 				iznosi();
-				/*$('.obrisi').click(function(e) {
+				$('.obrisi').unbind();
+				$('.obrisi').click(function(e) {
 					e.preventDefault();
 					if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
 						var red_id = $(this).closest('tr').attr('id');
@@ -421,7 +452,7 @@ $(function () {
 					else{
 						return false;
 					}
-				});*/
+				});
 			}
 		});
 		
@@ -438,7 +469,8 @@ $(function () {
 					$("#pomocniRed2").remove();
 				iznosiLitri();
 				ponderisana(2, brojRacuna);
-				/*$('.obrisi').click(function(e) {
+				$('.obrisi').unbind();
+				$('.obrisi').click(function(e) {
 						e.preventDefault();
 						if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
 							var red_id = $(this).closest('tr').attr('id');
@@ -452,20 +484,27 @@ $(function () {
 						else{
 							return false;
 						}
-				});*/
+				});
 		});
 		
 		$.post("php/troskovi.php", {
 			faktura: faktura,
 			pomocni: 12,
 		}, function (data) {
-			$("#povratak").append(data);
-			console.log($("#povratak").text());
-			console.log("plata1: " + plata);
-			console.log("dodatak: " + parseFloat($("#povratak").text().substr(15, $("#povratak").text().length)) * +($("#procenat").text()) / 100);
+			polazak = data;
+			if(polazak.includes("d.o.o."))
+				valuta = " din.";
+			else {
+				valuta = " EUR";
+				strano = true;
+			}
+			$("#povratak").append(data).append(valuta);
 			plata += parseFloat($("#povratak").text().substr(15, $("#povratak").text().length)) * +($("#procenat").text()) / 100;
-			console.log(plata);
-			$("#plata").text("Plata: " + plata);
+			plataUEUR = parseFloat(+plata / kursEUR).toFixed(2);
+			if(data.includes("d.o.o.") && !strano)
+				$("#plata").text("Plata: " + plata).append(" din.");
+			else
+				$("#plata").text("Plata: " + plataUEUR).append(" EUR");
 		});
 	});
 	
@@ -595,21 +634,6 @@ $(function () {
 				})
 				saveAs(out, $("#faktura1").val() + ".docx")
 			});
-		}
-	});
-	
-	$('.obrisi').click(function () {
-		if(confirm("Da li ste sigurni da želite da izbrišete ovaj podatak?")){
-			var red_id = $(this).closest('tr').attr('id');
-			
-			$.post('php/obrisiRed.php', {
-				'red_id': red_id,
-				'baza': "troskovi"
-			});
-			$("tr[id='" + red_id +"']").remove();
-		}
-		else{
-			return false;
 		}
 	});
 });

@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="css/theme.css">
 		<script src="js/popper.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script src="js/slovima.js"></script>
 		<script defer src="js/all.js"></script>
 		
 		<script src="js/obracuni.js"></script>
@@ -168,6 +169,7 @@
 					</div>
 				</div>
 				<div class="col-md-6" id="rekapitulacija">
+
 					<h5 id="odlazak">Odlazna tura: </h5>
 					<h5 id="povratak" style="display: none;">Povratna tura: </h5>
 					<h5 id="plata">Plata: </h5>
@@ -218,7 +220,7 @@
 				</div>
 			</div>
 			
-			<!-- Donji deo stranice, GORIVO, PONDERISANA CENA-->
+			<!-- Donji deo stranice, GORIVO-->
 			<div class="row" style="margin-top: 40px;">
 				<div class="col-md-9">
 					<h3><strong>Sipanja</strong> <a id="otvoriModalGorivo" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalGorivo">
@@ -262,11 +264,6 @@
 						</thead>
 					</table>
 				</div>
-				<!-- Donji deo stranice, PONDERISANA CENA-->
-				<div class="col-md-3">
-					<h5>Ponderisana cena 1. </h6><span><strong style="font-size: 25px;" id="ponderisana1"><u></u></strong></span>
-					<h5>Ponderisana cena 2. </h6><span><strong style="font-size: 25px;" id="ponderisana2"><u></u></strong></span>
-				</div>
 			</div>
 			
 			<!-- Donji deo stranice, KILOMETRAZA I POTROSNJA -->
@@ -299,6 +296,12 @@
 							<button class="btn btn-success" id="azurirajKiP">Azuriraj</button>
 						</div>
 					</form>
+				</div>
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-3">
+					<h5>Ponderisana cena 1. </h6><span><strong style="font-size: 25px;" id="ponderisana1"><u></u></strong></span>
+					<h5>Ponderisana cena 2. </h6><span><strong style="font-size: 25px;" id="ponderisana2"><u></u></strong></span>
 				</div>
 			</div>
 		</div>

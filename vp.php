@@ -169,7 +169,7 @@
 						$(".datum").each(function () {
 							var d = $(this);
 							var brojDana;
-							if(d.hasClass('digitalni'))
+							if(d.hasClass('digitalni') || d.hasClass('lekarsko'))
 								brojDana = 30;
 							else
 								brojDana = 15;

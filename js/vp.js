@@ -143,7 +143,7 @@ $(function () {
 		
 		for(var i = 0; i < inputi.length; i++) {
 			var imeKolone = inputi[i].id;
-			if(imeKolone == "registracija" || imeKolone == "sertifikat" || imeKolone == "sesto_mesecni" || imeKolone == "tahograf")
+			if(imeKolone == "registracija" || imeKolone == "sertifikat" || imeKolone == "sesto_mesecni" || imeKolone == "tahograf" || imeKolone == "lekarsko")
 				obj[imeKolone] = vratiDatum(imeKolone);
 			else
 				obj[imeKolone] = inputi[i].value;
