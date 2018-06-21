@@ -25,6 +25,7 @@
 		<script defer src="js/all.js"></script>
 		
 		<script src="js/fakture.js"></script>
+		<script src="js/slovima.js"></script>
 	</head>
 	<body>
 		<div class="modal fade" id="myModal">
@@ -58,6 +59,10 @@
 						<div class="form-group">
 							<label for="racun_broj">Komplet:</label>
 							<input type="text" id="racun_broj" style="margin-left: 10px;">
+						</div>
+						<div class="form-group">
+							<label for="komplet_racun_broj">Racun broj:</label>
+							<input type="text" id="komplet_racun_broj" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
 							<label for="datum_izdavanja">Datum izdavanja:</label>
@@ -321,7 +326,7 @@
 					} // sabloni/" . $row['lokacija'] . ".docx
 				}
 				else {
-					echo "0 podataka pronadjeno.";
+					echo "0 faktura pronadjeno.";
 				}
 			?>
 			</table>

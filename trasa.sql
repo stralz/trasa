@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2018 at 01:18 PM
+-- Generation Time: Jun 21, 2018 at 03:59 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -62,6 +62,24 @@ INSERT INTO `benzinske_stanice` (`id`, `naziv`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `brojevi`
+--
+
+CREATE TABLE `brojevi` (
+  `prvi` int(11) NOT NULL,
+  `drugi` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `brojevi`
+--
+
+INSERT INTO `brojevi` (`prvi`, `drugi`) VALUES
+(18, 18);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cmrovi`
 --
 
@@ -80,6 +98,7 @@ CREATE TABLE `cmrovi` (
 CREATE TABLE `fakture` (
   `id` int(11) NOT NULL,
   `racun_broj` varchar(15) NOT NULL,
+  `komplet_racun_broj` varchar(30) NOT NULL,
   `datum_izdavanja` varchar(15) NOT NULL,
   `valuta_placanja` varchar(15) NOT NULL,
   `datum_prometa` varchar(15) NOT NULL,
@@ -115,9 +134,19 @@ CREATE TABLE `fakture` (
 -- Dumping data for table `fakture`
 --
 
-INSERT INTO `fakture` (`id`, `racun_broj`, `datum_izdavanja`, `valuta_placanja`, `datum_prometa`, `mesto_prometa`, `mesto_izdavanja_racuna`, `broj_naloga1`, `broj_naloga2`, `od1`, `od2`, `do1`, `do2`, `cmr1`, `cmr2`, `mesto_utovara1`, `mesto_utovara2`, `mesto_istovara1`, `mesto_istovara2`, `tezina1`, `tezina2`, `fk_tegljac`, `fk_prikolica`, `iznos1`, `iznos2`, `iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`, `lokacija`) VALUES
-(153, '123', '22.04.2018', '21.05.2018', '05.04.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Beograd', '', 'Kragujevac', '', '123', '', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '123', '', 34, 52, '1237.00', 'NaN', '123.00', '1.04', '118.1377', 'DinarskiSablon1Tura', 11, ''),
-(156, '1', '19.06.2018', '31.07.2018', '09.06.2018', 'Mesto prometa', 'Mesto izdavanja', 123, 0, '123', '', 'Cittie tittie', '', '123', '', '', '', '', '', '123', '', 34, 52, '123.00', 'NaN', '123.00', '1.04', '118.1454', 'DevizniSablon1Tura', 16, '');
+INSERT INTO `fakture` (`id`, `racun_broj`, `komplet_racun_broj`, `datum_izdavanja`, `valuta_placanja`, `datum_prometa`, `mesto_prometa`, `mesto_izdavanja_racuna`, `broj_naloga1`, `broj_naloga2`, `od1`, `od2`, `do1`, `do2`, `cmr1`, `cmr2`, `mesto_utovara1`, `mesto_utovara2`, `mesto_istovara1`, `mesto_istovara2`, `tezina1`, `tezina2`, `fk_tegljac`, `fk_prikolica`, `iznos1`, `iznos2`, `iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`, `lokacija`) VALUES
+(179, '1', '6-1/6', '21.06.2018', '20.07.2018', '22.06.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Cittie tittie', '', 'Grad', '', '123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '123', '', 34, 52, '65734.23', 'NaN', '65734.23', '556.36', '118.1475', 'DinarskiSablon1Tura', 11, ''),
+(180, '1', '7-1/7', '21.06.2018', '30.08.2018', '15.06.2018', 'Mesto prometa', 'Mesto izdavanja', 1234, 0, 'Cittie tittie', '', 'Kragujevac', '', '123', '', '', '', '', '', '123', '', 34, 52, '1234.00', 'NaN', '1234.00', '10.44', '118.1475', 'DevizniSablon1Tura', 17, ''),
+(181, '1', '8-1/8', '21.06.2018', '20.07.2018', '22.06.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Kragujevac', '', 'Grad', '', '123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '123', '', 34, 52, '1234.00', 'NaN', '1234.00', '10.45', '118.0838', 'DinarskiSablon1Tura', 11, ''),
+(182, '1', '9-1/9', '21.06.2018', '20.07.2018', '15.06.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Cittie tittie', '', 'Grad', '', '123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Fas d.o.o.', '', '123', '', 34, 52, '1234.00', 'NaN', '1234.00', '10.45', '118.0838', 'DinarskiSablon1Tura', 11, ''),
+(183, '1', '10-1/10', '21.06.2018', '20.07.2018', '23.06.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Beograd', '', 'Dobanovci', '', '123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '123', '', 34, 52, '12345.53', 'NaN', '12345.53', '104.55', '118.0838', 'DinarskiSablon1Tura', 11, ''),
+(184, '1', '11-1/11', '21.06.2018', '20.07.2018', '23.06.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Beograd', '', 'Dobanovci', '', '123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '123', '', 34, 52, '12345.53', 'NaN', '12345.53', '104.55', '118.0838', 'DinarskiSablon1Tura', 11, ''),
+(185, '1', '12-1/12', '21.06.2018', '20.07.2018', '22.06.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Beograd', '', 'Dobanovci', '', '123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', '', '', '123', '', 34, 52, '12345.53', 'NaN', '12345.53', '104.55', '118.0838', 'DinarskiSablon1Tura', 11, ''),
+(186, '1', '13-1/13', '21.06.2018', '20.07.2018', '29.06.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Kraljevo', '', 'Napoli', '', '123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', '', '', '123', '', 34, 52, '1234.53', 'NaN', '1234.53', '10.46', '118.0838', 'DinarskiSablon1Tura', 11, ''),
+(187, '1', '14-1/14', '21.06.2018', '19.08.2018', '23.06.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'DDD', '', 'Grad', '', '123', '', 'Fas d.o.o.', '', '', '', '123', '', 34, 52, '1234.00', 'NaN', '1234.00', '10.45', '118.0838', 'DinarskiSablon1Tura', 14, ''),
+(188, '1', '15-1/15', '21.06.2018', '20.07.2018', '22.06.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, 'Dobanovci', 'Cittie tittie', 'Grad', 'Kragujevac', '123', '123', 'Bcube S.p.A.', '', 'Bcube S.p.A.', '', '123', '123', 34, 52, '1234.00', '12345.78', '13579.78', '115.00', '118.0838', 'DinarskiSablon2Ture', 11, ''),
+(189, '1', '16-1/16', '21.06.2018', '30.08.2018', '30.06.2018', 'Mesto prometa', 'Mesto izdavanja', 1234, 0, 'Beograd', '', 'Kraljevo', '', '123', '', '', '', '', '', '123', '', 34, 52, '1234.53', 'NaN', '1234.53', '10.46', '118.0838', 'DevizniSablon1Tura', 17, ''),
+(190, '1', '17-1/17', '21.06.2018', '30.08.2018', '23.06.2018', 'Mesto prometa', 'Mesto izdavanja', 12423, 1234, 'Beograd', 'Napoli', 'Kragujevac', 'Kraljevo', '123', '123', '', '', '', '', '123', '123', 34, 52, '1234.53', '534.24', '1768.77', '14.98', '118.0838', 'DevizniSablon2Ture', 17, '');
 
 -- --------------------------------------------------------
 
@@ -135,12 +164,8 @@ CREATE TABLE `fakture_gorivo` (
 --
 
 INSERT INTO `fakture_gorivo` (`fk_fakture`, `fk_gorivo`) VALUES
-(153, 8),
-(153, 9),
-(153, 12),
-(153, 13),
-(153, 15),
-(153, 16);
+(179, 24),
+(179, 26);
 
 -- --------------------------------------------------------
 
@@ -158,7 +183,7 @@ CREATE TABLE `fakture_troskovi` (
 --
 
 INSERT INTO `fakture_troskovi` (`fk_fakture`, `fk_troskovi`) VALUES
-(153, 46);
+(179, 54);
 
 -- --------------------------------------------------------
 
@@ -188,7 +213,11 @@ INSERT INTO `gorivo` (`id`, `datum`, `kilometraza`, `kolicina_litara`, `cena_po_
 (15, '08.06.2018', 42314, '1233.00', '123.00', '151659.00 ', 3),
 (16, '14.06.2018', 4234, '43.00', '12.00', '516.00 RSD', 3),
 (18, '15.06.2018', 43242, '432.00', '23.00', '9936.00 RSD', 1),
-(19, '22.06.2018', 3413, '3232.00', '43.00', '138976.00 RSD', 2);
+(19, '22.06.2018', 3413, '3232.00', '43.00', '138976.00 RSD', 2),
+(20, '14.06.2018', 1234, '1234.00', '43.00', '53062.00 RSD', 1),
+(21, '16.06.2018', 12345, '1234.00', '12.00', '14808.00 ', 1),
+(24, '21.06.2018', 154235, '434.00', '1.00', '434.00 RSD', 1),
+(26, '29.06.2018', 1234, '134.00', '213.00', '28542.00 RSD', 1);
 
 -- --------------------------------------------------------
 
@@ -242,7 +271,7 @@ CREATE TABLE `kip` (
 --
 
 INSERT INTO `kip` (`id`, `fk_fakture`, `pocetna_kilometraza`, `zavrsna_kilometraza`, `potrosnja`) VALUES
-(3, 154, 1234, 12345, 53);
+(4, 0, 1234, 1235, 213432);
 
 -- --------------------------------------------------------
 
@@ -365,7 +394,7 @@ INSERT INTO `nalogodavci_relacije` (`id`, `fk_od`, `fk_do`, `fk_nalogodavac`, `b
 (14, 29, 37, 12, 5),
 (15, 1, 27, 11, 12),
 (16, 1, 1, 11, 1),
-(17, 27, 28, 11, 12),
+(17, 27, 28, 11, 13),
 (18, 27, 1, 11, 1),
 (19, 1, 28, 11, 13),
 (20, 28, 28, 11, 1),
@@ -378,7 +407,35 @@ INSERT INTO `nalogodavci_relacije` (`id`, `fk_od`, `fk_do`, `fk_nalogodavac`, `b
 (27, 27, 27, 11, 1),
 (28, 28, 1, 11, 2),
 (29, 39, 30, 16, 2),
-(30, 39, 38, 11, 1);
+(30, 39, 38, 11, 1),
+(31, 39, 38, 17, 1),
+(32, 39, 35, 11, 1),
+(33, 38, 37, 11, 1),
+(34, 37, 28, 11, 1),
+(35, 30, 27, 11, 2),
+(36, 1, 37, 11, 1),
+(37, 5, 2, 13, 1),
+(38, 5, 29, 12, 1),
+(39, 27, 27, 14, 1),
+(40, 1, 5, 11, 4),
+(41, 27, 37, 11, 1),
+(42, 30, 35, 12, 1),
+(43, 35, 29, 11, 1),
+(44, 35, 37, 12, 1),
+(45, 30, 6, 11, 1),
+(46, 5, 27, 13, 1),
+(47, 35, 5, 11, 3),
+(48, 30, 29, 11, 4),
+(49, 30, 29, 12, 1),
+(50, 2, 3, 12, 1),
+(51, 30, 27, 17, 1),
+(52, 27, 29, 11, 1),
+(53, 6, 3, 11, 1),
+(54, 35, 29, 14, 1),
+(55, 5, 29, 11, 1),
+(56, 1, 6, 17, 1),
+(57, 1, 27, 17, 1),
+(58, 3, 6, 17, 1);
 
 -- --------------------------------------------------------
 
@@ -569,7 +626,6 @@ INSERT INTO `troskovi` (`id`, `naziv`, `datum`, `iznos`, `valuta`) VALUES
 (16, 'ninja', '04.05.2018', 123, 'EUR'),
 (18, 'ninja', '03.05.2018', 123, 'EUR'),
 (20, 'terminalka', '03.05.2018', 1000, 'RSD'),
-(21, 'terminalka', '10.05.2018', 123, 'EUR'),
 (31, 'terminalka', '11.05.2018', 123, 'EUR'),
 (32, 'terminalka', '10.05.2018', 123, 'EUR'),
 (33, 'terminalka', '11.05.2018', 123, 'EUR'),
@@ -582,7 +638,13 @@ INSERT INTO `troskovi` (`id`, `naziv`, `datum`, `iznos`, `valuta`) VALUES
 (45, 'ninja', '04.05.2018', 123412, 'KN'),
 (46, 'terminalka', '10.05.2018', 1234, 'EUR'),
 (47, 'terminalka', '11.05.2018', 123412, 'KN'),
-(48, 'terminalka', '09.05.2018', 43433, 'EUR');
+(48, 'terminalka', '09.05.2018', 43433, 'EUR'),
+(49, 'ninja', '09.06.2018', 1234, 'RSD'),
+(50, 'terminalka', '22.06.2018', 500, 'EUR'),
+(51, 'terminalka', '14.06.2018', 1000, 'EUR'),
+(52, 'ninja', '22.06.2018', 123, 'KN'),
+(53, 'ninja', '08.06.2018', 1234, 'EUR'),
+(54, 'terminalka', '08.06.2018', 1234, 'RSD');
 
 -- --------------------------------------------------------
 
@@ -625,18 +687,25 @@ CREATE TABLE `u_i_nalogodavac` (
 --
 
 INSERT INTO `u_i_nalogodavac` (`fk_nalogodavac`, `fk_u_i`, `broj`) VALUES
-(11, 23, 24),
-(11, 24, 22),
-(11, 22, 19),
-(11, 20, 22),
-(13, 23, 5),
-(13, 24, 3),
+(11, 23, 36),
+(11, 24, 44),
+(11, 22, 22),
+(11, 20, 25),
+(13, 23, 7),
+(13, 24, 4),
 (13, 22, 3),
 (13, 20, 1),
-(11, 21, 6),
-(11, 25, 3),
+(11, 21, 10),
+(11, 25, 7),
 (12, 20, 1),
-(12, 22, 1);
+(12, 22, 3),
+(13, 21, 1),
+(12, 25, 1),
+(12, 24, 5),
+(14, 24, 1),
+(14, 25, 2),
+(12, 23, 2),
+(14, 22, 1);
 
 -- --------------------------------------------------------
 
@@ -852,12 +921,12 @@ ALTER TABLE `benzinske_stanice`
 -- AUTO_INCREMENT for table `fakture`
 --
 ALTER TABLE `fakture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 --
 -- AUTO_INCREMENT for table `gorivo`
 --
 ALTER TABLE `gorivo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `gradovi`
 --
@@ -867,12 +936,12 @@ ALTER TABLE `gradovi`
 -- AUTO_INCREMENT for table `kip`
 --
 ALTER TABLE `kip`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `nalogodavci`
 --
 ALTER TABLE `nalogodavci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `nalogodavci_gradovi`
 --
@@ -882,7 +951,7 @@ ALTER TABLE `nalogodavci_gradovi`
 -- AUTO_INCREMENT for table `nalogodavci_relacije`
 --
 ALTER TABLE `nalogodavci_relacije`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `pregledi_prikolice`
 --
@@ -912,17 +981,17 @@ ALTER TABLE `tegljaci`
 -- AUTO_INCREMENT for table `troskovi`
 --
 ALTER TABLE `troskovi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT for table `uvoznici_izvoznici`
 --
 ALTER TABLE `uvoznici_izvoznici`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `vozaci`
 --
 ALTER TABLE `vozaci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Constraints for dumped tables
 --

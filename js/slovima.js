@@ -13,14 +13,18 @@ function izBrojaUSlova(n, rod, padez) {
 			'sesto',  'sedamsto',  'osamsto',  'devetsto'];
 		var h = ['hiljadu', 'dvehiljade', 'trihiljade', 'cetirihiljade', 'pethiljada', 'sesthiljada', 'sedamhiljada',
 			'osamhiljada', 'devethiljada'];
-		var pom = ['jedna', 'dve', 'tri', 'cetiri', 'pet', 'sest', 'sedam', 'osam', 'devet'];
-		var dh = ['desethiljada', 'jedanaesthiljada', 'dvanaesthiljada', 'trinaesthiljada', 'cetrnaesthiljada', 'petnaesthiljada', 'sesnaesthiljada', 'sedamnaesthiljada', 'osamnaesthiljada', 'devetnaesthiljada', 'dvadesethiljada'];
-		for(var i = 0; i < d.length; i++) {
-			for(var j = 0; j < pom.length; j++) {
-				dh.push(d[i] + pom[j]);
-			}
-			dh.push(d[i] + 'hiljada');
+			
+			
+		function rec_hiljada(n) {
+			if (n == 1)
+				return "hiljadu";
+			var pc = n % 10;
+			if (pc == 2 || pc == 3 || pc == 4)
+				return "hiljade";
+			else
+				return "hiljada";
 		}
+		
 		var sh = [];
 		if(n == 0)
 			return 0;
@@ -34,10 +38,9 @@ function izBrojaUSlova(n, rod, padez) {
             return d[Math.floor(n / 10) - 2] + ((n % 10 != 0) ? 'i' + izBrojaUSlova(n % 10, rod, padez) : '');
         else if (n < 1000) {
             return s[Math.floor(n / 100) - 1] + '' + izBrojaUSlova(n % 100, rod, padez);
-        } else if (n < 10000) {
-			return h[Math.floor(n / 1000) - 1] + '' + izBrojaUSlova(n % 1000, rod, padez);
-		} else if (n < 100000) {
-			return dh[Math.floor(n / 10000) - 1] + '' + izBrojaUSlova(n % 10000, rod, padez);
+        } else if (n < 1000000){
+			broj_hiljada = Math.floor(n / 1000);
+			return (broj_hiljada > 1 ? izBrojaUSlova(broj_hiljada, rod, padez) : "") + rec_hiljada(broj_hiljada) + (n % 1000 > 0 ? izBrojaUSlova(n % 1000, rod, padez) : "");
 		}
 		else {
             return "error";

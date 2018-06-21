@@ -36,13 +36,12 @@
 				VALUES (NULL, '$datum', $kilometraza, '$kolicinaLitara', '$cenaPoLitru', '$iznos', $idBenzinske)";
 		$conn->query($sql);
 		
-		$sql = "SELECT id FROM fakture WHERE racun_broj='$faktura'";
+		$sql = "SELECT id FROM fakture WHERE komplet_racun_broj='$faktura'";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
 			$row = $result->fetch_assoc();
 			$idFakture = $row["id"];
 		}
-		
 		
 		$sql = "SELECT id FROM gorivo WHERE datum='$datum' AND kilometraza='$kilometraza' AND kolicina_litara='$kolicinaLitara'
 				AND cena_po_litru='$cenaPoLitru' AND iznos='$iznos' AND fk_benzinska_stanica='$idBenzinske'";
@@ -65,7 +64,7 @@
 		
 		$idFakture = 0;
 		
-		$sql = "SELECT id FROM fakture WHERE racun_broj='$faktura'";
+		$sql = "SELECT id FROM fakture WHERE komplet_racun_broj='$faktura'";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
 			$row = $result->fetch_assoc();
@@ -79,8 +78,10 @@
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				$brojGoriva++;
+				$a = explode("-", $faktura);
+				$brojRacuna = $a[0];
 				echo "<tr id=\"" . $row['id'] . "\"><td class=\"gorivoRedniBroj\">" . $brojGoriva . ". &nbsp;<a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td><td>" . $row['datum'] . "</td><td>" . $row['kilometraza'] . "</td><td>" . $row['naziv'] . "</td><td class=\"gorivoIznos" . $brojRacuna . "\">" . $row['iznos'] . "</td><td class=\"kolicinaLitara" . $brojRacuna . "\">" . $row['kolicina_litara'] . "</td><td>" . $row['cena_po_litru'] . "</td></tr>";
+				$brojGoriva++;
 			}
 		} else {
 			echo "";

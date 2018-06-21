@@ -2,6 +2,7 @@
 	include 'dbh.php';
 	
 	$racun_broj = "";
+	$komplet_racun_broj = "";
 	$datum_izdavanja = "";
 	$valuta_placanja = "";
 	$datum_prometa = "";
@@ -33,6 +34,10 @@
 	
 	if(isset($_POST["racun_broj"])) {
 		$racun_broj = $conn->escape_string($_POST["racun_broj"]);
+	}
+	
+	if(isset($_POST["komplet_racun_broj"])) {
+		$komplet_racun_broj = $conn->escape_string($_POST["komplet_racun_broj"]);
 	}
 	
 	if(isset($_POST["datum_izdavanja"])) {
@@ -115,10 +120,10 @@
 		$fk_nalogodavac = $conn->escape_string($_POST["fk_nalogodavac"]);
 	}
 	
-	$sql = "INSERT INTO `fakture` (`id`, `racun_broj`, `datum_izdavanja`, `valuta_placanja`, `datum_prometa`, `mesto_prometa`,
+	$sql = "INSERT INTO `fakture` (`id`, `racun_broj`, `komplet_racun_broj`, `datum_izdavanja`, `valuta_placanja`, `datum_prometa`, `mesto_prometa`,
 	`mesto_izdavanja_racuna`, `broj_naloga1`, `broj_naloga2`, `od1`, `od2`, `do1`, `do2`, `cmr1`, `cmr2`, `mesto_utovara1`,
 	`mesto_utovara2`, `mesto_istovara1`, `mesto_istovara2`, `tezina1`, `tezina2`, `fk_tegljac`, `fk_prikolica`, `iznos1`, `iznos2`,
-	`iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`) VALUES ('NULL', '$racun_broj', '$datum_izdavanja', '$valuta_placanja',
+	`iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`) VALUES ('NULL', '$racun_broj', '$komplet_racun_broj','$datum_izdavanja', '$valuta_placanja',
 	'$datum_prometa', '$mesto_prometa', '$mesto_izdavanja_racuna', '$broj_naloga1', '$broj_naloga2', '$od1', '$od2', '$do1',
 	'$do2', '$cmr1', '$cmr2', '$mesto_utovara1', '$mesto_utovara2', '$mesto_istovara1', '$mesto_istovara2', '$tezina1',
 	'$tezina2', '$fk_tegljac', '$fk_prikolica', '$iznos1', '$iznos2', '$iznos', '$iznosEUR', '$kursEUR', '$sablon', '$fk_nalogodavac')";

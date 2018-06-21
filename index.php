@@ -220,7 +220,7 @@
 									<div class="input-group">
 										<input type="text" class="form-control" id="iznos1">
 										<div class="input-group-append">
-										<span class="input-group-text">&euro;</span>
+										<span id="eurdin" class="input-group-text">&euro;</span>
 										</div>
 									</div>
 								</div>

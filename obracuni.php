@@ -145,12 +145,12 @@
 					<input type="text" list="listaFaktura" id="faktura1" class="form-control">
 					<datalist id="listaFaktura">
 						<?php
-							$sql = "SELECT racun_broj FROM fakture";
+							$sql = "SELECT komplet_racun_broj FROM fakture";
 							$result = $conn->query($sql);
 							
 							if($result->num_rows > 0) {
 								while($row = $result->fetch_assoc()) {
-									echo "<option value=\"" . $row["racun_broj"] . "\">";
+									echo "<option value=\"" . $row["komplet_racun_broj"] . "\">";
 								}
 							} else {
 								echo "<option value=\"0 rezultata\">";
@@ -173,6 +173,8 @@
 					<h5 id="odlazak">Odlazna tura: </h5>
 					<h5 id="povratak" style="display: none;">Povratna tura: </h5>
 					<h5 id="plata">Plata: </h5>
+					<h5 id="troskoviGoriva">Troskovi goriva: </h5>
+					<h5 id="ostaliTroskovi">Ostali troskovi: </h5>
 					<h3 id="ostalo"><strong>Ostalo: </strong></h5>
 				</div>
 			</div>
@@ -300,8 +302,12 @@
 				<div class="col-md-1">
 				</div>
 				<div class="col-md-3">
-					<h5>Ponderisana cena 1. </h6><span><strong style="font-size: 25px;" id="ponderisana1"><u></u></strong></span>
-					<h5>Ponderisana cena 2. </h6><span><strong style="font-size: 25px;" id="ponderisana2"><u></u></strong></span>
+					<div id="ponder1">
+						<h5>Ponderisana cena 1. </h6><span><strong style="font-size: 25px;" id="ponderisana1"><u></u></strong></span>
+					</div>
+					<div id="ponder2" style="display: none;">
+						<h5>Ponderisana cena 2. </h6><span><strong style="font-size: 25px;" id="ponderisana2"><u></u></strong></span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -314,6 +320,26 @@
 				$xpath = new DOMXpath($doc);
 
 				$elements = $xpath->query("//tr[3]/td[1]");
+
+				if (!is_null($elements)) {
+					foreach ($elements as $element) {
+						$nodes = $element->childNodes;
+						foreach ($nodes as $node) {
+							echo $node->nodeValue;
+						}
+					}
+				}
+			?>
+		</a>
+		<a style="display: none;" id="kursKN">
+			<?php
+				$file = "https://www.nbs.rs//kursnaListaModul/srednjiKurs.faces";
+
+				$doc = new DOMDocument(); $doc->loadHTMLFile($file);
+
+				$xpath = new DOMXpath($doc);
+
+				$elements = $xpath->query("//tr[5]/td[5]");
 
 				if (!is_null($elements)) {
 					foreach ($elements as $element) {

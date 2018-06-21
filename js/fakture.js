@@ -5,9 +5,11 @@ var obj1 = {};
 var domaci = false;
 var dveTure = false;
 var sablon = "";
+var pocetnaForma = "";
 
 function clearModalBody() {
 	$('.modal > .modal-dialog > .modal-content > .modal-body > form').empty();
+	$('.modal > .modal-dialog > .modal-content > .modal-body > form').html(pocetnaForma);
 }
 
 function addDays(date, days, domaci) {
@@ -54,6 +56,8 @@ function loadFile(url,callback){
 }
 
 $(function () {
+	pocetnaForma = $('.modal > .modal-dialog > .modal-content > .modal-body > form').html();
+	
 	$(".uredi_dugme").click(function () {
 		var idFakture = $(this).closest('tr').attr('id');
 		id_fakture = idFakture;
@@ -76,6 +80,7 @@ $(function () {
 						$("#iznos1").val(data.iznos1);
 						$("#mesto_utovara1").val(data.mesto_utovara1);
 						$("#mesto_istovara1").val(data.mesto_istovara1);
+						$("#komplet_racun_broj").val(data.komplet_racun_broj);
 						
 						var date = data.datum_izdavanja;
 						var day = date.substr(0, 2);
@@ -194,6 +199,7 @@ $(function () {
 	});
 	
 	$("#dodaj").click(function () {
+		clearModalBody();
 		// Start Azuriranje tabele
 		var inputi = $('.uredi');
 		
@@ -242,7 +248,7 @@ $(function () {
 			obj1[imeKolone] = inputi[i].value;
 		}
 		
-		var racunBroj = $("#racun_broj").val();
+		var racunBroj = $("#komplet_racun_broj").val();
 		var imeNalogodavca = document.getElementById("nalogodavac").options[document.getElementById("nalogodavac").selectedIndex].text;
 		obj1["ime_nalogodavca"] = imeNalogodavca;
 		obj1["kursEUR"] = $("#pomocniKurs").text().substr(0, $("#pomocniKurs").text().length - 2);
@@ -257,22 +263,31 @@ $(function () {
 		else
 			dveTure = true;
 		
+		var iznos = 0;
+		
 		if(domaci && dveTure) {
 			sablon = "DinarskiSablon2Ture";
-			obj1["iznos"] = obj1["iznos1"] + obj["iznos2"];
+			iznos = obj1["iznos1"] + obj["iznos2"];
+			obj1["iznos"] = iznos;
 		} else if(domaci && !dveTure) {
 			sablon = "DinarskiSablon1Tura";
-			obj1["iznos"] = obj1["iznos1"];
+			iznos = obj1["iznos1"];
+			obj1["iznos"] = iznos;
 		} else if(!domaci && dveTure) {
 			sablon = "DevizniSablon2Ture";
-			obj1["iznos"] = obj1["iznos1"] + obj["iznos2"];
+			iznos = obj1["iznos1"] + obj["iznos2"];
+			obj1["iznos"] = iznos;
 		} else if(!domaci && !dveTure) {
 			sablon = "DevizniSablon1Tura";
-			obj1["iznos"] = obj1["iznos1"];
+			iznos = obj1["iznos1"]
+			obj1["iznos"] = iznos;
 		}
 		
 		obj1["iznosEUR"] = parseFloat(obj1["iznos"] / parseFloat(obj1["kursEUR"]).toFixed(2)).toFixed(2);
-		alert(obj1["iznos"]);
+		obj1["racun_broj"] = racunBroj;
+		var intPart = parseInt(iznos);
+		var decimala = parseInt(Math.floor(100 * (iznos - intPart)));
+		obj1["slovima"] = izBrojaUSlova(intPart, 2, 1) + " dinara i " + decimala + "/100";
 		
 		function uradi(param) {
 			var mesto = param.mesto;
@@ -290,6 +305,8 @@ $(function () {
 			obj1.pib_nalogodavca = nalogodavacPib;
 			obj1.mesto_izdavanja_racuna = mesto;
 		}
+		
+		$.post();
 		
 		$.post('php/ucitajNalogodavce.php', {
 			'ime': imeNalogodavca,

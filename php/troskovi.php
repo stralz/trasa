@@ -10,7 +10,7 @@
 		$idFakture = 0;
 		$idTroska = 0;
 		
-		$sql = "SELECT id FROM fakture WHERE racun_broj='$faktura'";
+		$sql = "SELECT id FROM fakture WHERE komplet_racun_broj='$faktura'";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
 			$row = $result->fetch_assoc();
@@ -39,7 +39,7 @@
 		
 		$sql = "SELECT fk_troskovi, naziv, datum, troskovi.iznos, valuta FROM fakture_troskovi INNER JOIN troskovi ON (troskovi.id=fakture_troskovi.fk_troskovi)
 		INNER JOIN fakture ON (fakture_troskovi.fk_fakture=fakture.id )
-		WHERE fakture.racun_broj='$faktura'";
+		WHERE fakture.komplet_racun_broj='$faktura'";
 		
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
@@ -69,14 +69,14 @@
 		if($pomocni == 12) {
 			$idFakture = 0;
 			
-			$sql = "SELECT iznos FROM fakture WHERE racun_broj='$faktura'";
+			$sql = "SELECT iznos FROM fakture WHERE komplet_racun_broj='$faktura'";
 			$result = $conn->query($sql);
 			if($result->num_rows > 0) {
 				$row = $result->fetch_assoc();
 				echo $row['iznos'];
 			}
 			
-			$sql = "SELECT ime FROM nalogodavci INNER JOIN fakture ON (nalogodavci.id=fakture.fk_nalogodavac) WHERE racun_broj='$faktura'";
+			$sql = "SELECT ime FROM nalogodavci INNER JOIN fakture ON (nalogodavci.id=fakture.fk_nalogodavac) WHERE komplet_racun_broj='$faktura'";
 			$result = $conn->query($sql);
 			if($result->num_rows > 0) {
 				$row = $result->fetch_assoc();
