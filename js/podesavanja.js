@@ -66,9 +66,6 @@ $(function () {
 				'id_entiteta': id_entiteta,
 				'baza': baza,
 			});
-			
-			alert("UPDATE " + baza + " SET `" + kolona + "`=" + vrednost + " WHERE `id`=" + id_entiteta + ";");
-			location.reload(true);
 		});
 	});
 	

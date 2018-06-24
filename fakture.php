@@ -61,7 +61,7 @@
 							<input type="text" id="racun_broj" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
-							<label for="komplet_racun_broj">Racun broj:</label>
+							<label for="komplet_racun_broj">Račun broj:</label>
 							<input type="text" id="komplet_racun_broj" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
@@ -69,7 +69,7 @@
 							<input type="date" id="datum_izdavanja" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
-							<label for="valuta_placanja">Rok placanja usluge:</label>
+							<label for="valuta_placanja">Rok plaćanja usluge:</label>
 							<input type="date" id="valuta_placanja" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
@@ -77,13 +77,13 @@
 							<input type="text" id="mesto_prometa" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
-							<label for="mesto_izdavanja_racuna">Mesto izdavanja racuna:</label>
+							<label for="mesto_izdavanja_racuna">Mesto izdavanja računa:</label>
 							<input type="text" id="mesto_izdavanja_racuna" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
-							<label for="tegljac">Tegljac:</label>
+							<label for="tegljac">Tegljač:</label>
 								<select class="custom-select" id="tegljac">
-								   <option selected>Izaberite tegljaca</option>
+								   <option selected>Izaberite tegljača</option>
 								   <?php
 										$sql = "SELECT id, marka, broj_registracije FROM tegljaci";
 										$result = $conn->query($sql);
@@ -165,13 +165,13 @@
 							<input type="text" id="cmr1" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
-							<label for="tezina1">Tezina 1:</label>
+							<label for="tezina1">Težina 1:</label>
 							<input type="text" id="tezina1" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
-							<label for="mesto_utovara1">Posiljalac 1:</label>
+							<label for="mesto_utovara1">Pošiljalac 1:</label>
 							<select class="custom-select" name="mesto_utovara1" id="mesto_utovara1">
-					           <option selected>Izaberite posiljaoca:</option>
+					           <option selected>Izaberite pošiljaoca:</option>
 								<?php
 									$sql = "SELECT * FROM uvoznici_izvoznici WHERE `u_i`=\"Izvoznik\" OR `u_i`=\"Oba\"";
 									$result = $conn->query($sql);
@@ -190,7 +190,7 @@
 						<div class="form-group">
 							<label for="mesto_istovara1">Primalac 1:</label>
 							<select class="custom-select" name="mesto_istovara1" id="mesto_istovara1">
-					           <option selected>Izaberite posiljaoca:</option>
+					           <option selected>Izaberite primaoca:</option>
 								<?php
 									$sql = "SELECT * FROM uvoznici_izvoznici WHERE `u_i`=\"Uvoznik\" OR `u_i`=\"Oba\"";
 									$result = $conn->query($sql);
@@ -257,13 +257,13 @@
 							<input type="text" id="cmr2" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
-							<label for="tezina2">Tezina 2:</label>
+							<label for="tezina2">Težina 2:</label>
 							<input type="text" id="tezina2" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
-							<label for="mesto_utovara2">Posiljalac 2:</label>
+							<label for="mesto_utovara2">Pošiljalac 2:</label>
 							<select class="custom-select" name="mesto_utovara2" id="mesto_utovara2">
-					           <option selected>Izaberite posiljaoca:</option>
+					           <option selected>Izaberite pošiljaoca:</option>
 								<?php
 									$sql = "SELECT * FROM uvoznici_izvoznici WHERE `u_i`=\"Izvoznik\" OR `u_i`=\"Oba\"";
 									$result = $conn->query($sql);
@@ -282,7 +282,7 @@
 						<div class="form-group">
 							<label for="mesto_istovara2">Primalac 2:</label>
 							<select class="custom-select" name="mesto_istovara2" id="mesto_istovara2">
-					           <option selected>Izaberite posiljaoca:</option>
+					           <option selected>Izaberite primaoca:</option>
 								<?php
 									$sql = "SELECT * FROM uvoznici_izvoznici WHERE `u_i`=\"Uvoznik\" OR `u_i`=\"Oba\"";
 									$result = $conn->query($sql);
@@ -305,6 +305,7 @@
 						</form>
 					</div>
 					<div class="modal-footer">
+						<a class="btn" id="otvori">Otvori</a>
 						<a class="btn btn-success" id="dodaj">Azuriraj</a>
 					</div>
 				</div>
@@ -319,11 +320,11 @@
 
 				$brojac = 1;
 				if($result->num_rows > 0) {
-					echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>BROJ RACUNA</th><th>DATUM IZDAVANJA</th><th>LOKACIJA</th></tr></thead>";								
+					echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>BROJ RAČUNA</th><th>DATUM IZDAVANJA</th></tr></thead>";								
 					while ($row = $result->fetch_assoc()) {
 						echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>
-						<td>" . $row['racun_broj'] . "&nbsp; &nbsp; <a class=\"broj_registracije uredi_dugme\" href=\"#\"><i class=\"fas fa-edit\"></i></a></td><td>" . $row['datum_izdavanja'] . "</td><td>" . $row['lokacija'] . "</td></tr>";
-					} // sabloni/" . $row['lokacija'] . ".docx
+						<td>" . $row['komplet_racun_broj'] . "&nbsp; &nbsp; <a class=\"broj_registracije uredi_dugme\" href=\"#\"><i class=\"fas fa-edit\"></i></a></td><td>" . $row['datum_izdavanja'] . "</td></tr>";
+					}
 				}
 				else {
 					echo "0 faktura pronadjeno.";

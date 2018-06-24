@@ -43,7 +43,7 @@
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h2 class="modal-title pull-left">Header</h2>
+						<h2 class="modal-title pull-left">Dodaj</h2>
 						<button class="close" type="button" data-dismiss="modal" onclick="clearModalBody()">x</button>
 					</div>
 					<div class="modal-body">
@@ -70,7 +70,7 @@
 					<ul class="nav nav-pills nav-stacked">
 						<li class="nav-item">
 							<a class="nav-link active" id="buttonTegljaci" href="#tableTegljac" role="tab" data-toggle="tab" aria-controls="tableTegljac" aria-selected="true">
-								Tegljaci
+								Tegljači
 							</a>
 						</li>
 						<li class="nav-item">
@@ -90,7 +90,7 @@
 								
 								$brojac = 1;
 								if($result->num_rows > 0) {
-									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>TEGLJAC/VOZAC</th><th>REGISTRACIJA</th><th>SERTIFIKAT(bela potvrda)</th><th>6-MESECNI</th><th>6-TAHOGRAF</th><th>LEKARSKO</th></tr></thead>";
+									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>TEGLJAČ/VOZAČ</th><th>REGISTRACIJA</th><th>SERTIFIKAT(bela potvrda)</th><th>6-MESEČNI</th><th>6-TAHOGRAF</th><th>LEKARSKO</th></tr></thead>";
 									while($row = $result->fetch_assoc()) {
 										echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>";
 										echo "<td>" . $row['broj_registracije'] . " / " . $row['marka'] . " / " . $row['ime'] . " " . $row['prezime'] . "</td>";
@@ -100,7 +100,7 @@
 										echo "<td><input value=\"" . $row['tahograf'] . "\" class=\"tahograf datum " . strtolower($row['tip_tahografa']) . "\"></td>";
 										echo "<td><input value=\"" . $row['lekarsko'] . "\" class=\"lekarsko datum\" id=\"" . $row['vozac'] . "\"></td></tr>";
 									}
-									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Azuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
+									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								} else {
 									echo "0 podataka pronadjeno.";
 								}
@@ -139,13 +139,13 @@
 
 								$brojac = 1;
 								if($result->num_rows > 0) {
-									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>BROJ REGISTRACIJE</th><th>MARKA</th><th>REGISTRACIJA</th><th>SERTIFIKAT(bela potvrda)</th><th>6-MESECNI</th></tr></thead>";								
+									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>BROJ REGISTRACIJE</th><th>MARKA</th><th>REGISTRACIJA</th><th>SERTIFIKAT(bela potvrda)</th><th>6-MESEČNI</th></tr></thead>";								
 									while ($row = $result->fetch_assoc()) {
 										echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>
 										<td>" . $row['broj_registracije'] . "</td><td>" . $row['marka'] . "</td><td><input value=\"" . $row['registracija'] . "\" class=\"registracija datum\"></td>
 										<td><input value=\"" . $row['sertifikat'] . "\" class=\"sertifikat datum\"</td><td><input value=\"" . $row['sesto_mesecni'] . "\" class=\"sesto_mesecni datum\"></td></tr>";
 									}
-									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Azuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
+									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								} else {
 									echo "0 podataka pronadjeno.";
 								}

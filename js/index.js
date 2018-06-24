@@ -255,73 +255,73 @@ $(function() {
 						})
 						saveAs(out, racunBroj + ".docx")
 					});
+					
+					var mestoOd1Drzava = $("input:radio[name='od1Radio']:checked").closest('label').text();
+					var mestoDo1Drzava = $("input:radio[name='do1Radio']:checked").closest('label').text();
+					var mestoOd2Drzava = $("input:radio[name='od2Radio']:checked").closest('label').text();
+					var mestoDo2Drzava = $("input:radio[name='do2Radio']:checked").closest('label').text();
+					var idNalogodavca = document.getElementById("nalogodavac").options[document.getElementById("nalogodavac").selectedIndex].value;
+					
+					if(mestoOd1 && mestoDo1 && mestoOd2 && mestoDo2) {
+						$.post('php/relacije.php', {
+							ime: imeNalogodavca,
+							idNalogodavca: idNalogodavca,
+							od1: mestoOd1,
+							od1Drzava: mestoOd1Drzava,
+							do1: mestoDo1,
+							do1Drzava: mestoDo1Drzava,
+							od2: mestoOd2,
+							od2Drzava: mestoOd2Drzava,
+							do2: mestoDo2,
+							do2Drzava: mestoDo2Drzava
+						});
+					} else if (mestoOd1 && mestoDo1) {
+						$.post('php/relacije.php', {
+							ime: imeNalogodavca,
+							idNalogodavca: idNalogodavca,
+							od1: mestoOd1,
+							od1Drzava: mestoOd1Drzava,
+							do1: mestoDo1,
+							do1Drzava: mestoDo1Drzava,
+						});
+					}
+					
+					$.post('php/napraviFakturu.php', {
+						mesto_utovara2: posiljalac2,
+						mesto_istovara2: primalac2,
+						fk_nalogodavac: idNalogodavca,
+						racun_broj: tmpRacunBroj,
+						komplet_racun_broj: racunBroj,
+						datum_izdavanja: danas(),
+						valuta_placanja: tmpday,
+						datum_prometa: datumPrometaUsluge,
+						mesto_prometa: obj["mesto_nalogodavca"],
+						mesto_izdavanja_racuna: "Vidikovac",
+						fk_nalogodavac: idNalogodavca,
+						fk_tegljac: tegljac_id,
+						fk_prikolica: prikolica_id,
+						
+						broj_naloga1: brojNaloga1,
+						od1: mestoOd1,
+						do1: mestoDo1,
+						cmr1: _cmr1,
+						tezina1: _tezina1,
+						mesto_utovara1: posiljalac1,
+						mesto_istovara1: primalac1,
+						iznos1: parseFloat(_iznos1).toFixed(2),
+						
+						broj_naloga2: brojNaloga2,
+						od2: mestoOd2,
+						do2: mestoDo2,
+						cmr2: _cmr2,
+						tezina2: _tezina2,
+						iznos2: parseFloat(_iznos2).toFixed(2),
+						kursEUR: kursEUR,
+						iznos: iznos,
+						iznosEUR: parseFloat(iznos / parseFloat(kursEUR).toFixed(2)).toFixed(2),
+						sablon: sablon
+					});
 				}
-			});
-			
-			var mestoOd1Drzava = $("input:radio[name='od1Radio']:checked").closest('label').text();
-			var mestoDo1Drzava = $("input:radio[name='do1Radio']:checked").closest('label').text();
-			var mestoOd2Drzava = $("input:radio[name='od2Radio']:checked").closest('label').text();
-			var mestoDo2Drzava = $("input:radio[name='do2Radio']:checked").closest('label').text();
-			var idNalogodavca = document.getElementById("nalogodavac").options[document.getElementById("nalogodavac").selectedIndex].value;
-			
-			if(mestoOd1 && mestoDo1 && mestoOd2 && mestoDo2) {
-				$.post('php/relacije.php', {
-					ime: imeNalogodavca,
-					idNalogodavca: idNalogodavca,
-					od1: mestoOd1,
-					od1Drzava: mestoOd1Drzava,
-					do1: mestoDo1,
-					do1Drzava: mestoDo1Drzava,
-					od2: mestoOd2,
-					od2Drzava: mestoOd2Drzava,
-					do2: mestoDo2,
-					do2Drzava: mestoDo2Drzava
-				});
-			} else if (mestoOd1 && mestoDo1) {
-				$.post('php/relacije.php', {
-					ime: imeNalogodavca,
-					idNalogodavca: idNalogodavca,
-					od1: mestoOd1,
-					od1Drzava: mestoOd1Drzava,
-					do1: mestoDo1,
-					do1Drzava: mestoDo1Drzava,
-				});
-			}
-			
-			$.post('php/napraviFakturu.php', {
-				mesto_utovara2: posiljalac2,
-				mesto_istovara2: primalac2,
-				fk_nalogodavac: idNalogodavca,
-				racun_broj: tmpRacunBroj,
-				komplet_racun_broj: racunBroj,
-				datum_izdavanja: danas(),
-				valuta_placanja: tmpday,
-				datum_prometa: datumPrometaUsluge,
-				mesto_prometa: "Mesto prometa",
-				mesto_izdavanja_racuna: "Mesto izdavanja",
-				fk_nalogodavac: idNalogodavca,
-				fk_tegljac: tegljac_id,
-				fk_prikolica: prikolica_id,
-				
-				broj_naloga1: brojNaloga1,
-				od1: mestoOd1,
-				do1: mestoDo1,
-				cmr1: _cmr1,
-				tezina1: _tezina1,
-				mesto_utovara1: posiljalac1,
-				mesto_istovara1: primalac1,
-				iznos1: parseFloat(_iznos1).toFixed(2),
-				
-				broj_naloga2: brojNaloga2,
-				od2: mestoOd2,
-				do2: mestoDo2,
-				cmr2: _cmr2,
-				tezina2: _tezina2,
-				iznos2: parseFloat(_iznos2).toFixed(2),
-				kursEUR: kursEUR,
-				iznos: iznos,
-				iznosEUR: parseFloat(iznos / parseFloat(kursEUR).toFixed(2)).toFixed(2),
-				sablon: sablon
 			});
 		});
 	});

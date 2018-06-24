@@ -74,8 +74,6 @@ $(function () {
 				});
 			}
 			
-			
-			alert("UPDATE " + baza + " SET `" + kolona + "`='" + vrednost + "' WHERE `id`=" + id_entiteta + ";");
 		});
 	});
 	

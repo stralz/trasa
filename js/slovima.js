@@ -3,17 +3,14 @@ function izBrojaUSlova(n, rod, padez) {
 			'jedan', 'jednim', 'jednom'],
 			['jedna', 'jedne', 'jednoj', 'jednu', 'jedna', 'jednom', 'jednoj']],
 			['dva', 'dve'],
-			'tri', 'cetiri', 'pet', 'sest', 'sedam', 'osam',
-			'devet', 'deset', 'jedanaest', 'dvanaest', 'trinaest', 'cetrnaest',
-			'petnaest', 'sestnaest', 'sedamnaest', 'osamnaest', 'devetnaest'
+			'tri', 'četiri', 'pet', 'šest', 'sedam', 'osam',
+			'devet', 'deset', 'jedanaest', 'dvanaest', 'trinaest', 'četrnaest',
+			'petnaest', 'šestnaest', 'sedamnaest', 'osamnaest', 'devetnaest'
 		];
-		var d = ['dvadeset', 'trideset', 'cetrdeset', 'pedeset',
-			'sezdeset', 'sedamdeset', 'osamdeset', 'devedeset'];
-		var s = ['sto', 'dvesta', 'trista', 'cetiristo', 'petsto',
-			'sesto',  'sedamsto',  'osamsto',  'devetsto'];
-		var h = ['hiljadu', 'dvehiljade', 'trihiljade', 'cetirihiljade', 'pethiljada', 'sesthiljada', 'sedamhiljada',
-			'osamhiljada', 'devethiljada'];
-			
+		var d = ['dvadeset', 'trideset', 'četrdeset', 'pedeset',
+			'šezdeset', 'sedamdeset', 'osahmdesetmdeset', 'devedeset'];
+		var s = ['sto', 'dvesta', 'trista', 'četiristo', 'petsto',
+			'šesto',  'sedamsto',  'osamsto',  'devetsto'];
 			
 		function rec_hiljada(n) {
 			if (n == 1)

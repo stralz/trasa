@@ -32,7 +32,7 @@
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h2 class="modal-title pull-left">Trosak</h2>
+						<h2 class="modal-title pull-left">Trošak</h2>
 						<button class="close" type="button" data-dismiss="modal" onclick="clearModalBody()">x</button>
 					</div>
 					<div class="modal-body" id="trosakModalBody">
@@ -42,7 +42,7 @@
 								<input type="date" id="trosakDatum" style="margin-left: 10px;" class="col-sm-4 form-control" autocomplete="off">
 							</div>
 							<div class="form-group">
-								<label for="trosak">Trosak:</label>
+								<label for="trosak">Trošak:</label>
 								<input type="text" list="listTroskovi" id="trosak" class="col-sm-4 form-control" style="margin-left: 10px;" autocomplete="off">
 								<datalist id="listTroskovi">
 									<?php
@@ -58,7 +58,7 @@
 								</datalist>
 							</div>
 							<div class="form-group">
-								<label for="iznosTroska">Iznos troska:</label>
+								<label for="iznosTroska">Iznos troška:</label>
 								<input type="text" id="trosakIznos" style="margin-left: 10px;" class="col-sm-4 form-control" autocomplete="off">
 							</div>
 							<div class="form-group">
@@ -73,7 +73,7 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<a class="btn btn-success" data-dismiss="modal" id="dodajTrosak">Dodaj trosak</a>
+						<a class="btn btn-success" data-dismiss="modal" id="dodajTrosak">Dodaj trošak</a>
 					</div>
 				</div>
 			</div>
@@ -92,7 +92,7 @@
 								<input type="date" id="gorivoDatum" style="margin-left: 10px;" class="col-sm-4 form-control" autocomplete="off">
 							</div>
 							<div class="form-group">
-								<label for="kilometraza">Kilometraza:</label>
+								<label for="kilometraza">Kilometraža:</label>
 								<input type="text" id="kilometraza" class="col-sm-4 form-control" style="margin-left: 10px;" autocomplete="off">
 							</div>
 							<div class="form-group">
@@ -111,7 +111,7 @@
 								</datalist>
 							</div>
 							<div class="form-group">
-								<label for="kolicinaLitara">Kolicina litara:</label>
+								<label for="kolicinaLitara">Količina litara:</label>
 								<input type="text" id="kolicinaLitara" style="margin-left: 10px;" class="col-sm-4 form-control" autocomplete="off">
 							</div>
 							<div class="form-group">
@@ -164,7 +164,7 @@
 					</div>
 					<div id="sacuvajDugme">
 						<button id="sacuvaj" class="btn btn-success btn-sm">
-							<i class="far fa-save"></i> Sacuvaj
+							<i class="far fa-save"></i> Sačuvaj
 						</button>
 					</div>
 				</div>
@@ -173,8 +173,8 @@
 					<h5 id="odlazak">Odlazna tura: </h5>
 					<h5 id="povratak" style="display: none;">Povratna tura: </h5>
 					<h5 id="plata">Plata: </h5>
-					<h5 id="troskoviGoriva">Troskovi goriva: </h5>
-					<h5 id="ostaliTroskovi">Ostali troskovi: </h5>
+					<h5 id="troskoviGoriva">Troškovi goriva: </h5>
+					<h5 id="ostaliTroskovi">Ostali troškovi: </h5>
 					<h3 id="ostalo"><strong>Ostalo: </strong></h5>
 				</div>
 			</div>
@@ -184,21 +184,21 @@
 			<div class="row" style="margin-top: 40px;">
 				<div class="col-md-6">
 					<h3><strong>Troskovi</strong> <a id="otvoriModal" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalTrosak">
-									Dodaj trosak
+									Dodaj trošak
 								  </a>
 					</h3>
 					<table class="table table-bordered" id="tableTroskovi">
 						<thead class="thead">
 							<tr>
 								<th></th>
-								<th id="racun_broj1">Racun br. 1</th>
+								<th id="racun_broj1">Račun br. 1</th>
 								<th id="racun_broj2"></th>
 								<th></th>
 							</tr>
 							<tr>
 								<th>R.B</th>
 								<th>Datum</th>
-								<th>Trosak</th>
+								<th>Trošak</th>
 								<th>Iznos</th>
 							</tr>
 						</thead>
@@ -234,10 +234,10 @@
 							<tr>
 								<th>R.B</th>
 								<th>Datum</th>
-								<th>Kilometraza</th>
+								<th>Kilometraža</th>
 								<th>Mesto tankiranja</th>
 								<th>Iznos</th>
-								<th>Kolicina litra</th>
+								<th>Količina litra</th>
 								<th>Cena po litru</th>
 							</tr>
 						</thead>
@@ -271,15 +271,15 @@
 			<!-- Donji deo stranice, KILOMETRAZA I POTROSNJA -->
 			<div class="row" style="margin-top: 40px;">
 				<div class="col-md-4">
-					<h3><strong>Kilometraza i potrosnja</strong>
+					<h3><strong>Kilometraža i potrošnja</strong>
 					</h3>
 					<form>
 						<div class="form-row">
-							<label for="pocetnaKilometraza">Pocetna kilometraza: </label>
+							<label for="pocetnaKilometraza">Početna kilometraža: </label>
 							<input type="text" class="form-control kip" id="pocetnaKilometraza">
 						</div>
 						<div class="form-row">
-							<label for="zavrsnaKilometraza">Zavrsna kilometraza: </label>
+							<label for="zavrsnaKilometraza">Završna kilometraža: </label>
 							<input type="text" class="form-control kip" id="zavrsnaKilometraza">
 						</div>
 						<div class="form-row">
@@ -287,15 +287,15 @@
 							<input type="text" class="form-control kip font-weight-bold" id="ukupnoKilometara" style="color: black;">
 						</div>
 						<div class="form-row">
-							<label for="potrosnja">Potrosnja: </label>
+							<label for="potrosnja">Potrošnja: </label>
 							<input type="text" class="form-control kip" id="potrosnja">
 						</div>
 						<div class="form-row">
-							<label for="ukupnoPotrosenoLitara">Ukupno potroseno litara: </label>
+							<label for="ukupnoPotrosenoLitara">Ukupno potrošeno litara: </label>
 							<input type="text" class="form-control kip font-weight-bold" id="ukupnoPotrosenoLitara" style="color: black;">
 						</div>
 						<div class="form-row" style="margin-top: 10px;">
-							<button class="btn btn-success" id="azurirajKiP">Azuriraj</button>
+							<button class="btn btn-success" id="azurirajKiP">Ažuriraj</button>
 						</div>
 					</form>
 				</div>

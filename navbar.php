@@ -9,10 +9,10 @@
 				<a class="nav-link" href="fakture.php">Fakture</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="obracuni.php">Obracuni</a>
+				<a class="nav-link" href="obracuni.php">Obračuni</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="podesavanja.php">Podesavanja</a>
+				<a class="nav-link" href="podesavanja.php">Podešavanja</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="vp.php">Vozni park</a>

@@ -61,16 +61,16 @@
 						<input type="date" class="form-control" id="datum_prometa_usluge">
 					</div>
 					<div class="form-group col-md-3">
-						<label for="rok_placanja_usluge">Rok placanja usluge:</label>
+						<label for="rok_placanja_usluge">Rok plaćanja usluge:</label>
 						<input type="text" class="form-control" id="rok_placanja_usluge">
 					</div>
 				</div>
                  <div class="form-row">
                     <div class="form-group col-md-4">
-                    <label for="tegljac">Tegljac:</label>
+                    <label for="tegljac">Tegljač:</label>
 				        <div class="input-group mb-3">
 							<select class="custom-select" id="tegljac">
-							   <option selected>Izaberite tegljaca</option>
+							   <option selected>Izaberite tegljača</option>
 							   <?php
 									$sql = "SELECT id, marka, broj_registracije FROM tegljaci";
 									$result = $conn->query($sql);
@@ -172,13 +172,13 @@
 									<input type="text" class="form-control" id="cmr1">
 								</div>
 								<div class="form-group col-md-3">
-									<label for="tezina1">Tezina:</label>
+									<label for="tezina1">Težina:</label>
 									<input type="text" class="form-control" id="tezina1">
 								</div>
 							</div>
 							<div class="form-row posiljalacPrimalac1">
 								<div class="form-group col-md-3">
-									<label for="mesto_utovara1">Posiljalac:</label>
+									<label for="mesto_utovara1">Pošiljalac:</label>
 									<input type="text" list="listaPosiljalac1" class="form-control" id="posiljalac1">
 									<datalist id="listaPosiljalac1">
 										<?php
@@ -273,13 +273,13 @@
 									<input type="text" class="form-control" id="cmr2">
 								</div>
 								<div class="form-group col-md-3">
-									<label for="tezina2">Tezina:</label>
+									<label for="tezina2">Težina:</label>
 									<input type="text" class="form-control" id="tezina2">
 								</div>
 							</div>
 							<div class="form-row posiljalacPrimalac2">
 								<div class="form-group col-md-3">
-									<label for="posiljalac2">Posiljalac:</label>
+									<label for="posiljalac2">Pošiljalac:</label>
 									<input type="text" list="listaPosiljalac2" class="form-control" id="posiljalac2">
 									<datalist id="listaPosiljalac2">
 										<?php

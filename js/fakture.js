@@ -199,7 +199,6 @@ $(function () {
 	});
 	
 	$("#dodaj").click(function () {
-		clearModalBody();
 		// Start Azuriranje tabele
 		var inputi = $('.uredi');
 		
@@ -306,13 +305,163 @@ $(function () {
 			obj1.mesto_izdavanja_racuna = mesto;
 		}
 		
-		$.post();
+		var imeNalogodavca = document.getElementById("nalogodavac").options[document.getElementById("nalogodavac").selectedIndex].text;
+		console.log("ime nalogodavca: " + imeNalogodavca);
 		
 		$.post('php/ucitajNalogodavce.php', {
 			'ime': imeNalogodavca,
 		}, function(data) {
 			if (data === null) {
-				console.error('Nešto si zeznuo');
+				console.error('Došlo je do greške.');
+			} else {
+				uradi(data);
+				
+				loadFile("sabloni/" + sablon + ".docx",function(error,content){
+					if (error) { throw error };
+					var zip = new JSZip(content);
+					var doc=new Docxtemplater().loadZip(zip)
+					doc.setData(obj1);
+					try {
+						doc.render()
+					}
+					catch (error) {
+						var e = {
+							message: error.message,
+							name: error.name,
+							stack: error.stack,
+							properties: error.properties,
+						}
+						console.log(JSON.stringify({error: e}));
+						throw error;
+					}
+
+					var out=doc.getZip().generate({
+						type:"blob",
+						mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+					})
+					saveAs(out, racunBroj + ".docx")
+				});
+			}
+		});
+		
+		// End Azuriranje dokumenta
+	});
+	
+	$("#otvori").click(function () {
+		// Start Azuriranje tabele
+		var inputi = $('.uredi');
+		
+		for(var i = 0; i < inputi.length; i++) {
+			var imeKolone = inputi[i].id;
+			obj[imeKolone] = inputi[i].value;
+		}
+		
+		$('.uredi').each(function (index, item) {
+			var vrednost = null;
+			if($(this).is('select')) {
+				vrednost = $('option:selected',this).text();
+			} else {
+				vrednost = $(this).val();
+			}
+			
+			var kolona = $(this).attr('id');
+			var baza = tabela;
+			
+			$.post('php/azurirajTabelu.php', {
+				'vrednost': vrednost,
+				'kolona': kolona,
+				'id_entiteta': id_fakture,
+				'baza': baza,
+			});
+		});
+		
+		// End Azuriranje tabele
+		
+		// Start Azuriranje dokumenta
+		
+		var inputi = $('input');
+		
+		for(var i = 0; i < inputi.length; i++) {
+			var imeKolone = inputi[i].id;
+			var tmp = inputi[i].value;
+			if(tmp.split('-')[0].substr(0, 2) == "20")
+				tmp = vratiDatum(inputi[i].id)
+			obj1[imeKolone] = tmp;
+		}
+		
+		inputi = $('select');
+		
+		for(var i = 0; i < inputi.length; i++) {
+			var imeKolone = inputi[i].id;
+			obj1[imeKolone] = inputi[i].value;
+		}
+		
+		var racunBroj = $("#komplet_racun_broj").val();
+		var imeNalogodavca = document.getElementById("nalogodavac").options[document.getElementById("nalogodavac").selectedIndex].text;
+		obj1["ime_nalogodavca"] = imeNalogodavca;
+		obj1["kursEUR"] = $("#pomocniKurs").text().substr(0, $("#pomocniKurs").text().length - 2);
+		
+		if(imeNalogodavca.includes("d.o.o"))
+			domaci = true;
+		else
+			domaci = false;
+		
+		if($("#broj_naloga2").attr("style").includes("display: none;"))
+			dveTure = false;
+		else
+			dveTure = true;
+		
+		var iznos = 0;
+		
+		if(domaci && dveTure) {
+			sablon = "DinarskiSablon2Ture";
+			iznos = obj1["iznos1"] + obj["iznos2"];
+			obj1["iznos"] = iznos;
+		} else if(domaci && !dveTure) {
+			sablon = "DinarskiSablon1Tura";
+			iznos = obj1["iznos1"];
+			obj1["iznos"] = iznos;
+		} else if(!domaci && dveTure) {
+			sablon = "DevizniSablon2Ture";
+			iznos = obj1["iznos1"] + obj["iznos2"];
+			obj1["iznos"] = iznos;
+		} else if(!domaci && !dveTure) {
+			sablon = "DevizniSablon1Tura";
+			iznos = obj1["iznos1"]
+			obj1["iznos"] = iznos;
+		}
+		
+		obj1["iznosEUR"] = parseFloat(obj1["iznos"] / parseFloat(obj1["kursEUR"]).toFixed(2)).toFixed(2);
+		obj1["racun_broj"] = racunBroj;
+		var intPart = parseInt(iznos);
+		var decimala = parseInt(Math.floor(100 * (iznos - intPart)));
+		obj1["slovima"] = izBrojaUSlova(intPart, 2, 1) + " dinara i " + decimala + "/100";
+		
+		function uradi(param) {
+			var mesto = param.mesto;
+			var adresa = param.adresa;
+			var postanski_broj = param.postanski_broj;
+			var nalogodavacPak = param.pak;
+			var nalogodavacPib = param.pib;
+			var rok_placanja_usluge = param.rok_placanja;
+			
+			obj1.mesto_nalogodavca = mesto;
+			obj1.mesto_prometa = mesto;
+			obj1.adresa = adresa;
+			obj1.postanski_broj = postanski_broj;
+			obj1.pak = nalogodavacPak;
+			obj1.pib_nalogodavca = nalogodavacPib;
+			obj1.mesto_izdavanja_racuna = mesto;
+		}
+		
+		var imeNalogodavca = document.getElementById("nalogodavac").options[document.getElementById("nalogodavac").selectedIndex].text;
+		console.log("ime nalogodavca: " + imeNalogodavca);
+		
+		$.post('php/ucitajNalogodavce.php', {
+			'ime': imeNalogodavca,
+		}, function(data) {
+			if (data === null) {
+				console.error('Došlo je do greške.');
 			} else {
 				uradi(data);
 				
@@ -353,7 +502,7 @@ $(function () {
 			'broj': broj,
 		}, function (data) {
 			if(data === null) {
-				console.error('Nešto si zeznuo');
+				console.error('Došlo je do greške.');
 			} else {
 				$('#tegljac').val(data.tegljac_id);
 				$('#prikolica').val(data.prikolica_id);

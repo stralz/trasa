@@ -101,7 +101,7 @@ function iznosi() {
 	$("#troskoviTotalEUR").text("EUR: " + zbirEUR);
 	$("#troskoviTotalKN").text("KN: " + zbirKN);
 	$("#troskoviTotalRSD").text("RSD: " + zbirRSD);
-	$("#ostaliTroskovi").text("Ostali troskovi: " + (+parseFloat(zbirRSD / kursEUR) + +zbirEUR + (zbirKN * kursKN) / kursEUR).toFixed(2) + " EUR");
+	$("#ostaliTroskovi").text("Ostali troškovi: " + (+parseFloat(zbirRSD / kursEUR) + +zbirEUR + (zbirKN * kursKN) / kursEUR).toFixed(2) + " EUR");
 	ostalo();
 }
 
@@ -150,7 +150,7 @@ function iznosiLitri() {
 	$("#gorivoTotalEUR").text("EUR: " + zbirEUR);
 	$("#gorivoTotalRSD").text("RSD: " + zbirRSD);
 	$("#gorivoTotalL").text("L: " + zbirL);
-	$("#troskoviGoriva").text("Troskovi goriva: " + (+parseFloat(zbirRSD / kursEUR) + +zbirEUR).toFixed(2) + " EUR");
+	$("#troskoviGoriva").text("Troškovi goriva: " + (+parseFloat(zbirRSD / kursEUR) + +zbirEUR).toFixed(2) + " EUR");
 	ostalo();
 }
 

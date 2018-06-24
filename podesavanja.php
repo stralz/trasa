@@ -70,7 +70,7 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" id="buttonTegljaci" href="#tableTegljac" role="tab" data-toggle="tab" aria-controls="tableTegljac" aria-selected="false">
-								Tegljaci
+								Tegljači
 							</a>
 						</li>
 						<li class="nav-item">
@@ -85,7 +85,12 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" id="buttonVozaci" href="#tableVozaci" role="tab" data-toggle="tab" aria-controls="vozaci-tab-content" aria-selected="false">
-								Vozaci
+								Vozači
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="buttonBrojevi" href="#tableBrojevi" role="tab" data-toggle="tab" aria-controls="brojevi-tab-content" aria-selected="false">
+								Brojači
 							</a>
 						</li>
 					</ul>
@@ -101,7 +106,7 @@
 								$brojac = 1;
 								if($result->num_rows > 0) {
 									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>IME
-									</th><th>MESTO</th><th>ADRESA</th><th>POSTANSKI BROJ</th><th>PIB</th><th>PAK</th><th>ROK PLACANJA</th></tr></thead>";
+									</th><th>MESTO</th><th>ADRESA</th><th>POŠTANSKI BROJ</th><th>PIB</th><th>PAK</th><th>ROK PLAĆANJA</th></tr></thead>";
 									while($row = $result->fetch_assoc()) {
 										echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>
 										<td><input value=\"" . $row['ime'] . "\" class=\"ime\"></td><td><input value=\"" . $row['mesto'] .
@@ -109,7 +114,7 @@
 										"\" class=\"postanski_broj\"></td><td><input value=\"" . $row['pib'] . "\" class=\"pib\"><td><input value=\"" . $row['pak'] .
 										"\" class=\"pak\"></td><td><input value=\"" . $row['rok_placanja'] . "\" class=\"rok_placanja\"></td></tr>";
 									}
-									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Azuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
+									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								} else {
 									echo "0 podataka pronadjeno.";
 								}
@@ -132,7 +137,7 @@
 										"\" class=\"marka\"></td><td><input value=\"" . $row['model'] . "\" class=\"model\"></td><td><input value=\"" .
 										$row['tip_tahografa'] . "\" class=\"tip_tahografa\"></td></tr>";
 									}
-									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Azuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
+									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								} else {
 									echo "0 podataka pronadjeno.";
 								}
@@ -154,7 +159,7 @@
 										$row['broj_registracije'] . "\" class=\"broj_registracije\"></td><td><input value=\"" . $row['marka'] .
 										"\" class=\"marka\"></td></tr>";
 									}
-									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Azuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
+									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								} else {
 									echo "0 podataka pronadjeno.";
 								}
@@ -204,7 +209,7 @@
 											</td></tr>";
 											}
 										}
-										echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Azuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
+										echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 									} else {
 										echo "0 podataka pronadjeno.";
 									}
@@ -219,7 +224,7 @@
 
 								$brojac = 1;
 								if($result->num_rows > 0) {
-									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>IME</th><th>PREZIME</th><th>BROJ PASOSA</th><th>PROCENAT</th><th>UVERENJE</th><th>LEKARSKO</th></tr></thead>";
+									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>IME</th><th>PREZIME</th><th>BROJ PASOŠA</th><th>PROCENAT</th><th>UVERENJE</th><th>LEKARSKO</th></tr></thead>";
 									while ($row = $result->fetch_assoc()) {
 										if($row['uverenje'] == "Da") {
 											echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>
@@ -239,7 +244,25 @@
 										}
 										
 									}
-									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Azuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
+									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
+								} else {
+									echo "0 podataka pronadjeno.";
+								}
+							?>
+							</table>
+						</div>
+						<div id="tableBrojevi" class="tab-pane fade" role="tabpanel" aria-labelledby="buttonBrojevi">
+							<table class="table table-bordered table-hover" id="brojeviTabela">
+							<?php
+								$sql = "SELECT * FROM brojevi";
+								$result = $conn->query($sql);
+
+								$brojac = 1;
+								if($result->num_rows > 0) {
+									$row = $result->fetch_assoc();
+									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>PRVI</th><th>DRUGI</th></tr></thead>";
+									echo "<tr id=\"" . $row['id'] . "\"><td><input value=\"" . $row['prvi'] . "\" class=\"prvi\"></td><td><input value=\"" . $row['drugi'] . "\" class=\"drugi\"></td></tr>";
+									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								} else {
 									echo "0 podataka pronadjeno.";
 								}

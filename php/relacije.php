@@ -181,7 +181,6 @@
 			$conn->query($sql);
 		} else {
 			$sql = "INSERT INTO `nalogodavci_relacije` (`id`, `fk_od`, `fk_do`, `fk_nalogodavac`, `broj`) VALUES (NULL, " . $idOd2 . ", " . $idDo2 . ", " . $idOdNalogodavca . ", 1)";
-			//echo "SQL ZA UBACIVANJE NOVE RELACIJE: <br> $sql";
 			$conn->query($sql);
 		}
 	}

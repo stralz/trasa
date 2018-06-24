@@ -26,6 +26,7 @@
 	} else {
 		$sql = "UPDATE " . $baza . " SET `" . $kolona .
 		"`=\"" . $vrednost . "\" WHERE `id`=" . $id_entiteta . ";";
+		echo $sql;
 		$conn->query($sql);
 	}
 	
