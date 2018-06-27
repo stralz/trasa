@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2018 at 07:45 PM
+-- Generation Time: Jun 27, 2018 at 03:07 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -25,23 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `banke`
---
-
-CREATE TABLE `banke` (
-  `id` int(11) NOT NULL,
-  `naziv` varchar(50) NOT NULL,
-  `broj racuna` varchar(50) DEFAULT NULL,
-  `tip racuna` varchar(50) DEFAULT NULL,
-  `adresa` varchar(50) DEFAULT NULL,
-  `mesto` varchar(50) NOT NULL,
-  `drzava` varchar(50) NOT NULL,
-  `swift` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `benzinske_stanice`
 --
 
@@ -49,15 +32,6 @@ CREATE TABLE `benzinske_stanice` (
   `id` int(11) NOT NULL,
   `naziv` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `benzinske_stanice`
---
-
-INSERT INTO `benzinske_stanice` (`id`, `naziv`) VALUES
-(1, 'Dobre Vode'),
-(2, 'MOL - Zrenjanin'),
-(3, 'MOL - SLO');
 
 -- --------------------------------------------------------
 
@@ -76,19 +50,7 @@ CREATE TABLE `brojevi` (
 --
 
 INSERT INTO `brojevi` (`id`, `prvi`, `drugi`) VALUES
-(1, 21, 21);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cmrovi`
---
-
-CREATE TABLE `cmrovi` (
-  `id` int(11) NOT NULL,
-  `tip` varchar(50) NOT NULL,
-  `vrednost` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(1, 22, 22);
 
 -- --------------------------------------------------------
 
@@ -131,14 +93,6 @@ CREATE TABLE `fakture` (
   `lokacija` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `fakture`
---
-
-INSERT INTO `fakture` (`id`, `racun_broj`, `komplet_racun_broj`, `datum_izdavanja`, `valuta_placanja`, `datum_prometa`, `mesto_prometa`, `mesto_izdavanja_racuna`, `broj_naloga1`, `broj_naloga2`, `od1`, `od2`, `do1`, `do2`, `cmr1`, `cmr2`, `mesto_utovara1`, `mesto_utovara2`, `mesto_istovara1`, `mesto_istovara2`, `tezina1`, `tezina2`, `fk_tegljac`, `fk_prikolica`, `iznos1`, `iznos2`, `iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`, `lokacija`) VALUES
-(191, '1', '19-1/19', '24.06.2018', '23.07.2018', '23.06.2018', 'Mesto prometa', 'Mesto izdavanja', 0, 0, '213', '', 'Grad', '', '12341', '', 'Almex d.o.o.', '', 'Bcube S.p.A.', '', '1234', '', 34, 52, '12345.53', 'NaN', '12345.53', '104.53', '118.1074', 'DinarskiSablon1Tura', 11, ''),
-(192, '1', '20-1/20', '24.06.2018', '23.07.2018', '23.06.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Cittie tittie', '', 'Dobanovci', '', '123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Fas d.o.o.', '', '1234', '', 34, 52, '12345.53', 'NaN', '12345.53', '104.53', '118.1074', 'DinarskiSablon1Tura', 11, '');
-
 -- --------------------------------------------------------
 
 --
@@ -177,24 +131,6 @@ CREATE TABLE `gorivo` (
   `fk_benzinska_stanica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `gorivo`
---
-
-INSERT INTO `gorivo` (`id`, `datum`, `kilometraza`, `kolicina_litara`, `cena_po_litru`, `iznos`, `fk_benzinska_stanica`) VALUES
-(8, '07.06.2018', 1343, '434.00', '123.00', '53382.00 RSD', 1),
-(9, '15.06.2018', 1324, '123.00', '123.00', '15129.00 RSD', 1),
-(12, '08.06.2018', 41234, '411.00', '123.00', '50553.00 RSD', 1),
-(13, '08.06.2018', 43214, '4231.00', '1.00', '4231.00 RSD', 2),
-(15, '08.06.2018', 42314, '1233.00', '123.00', '151659.00 ', 3),
-(16, '14.06.2018', 4234, '43.00', '12.00', '516.00 RSD', 3),
-(18, '15.06.2018', 43242, '432.00', '23.00', '9936.00 RSD', 1),
-(19, '22.06.2018', 3413, '3232.00', '43.00', '138976.00 RSD', 2),
-(20, '14.06.2018', 1234, '1234.00', '43.00', '53062.00 RSD', 1),
-(21, '16.06.2018', 12345, '1234.00', '12.00', '14808.00 ', 1),
-(24, '21.06.2018', 154235, '434.00', '1.00', '434.00 RSD', 1),
-(26, '29.06.2018', 1234, '134.00', '213.00', '28542.00 RSD', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -206,27 +142,6 @@ CREATE TABLE `gradovi` (
   `ime` varchar(50) NOT NULL,
   `drzava` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `gradovi`
---
-
-INSERT INTO `gradovi` (`id`, `ime`, `drzava`) VALUES
-(1, 'Beograd', 'SRB'),
-(2, 'Milano', 'ITA'),
-(3, 'Napoli', 'ITA'),
-(4, 'Rim', 'ITA'),
-(5, 'Dobanovci', 'SRB'),
-(6, 'Kraljevo', 'SRB'),
-(27, 'Kragujevac', 'SRB'),
-(28, 'Polomilica', 'ITA'),
-(29, 'Grad', 'SRB'),
-(30, 'Cittie tittie', 'ITA'),
-(35, 'DDD', 'SRB'),
-(36, 'SSS', 'ITA'),
-(37, 'KRANJEVAC:DD', 'SRB'),
-(38, '213', 'SRB'),
-(39, '123', 'SRB');
 
 -- --------------------------------------------------------
 
@@ -241,13 +156,6 @@ CREATE TABLE `kip` (
   `zavrsna_kilometraza` int(11) NOT NULL,
   `potrosnja` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `kip`
---
-
-INSERT INTO `kip` (`id`, `fk_fakture`, `pocetna_kilometraza`, `zavrsna_kilometraza`, `potrosnja`) VALUES
-(4, 0, 1234, 1235, 213432);
 
 -- --------------------------------------------------------
 
@@ -305,7 +213,7 @@ INSERT INTO `nalogodavci` (`id`, `ime`, `mesto`, `adresa`, `postanski_broj`, `pi
 (13, 'Milsped d.o.o.', 'Novi Beograd', 'Bulevar Zorana Djindjica 121', 11000, '100423446', '', '60'),
 (14, 'Maverick Logistic Solutions d.o.o.', 'Beograd', 'Urosa Martinovica 19/3', 11070, '109647276', '', '60'),
 (15, 'Kolibri Oil d.o.o.', 'Beograd', 'Mokroluska 32', 11000, '100372851', '', '30'),
-(16, 'Autotrasporti Cambianica s.r.l.', 'San Paolo D’ Argon', 'Via Bergamo 12', 24060, 'IT 00 231 300 161', '', '30'),
+(16, 'Autotrasporti Cambianica s.r.l.', 'San Paolo D’ Argon', 'Via Bergamo 12', 24060, 'IT 00 231 300 161', '', '0'),
 (17, 'Ubv Torino s.r.l.', 'San Mauro Torinese', 'Corso Piemonte 19/21', 10099, 'IT 10 593 090 011', '', '60');
 
 -- --------------------------------------------------------
@@ -321,27 +229,6 @@ CREATE TABLE `nalogodavci_gradovi` (
   `broj` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `nalogodavci_gradovi`
---
-
-INSERT INTO `nalogodavci_gradovi` (`id`, `fk_nalogodavac`, `fk_grad`, `broj`) VALUES
-(1, 11, 1, 56),
-(2, 11, 27, 43),
-(3, 11, 28, 43),
-(4, 16, 2, 25),
-(5, 16, 3, 12),
-(6, 12, 29, 6),
-(9, 15, 29, 1),
-(10, 15, 30, 1),
-(21, 17, 1, 5),
-(22, 17, 2, 3),
-(24, 13, 35, 11),
-(25, 13, 36, 11),
-(28, 13, 1, 12),
-(29, 13, 2, 14),
-(32, 12, 37, 5);
-
 -- --------------------------------------------------------
 
 --
@@ -356,65 +243,6 @@ CREATE TABLE `nalogodavci_relacije` (
   `broj` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `nalogodavci_relacije`
---
-
-INSERT INTO `nalogodavci_relacije` (`id`, `fk_od`, `fk_do`, `fk_nalogodavac`, `broj`) VALUES
-(6, 27, 28, 12, 1),
-(8, 29, 30, 15, 1),
-(10, 1, 2, 17, 3),
-(11, 2, 1, 17, 2),
-(12, 35, 36, 13, 5),
-(13, 1, 2, 13, 11),
-(14, 29, 37, 12, 5),
-(15, 1, 27, 11, 12),
-(16, 1, 1, 11, 1),
-(17, 27, 28, 11, 13),
-(18, 27, 1, 11, 1),
-(19, 1, 28, 11, 13),
-(20, 28, 28, 11, 1),
-(21, 28, 27, 11, 4),
-(22, 35, 1, 13, 1),
-(23, 2, 36, 13, 1),
-(24, 36, 2, 13, 1),
-(25, 2, 35, 13, 1),
-(26, 1, 1, 17, 1),
-(27, 27, 27, 11, 1),
-(28, 28, 1, 11, 2),
-(29, 39, 30, 16, 2),
-(30, 39, 38, 11, 1),
-(31, 39, 38, 17, 1),
-(32, 39, 35, 11, 1),
-(33, 38, 37, 11, 1),
-(34, 37, 28, 11, 1),
-(35, 30, 27, 11, 2),
-(36, 1, 37, 11, 1),
-(37, 5, 2, 13, 1),
-(38, 5, 29, 12, 1),
-(39, 27, 27, 14, 1),
-(40, 1, 5, 11, 4),
-(41, 27, 37, 11, 1),
-(42, 30, 35, 12, 1),
-(43, 35, 29, 11, 1),
-(44, 35, 37, 12, 1),
-(45, 30, 6, 11, 1),
-(46, 5, 27, 13, 1),
-(47, 35, 5, 11, 3),
-(48, 30, 29, 11, 4),
-(49, 30, 29, 12, 1),
-(50, 2, 3, 12, 1),
-(51, 30, 27, 17, 1),
-(52, 27, 29, 11, 1),
-(53, 6, 3, 11, 1),
-(54, 35, 29, 14, 1),
-(55, 5, 29, 11, 1),
-(56, 1, 6, 17, 1),
-(57, 1, 27, 17, 1),
-(58, 3, 6, 17, 1),
-(59, 38, 29, 11, 1),
-(60, 30, 5, 11, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -428,13 +256,6 @@ CREATE TABLE `pregledi_prikolice` (
   `sertifikat` varchar(30) NOT NULL,
   `sesto_mesecni` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `pregledi_prikolice`
---
-
-INSERT INTO `pregledi_prikolice` (`id`, `fk_prikolica`, `registracija`, `sertifikat`, `sesto_mesecni`) VALUES
-(1, 41, '12.06.2018', '23.03.2018', '16.09.2017');
 
 -- --------------------------------------------------------
 
@@ -451,13 +272,6 @@ CREATE TABLE `pregledi_tegljaci` (
   `sesto_mesecni` varchar(30) NOT NULL,
   `tahograf` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `pregledi_tegljaci`
---
-
-INSERT INTO `pregledi_tegljaci` (`id`, `fk_tegljac`, `fk_vozac`, `registracija`, `sertifikat`, `sesto_mesecni`, `tahograf`) VALUES
-(1, 30, 9, '16.03.2018', '23.03.2018', '16.09.2017', '20.09.2018');
 
 -- --------------------------------------------------------
 
@@ -493,18 +307,6 @@ INSERT INTO `prikolice` (`id`, `broj_registracije`, `marka`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `putarine`
---
-
-CREATE TABLE `putarine` (
-  `id` int(11) NOT NULL,
-  `zemlja` varchar(50) NOT NULL,
-  `iznos` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `relacije`
 --
 
@@ -513,15 +315,6 @@ CREATE TABLE `relacije` (
   `fk_od` int(11) NOT NULL,
   `fk_do` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `relacije`
---
-
-INSERT INTO `relacije` (`id`, `fk_od`, `fk_do`) VALUES
-(1, 1, 2),
-(2, 5, 4),
-(3, 6, 3);
 
 -- --------------------------------------------------------
 
@@ -596,34 +389,6 @@ CREATE TABLE `troskovi` (
   `valuta` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `troskovi`
---
-
-INSERT INTO `troskovi` (`id`, `naziv`, `datum`, `iznos`, `valuta`) VALUES
-(16, 'ninja', '04.05.2018', 123, 'EUR'),
-(18, 'ninja', '03.05.2018', 123, 'EUR'),
-(20, 'terminalka', '03.05.2018', 1000, 'RSD'),
-(31, 'terminalka', '11.05.2018', 123, 'EUR'),
-(32, 'terminalka', '10.05.2018', 123, 'EUR'),
-(33, 'terminalka', '11.05.2018', 123, 'EUR'),
-(35, 'ninja', '03.05.2018', 123.123, 'EUR'),
-(36, 'ninja', '11.05.2018', 123, 'EUR'),
-(40, 'terminalka', '18.05.2018', 123.9, 'EUR'),
-(41, 'terminalka', '11.05.2018', 123, 'KN'),
-(42, 'terminalka', '11.05.2018', 123, 'EUR'),
-(44, 'terminalka', '17.05.2018', 2345, 'EUR'),
-(45, 'ninja', '04.05.2018', 123412, 'KN'),
-(46, 'terminalka', '10.05.2018', 1234, 'EUR'),
-(47, 'terminalka', '11.05.2018', 123412, 'KN'),
-(48, 'terminalka', '09.05.2018', 43433, 'EUR'),
-(49, 'ninja', '09.06.2018', 1234, 'RSD'),
-(50, 'terminalka', '22.06.2018', 500, 'EUR'),
-(51, 'terminalka', '14.06.2018', 1000, 'EUR'),
-(52, 'ninja', '22.06.2018', 123, 'KN'),
-(53, 'ninja', '08.06.2018', 1234, 'EUR'),
-(54, 'terminalka', '08.06.2018', 1234, 'RSD');
-
 -- --------------------------------------------------------
 
 --
@@ -659,31 +424,6 @@ CREATE TABLE `u_i_nalogodavac` (
   `fk_u_i` int(11) NOT NULL,
   `broj` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `u_i_nalogodavac`
---
-
-INSERT INTO `u_i_nalogodavac` (`fk_nalogodavac`, `fk_u_i`, `broj`) VALUES
-(11, 23, 37),
-(11, 24, 45),
-(11, 22, 22),
-(11, 20, 26),
-(13, 23, 7),
-(13, 24, 4),
-(13, 22, 3),
-(13, 20, 1),
-(11, 21, 10),
-(11, 25, 8),
-(12, 20, 1),
-(12, 22, 3),
-(13, 21, 1),
-(12, 25, 1),
-(12, 24, 5),
-(14, 24, 1),
-(14, 25, 2),
-(12, 23, 2),
-(14, 22, 1);
 
 -- --------------------------------------------------------
 
@@ -722,12 +462,6 @@ INSERT INTO `vozaci` (`id`, `ime`, `prezime`, `br_pasosa`, `procenat`, `uverenje
 --
 
 --
--- Indexes for table `banke`
---
-ALTER TABLE `banke`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `benzinske_stanice`
 --
 ALTER TABLE `benzinske_stanice`
@@ -737,12 +471,6 @@ ALTER TABLE `benzinske_stanice`
 -- Indexes for table `brojevi`
 --
 ALTER TABLE `brojevi`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `cmrovi`
---
-ALTER TABLE `cmrovi`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -773,7 +501,7 @@ ALTER TABLE `fakture_troskovi`
 --
 ALTER TABLE `gorivo`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_benzinska_stanica` (`fk_benzinska_stanica`);
+  ADD KEY `benzninska_stanica_FK` (`fk_benzinska_stanica`);
 
 --
 -- Indexes for table `gradovi`
@@ -838,12 +566,6 @@ ALTER TABLE `pregledi_tegljaci`
 -- Indexes for table `prikolice`
 --
 ALTER TABLE `prikolice`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `putarine`
---
-ALTER TABLE `putarine`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -912,13 +634,13 @@ ALTER TABLE `brojevi`
 -- AUTO_INCREMENT for table `fakture`
 --
 ALTER TABLE `fakture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
 
 --
 -- AUTO_INCREMENT for table `gorivo`
 --
 ALTER TABLE `gorivo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `gradovi`
@@ -930,7 +652,7 @@ ALTER TABLE `gradovi`
 -- AUTO_INCREMENT for table `kip`
 --
 ALTER TABLE `kip`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `nalogodavci`
@@ -948,7 +670,7 @@ ALTER TABLE `nalogodavci_gradovi`
 -- AUTO_INCREMENT for table `nalogodavci_relacije`
 --
 ALTER TABLE `nalogodavci_relacije`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `pregledi_prikolice`
@@ -1028,7 +750,7 @@ ALTER TABLE `fakture_troskovi`
 -- Constraints for table `gorivo`
 --
 ALTER TABLE `gorivo`
-  ADD CONSTRAINT `FK_benzinska_stanica` FOREIGN KEY (`fk_benzinska_stanica`) REFERENCES `benzinske_stanice` (`id`);
+  ADD CONSTRAINT `benzninska_stanica_FK` FOREIGN KEY (`fk_benzinska_stanica`) REFERENCES `benzinske_stanice` (`id`);
 
 --
 -- Constraints for table `kompleti`

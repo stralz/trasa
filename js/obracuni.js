@@ -416,7 +416,7 @@ $(function () {
 					obrisi();
 				});
 			brojGoriva = $(".gorivoRedniBroj").last().text().split('.')[0];
-			
+			console.log("FAKTURA: " + faktura);
 			$.post("php/kip.php", {
 				faktura: faktura,
 				pomocni: "pomocni"

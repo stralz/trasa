@@ -9,7 +9,7 @@
 		
 		$idFakture = 0;
 		
-		$sql = "SELECT id FROM fakture WHERE racun_broj=\"$faktura\"";
+		$sql = "SELECT id FROM fakture WHERE komplet_racun_broj=\"$faktura\"";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
 			$row = $result->fetch_assoc();
@@ -36,7 +36,7 @@
 		
 		$idFakture = 0;
 		
-		$sql = "SELECT id FROM fakture WHERE racun_broj=\"$faktura\"";
+		$sql = "SELECT id FROM fakture WHERE komplet_racun_broj=\"$faktura\"";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
 			$row = $result->fetch_assoc();

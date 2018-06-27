@@ -262,7 +262,7 @@
 									$row = $result->fetch_assoc();
 									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>PRVI</th><th>DRUGI</th></tr></thead>";
 									echo "<tr id=\"" . $row['id'] . "\"><td><input value=\"" . $row['prvi'] . "\" class=\"prvi\"></td><td><input value=\"" . $row['drugi'] . "\" class=\"drugi\"></td></tr>";
-									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
+									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a></td></tr>";
 								} else {
 									echo "0 podataka pronadjeno.";
 								}

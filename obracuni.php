@@ -119,7 +119,7 @@
 								<input type="text" id="cenaPoLitru" style="margin-left: 10px;" class="col-sm-4 form-control" autocomplete="off">
 							</div>
 							<div class="form-group">
-								<label for="kojaFaktura">Faktura:</label>
+								<label for="valuta">Valuta:</label>
 									<div class="radio">
 										<label><input type="radio" name="valuta"> EUR</label>
 									</div>
