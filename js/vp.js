@@ -21,6 +21,18 @@ function vratiDatum(datepicker) {
 }
 
 $(function () {
+	var hash = document.URL;
+	if(hash.includes("#")) {
+		console.log("usao");
+		var x = hash.substr(29, hash.length).replace('#', '');
+		console.log(x);
+		$('a[href="#' + x + '"]').click();
+	}
+	
+	$(".nav-link").click(function () {
+		window.location.href = hash + $(this).attr("href");
+	});
+	
 	$("input").focus(function () {
 		var def = $(this).val();
 		$(this).keyup(function () {
@@ -44,7 +56,9 @@ $(function () {
 				vrednost = $(this).val();
 			}
 			$(this).removeClass('promenjen');
+			$(this).removeClass('datum');
 			var kolona = $(this).attr('class');
+			$(this).addClass('datum');
 			var id_entiteta = $(this).closest('tr').attr('id');
 			var baza = $(this).closest('table').attr('id').replace('Tabela', '');
 			if (baza == "prikolice") {
@@ -54,6 +68,8 @@ $(function () {
 					'kolona': kolona,
 					'id_entiteta': id_entiteta,
 					'baza': baza,
+				}).done(function () {
+					refresh();
 				});
 			} else if (kolona == "lekarsko" && baza == "tegljaci") {
 				baza = "vozaci";
@@ -63,6 +79,8 @@ $(function () {
 					'kolona': kolona,
 					'id_entiteta': id_entiteta,
 					'baza': baza,
+				}).done(function() {
+					refresh();
 				});
 			} else {
 				baza = "pregledi_tegljaci";
@@ -71,6 +89,8 @@ $(function () {
 					'kolona': kolona,
 					'id_entiteta': id_entiteta,
 					'baza': baza,
+				}).done(function() {
+					refresh();
 				});
 			}
 			
@@ -85,9 +105,10 @@ $(function () {
 		var baza = $(this).closest('table').attr('id').replace('Tabela', '');
 		if(baza == "prikolice")
 			baza = "pregledi_prikolice";
-		else(baza == "tegljaci")
+		else if (baza == "tegljaci")
 			baza = "pregledi_tegljaci";
 		obj["baza"] = baza;
+		console.log(baza);
 		
 		if(tabela == "Prikolice")
 			tabela = "pregledi_prikolice";
@@ -147,7 +168,19 @@ $(function () {
 				obj[imeKolone] = inputi[i].value;
 		}
 		
-		$.post('php/napraviNovi.php', obj);
+		$.post('php/napraviNovi.php', obj).done(function () {
+			location.reload(true);
+			location.reload(true);
+			location.reload(true);
+			location.reload(true);
+			location.reload(true);
+			location.reload(true);
+			location.reload(true);
+			location.reload(true);
+			location.reload(true);
+			location.reload(true);
+			location.reload(true);
+		});
 	});
 	
 	$('.obrisi').click(function () {
@@ -156,6 +189,8 @@ $(function () {
 			var baza = $(this).closest('table').attr('id').replace('Tabela', '');
 			if(baza == "prikolice")
 				baza = "pregledi_prikolice";
+			if(baza == "tegljaci")
+				baza = "pregledi_tegljaci";
 			
 			$.post('php/obrisiRed.php', {
 				'red_id': red_id,

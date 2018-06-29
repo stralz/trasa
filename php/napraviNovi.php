@@ -108,7 +108,7 @@
 			default:
 				break;
 		}
-		
+		echo $sql;
 		$conn->query($sql);
 	}
 	

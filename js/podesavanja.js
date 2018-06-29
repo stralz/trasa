@@ -54,7 +54,7 @@ $(function () {
 				vrednost = $('option:selected',this).text();
 			} else {
 				vrednost = $(this).val();
-			}
+			}s
 			$(this).removeClass('promenjen');
 			var kolona = $(this).attr('class');
 			var id_entiteta = $(this).closest('tr').attr('id');
@@ -65,6 +65,8 @@ $(function () {
 				'kolona': kolona,
 				'id_entiteta': id_entiteta,
 				'baza': baza,
+			}).done(function () {
+				refresh();
 			});
 		});
 	});
@@ -114,7 +116,9 @@ $(function () {
 			obj[imeKolone] = inputi[i].value;
 		}
 		
-		$.post('php/napraviNovi.php', obj);
+		$.post('php/napraviNovi.php', obj).done(function () {
+				refresh();
+		});
 	});
 	
 	$('.obrisi').click(function () {

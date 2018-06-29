@@ -9,3 +9,17 @@ if ($("nav ul li a") != null) {
 function loadFile(url,callback){
 	JSZipUtils.getBinaryContent(url,callback);
 }
+
+function refresh() {
+	location.reload(true);
+	location.reload(true);
+	location.reload(true);
+	location.reload(true);
+	location.reload(true);
+	location.reload(true);
+	location.reload(true);
+	location.reload(true);
+	location.reload(true);
+	location.reload(true);
+	location.reload(true);
+}

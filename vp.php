@@ -1,5 +1,6 @@
 <?php
 	include 'php/dbh.php';
+	include 'navbar.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -55,11 +56,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<?php
-			include 'navbar.php';
-		?>
-		
 		<div class="container-fluid" style="margin-top: 40px;">
 			<div class="row">
 				<h1>Vozni park</h3>
@@ -102,7 +98,8 @@
 									}
 									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								} else {
-									echo "0 podataka pronadjeno.";
+									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>TEGLJAČ/VOZAČ</th><th>REGISTRACIJA</th><th>SERTIFIKAT(bela potvrda)</th><th>6-MESEČNI</th><th>6-TAHOGRAF</th><th>LEKARSKO</th></tr></thead>";
+									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								}
 							?>
 							<datalist id="tegljaci">
@@ -147,7 +144,8 @@
 									}
 									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								} else {
-									echo "0 podataka pronadjeno.";
+									echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>BROJ REGISTRACIJE</th><th>MARKA</th><th>REGISTRACIJA</th><th>SERTIFIKAT(bela potvrda)</th><th>6-MESEČNI</th></tr></thead>";								
+									echo "<tr><td><div class=\"text-center\"><a class=\"btn btn-dark btn-sm azuriraj\">Ažuriraj</a><br><br><a class=\"btn btn-success btn-sm dodaj\"><i class=\"fas fa-plus\"></i></a></div></td></tr>";
 								}
 							?>
 							<datalist id="prikolice">

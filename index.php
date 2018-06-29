@@ -83,7 +83,7 @@
 						<div class="form-group">
 							<label for="tegljac">Tegljač:</label>
 								<select class="custom-select" id="tegljac">
-								   <option selected>Izaberite tegljača</option>
+								   <option selected>Izaberite tegljač</option>
 								   <?php
 										$sql = "SELECT id, marka, broj_registracije FROM tegljaci";
 										$result = $conn->query($sql);
