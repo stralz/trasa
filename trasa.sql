@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2018 at 03:07 PM
+-- Generation Time: Jul 11, 2018 at 01:35 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -21,6 +21,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `trasa`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banke`
+--
+
+CREATE TABLE `banke` (
+  `id` int(11) NOT NULL,
+  `ime` varchar(50) NOT NULL,
+  `racun_broj` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -44,13 +56,6 @@ CREATE TABLE `brojevi` (
   `prvi` int(11) NOT NULL,
   `drugi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `brojevi`
---
-
-INSERT INTO `brojevi` (`id`, `prvi`, `drugi`) VALUES
-(1, 22, 22);
 
 -- --------------------------------------------------------
 
@@ -90,6 +95,8 @@ CREATE TABLE `fakture` (
   `kursEUR` varchar(10) NOT NULL,
   `sablon` varchar(50) NOT NULL,
   `fk_nalogodavac` int(11) NOT NULL,
+  `ime_banke` varchar(50) NOT NULL,
+  `racun_broj_banke` varchar(50) NOT NULL,
   `lokacija` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -213,8 +220,20 @@ INSERT INTO `nalogodavci` (`id`, `ime`, `mesto`, `adresa`, `postanski_broj`, `pi
 (13, 'Milsped d.o.o.', 'Novi Beograd', 'Bulevar Zorana Djindjica 121', 11000, '100423446', '', '60'),
 (14, 'Maverick Logistic Solutions d.o.o.', 'Beograd', 'Urosa Martinovica 19/3', 11070, '109647276', '', '60'),
 (15, 'Kolibri Oil d.o.o.', 'Beograd', 'Mokroluska 32', 11000, '100372851', '', '30'),
-(16, 'Autotrasporti Cambianica s.r.l.', 'San Paolo D’ Argon', 'Via Bergamo 12', 24060, 'IT 00 231 300 161', '', '0'),
+(16, 'Autotrasporti Cambianica s.r.l.', 'San Paolo D’ Argon', 'Via Bergamo 12', 24060, 'IT 00 231 300 161', '', '60'),
 (17, 'Ubv Torino s.r.l.', 'San Mauro Torinese', 'Corso Piemonte 19/21', 10099, 'IT 10 593 090 011', '', '60');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nalogodavci_banke`
+--
+
+CREATE TABLE `nalogodavci_banke` (
+  `id` int(11) NOT NULL,
+  `fk_nalogodavac` int(11) NOT NULL,
+  `fk_banke` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -462,6 +481,12 @@ INSERT INTO `vozaci` (`id`, `ime`, `prezime`, `br_pasosa`, `procenat`, `uverenje
 --
 
 --
+-- Indexes for table `banke`
+--
+ALTER TABLE `banke`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `benzinske_stanice`
 --
 ALTER TABLE `benzinske_stanice`
@@ -529,6 +554,14 @@ ALTER TABLE `kompleti`
 --
 ALTER TABLE `nalogodavci`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `nalogodavci_banke`
+--
+ALTER TABLE `nalogodavci_banke`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `banka_FK` (`fk_banke`),
+  ADD KEY `FK_nalogodavac` (`fk_nalogodavac`);
 
 --
 -- Indexes for table `nalogodavci_gradovi`
@@ -619,10 +652,16 @@ ALTER TABLE `vozaci`
 --
 
 --
+-- AUTO_INCREMENT for table `banke`
+--
+ALTER TABLE `banke`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `benzinske_stanice`
 --
 ALTER TABLE `benzinske_stanice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `brojevi`
@@ -634,25 +673,25 @@ ALTER TABLE `brojevi`
 -- AUTO_INCREMENT for table `fakture`
 --
 ALTER TABLE `fakture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `gorivo`
 --
 ALTER TABLE `gorivo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `gradovi`
 --
 ALTER TABLE `gradovi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kip`
 --
 ALTER TABLE `kip`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `nalogodavci`
@@ -661,28 +700,34 @@ ALTER TABLE `nalogodavci`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- AUTO_INCREMENT for table `nalogodavci_banke`
+--
+ALTER TABLE `nalogodavci_banke`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `nalogodavci_gradovi`
 --
 ALTER TABLE `nalogodavci_gradovi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `nalogodavci_relacije`
 --
 ALTER TABLE `nalogodavci_relacije`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `pregledi_prikolice`
 --
 ALTER TABLE `pregledi_prikolice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pregledi_tegljaci`
 --
 ALTER TABLE `pregledi_tegljaci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `prikolice`
@@ -694,7 +739,7 @@ ALTER TABLE `prikolice`
 -- AUTO_INCREMENT for table `relacije`
 --
 ALTER TABLE `relacije`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tegljaci`
@@ -706,7 +751,7 @@ ALTER TABLE `tegljaci`
 -- AUTO_INCREMENT for table `troskovi`
 --
 ALTER TABLE `troskovi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `uvoznici_izvoznici`
@@ -758,6 +803,13 @@ ALTER TABLE `gorivo`
 ALTER TABLE `kompleti`
   ADD CONSTRAINT `kompleti_prikolica_fk` FOREIGN KEY (`fk_prikolica`) REFERENCES `prikolice` (`id`),
   ADD CONSTRAINT `kompleti_tegljac_fk` FOREIGN KEY (`fk_tegljac`) REFERENCES `tegljaci` (`id`);
+
+--
+-- Constraints for table `nalogodavci_banke`
+--
+ALTER TABLE `nalogodavci_banke`
+  ADD CONSTRAINT `FK_nalogodavac` FOREIGN KEY (`fk_nalogodavac`) REFERENCES `nalogodavci` (`id`),
+  ADD CONSTRAINT `banka_FK` FOREIGN KEY (`fk_banke`) REFERENCES `banke` (`id`);
 
 --
 -- Constraints for table `nalogodavci_gradovi`
