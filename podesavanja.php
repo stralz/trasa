@@ -1,5 +1,6 @@
 <?php
 	include 'php/dbh.php';
+	include 'navbar.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -56,9 +57,6 @@
 				</div>
 			</div>
 		</div>
-		<?php
-			include 'navbar.php';
-		?>
 		<div class="container-fluid" style="margin-top: 40px;">
 			<div class="row">
 				<nav class="col-sm-3 col-md-2 hidden-xs-down bg-light sidebar">

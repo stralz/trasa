@@ -207,4 +207,12 @@
 			$conn->query($sql);
 		}
 	}
+	
+	if(isset($_POST['imeP']) && isset($_POST['tip'])) {
+		$imeP = $conn->escape_string($_POST['imeP']);
+		$tip = $conn->escape_string($_POST['tip']);
+		
+		$sql = "INSERT INTO uvoznici_izvoznici (id, ime, u_i) VALUES (NULL, '$imeP', '$tip')";
+		$conn->query($sql);
+	}
 ?>

@@ -65,6 +65,14 @@
 							<input type="text" id="komplet_racun_broj" style="margin-left: 10px;">
 						</div>
 						<div class="form-group">
+							<label for="ime_banke">Ime banke:</label>
+							<input type="text" id="ime_banke" style="margin-left: 10px;">
+						</div>
+						<div class="form-group">
+							<label for="racun_broj_banke">Račun broj banke:</label>
+							<input type="text" id="racun_broj_banke" style="margin-left: 10px;">
+						</div>
+						<div class="form-group">
 							<label for="datum_izdavanja">Datum izdavanja:</label>
 							<input type="date" id="datum_izdavanja" style="margin-left: 10px;">
 						</div>

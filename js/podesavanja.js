@@ -14,6 +14,17 @@ var obj = {};
 
 $(function () {
 	var hash = document.URL;
+	if(hash.includes("?ime")) {
+		var hashX = hash.split('?')[1];
+		hashX = hashX.substr(4, hashX.length);
+		setTimeout(function (){
+			$('.dodaj')[0].click();
+			setTimeout(function (){
+				$("#ime").val(unescape(hashX));
+			}, 1500);
+		}, 50);
+	}
+	
 	if(hash.includes("#")) {
 		console.log("usao");
 		var x = hash.substr(39, hash.length).replace('#', '');
@@ -54,7 +65,7 @@ $(function () {
 				vrednost = $('option:selected',this).text();
 			} else {
 				vrednost = $(this).val();
-			}s
+			}
 			$(this).removeClass('promenjen');
 			var kolona = $(this).attr('class');
 			var id_entiteta = $(this).closest('tr').attr('id');

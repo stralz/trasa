@@ -8,6 +8,8 @@
 	$datum_prometa = "";
 	$mesto_prometa = "";
 	$mesto_izdavanja_racuna = "";
+	$ime_banke = "";
+	$racun_broj_banke = "";
 	$broj_naloga1 = "";
 	$broj_naloga2 = $conn->escape_string($_POST["broj_naloga2"]);
 	$od1 = "";
@@ -38,6 +40,14 @@
 	
 	if(isset($_POST["komplet_racun_broj"])) {
 		$komplet_racun_broj = $conn->escape_string($_POST["komplet_racun_broj"]);
+	}
+	
+	if(isset($_POST["ime_banke"])) {
+		$ime_banke = $conn->escape_string($_POST["ime_banke"]);
+	}
+	
+	if(isset($_POST["racun_broj_banke"])) {
+		$racun_broj_banke = $conn->escape_string($_POST["racun_broj_banke"]);
 	}
 	
 	if(isset($_POST["datum_izdavanja"])) {
@@ -123,10 +133,11 @@
 	$sql = "INSERT INTO `fakture` (`id`, `racun_broj`, `komplet_racun_broj`, `datum_izdavanja`, `valuta_placanja`, `datum_prometa`, `mesto_prometa`,
 	`mesto_izdavanja_racuna`, `broj_naloga1`, `broj_naloga2`, `od1`, `od2`, `do1`, `do2`, `cmr1`, `cmr2`, `mesto_utovara1`,
 	`mesto_utovara2`, `mesto_istovara1`, `mesto_istovara2`, `tezina1`, `tezina2`, `fk_tegljac`, `fk_prikolica`, `iznos1`, `iznos2`,
-	`iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`) VALUES ('NULL', '$racun_broj', '$komplet_racun_broj','$datum_izdavanja', '$valuta_placanja',
+	`iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`, `ime_banke`, `racun_broj_banke`) VALUES ('NULL', '$racun_broj', '$komplet_racun_broj','$datum_izdavanja', '$valuta_placanja',
 	'$datum_prometa', '$mesto_prometa', '$mesto_izdavanja_racuna', '$broj_naloga1', '$broj_naloga2', '$od1', '$od2', '$do1',
 	'$do2', '$cmr1', '$cmr2', '$mesto_utovara1', '$mesto_utovara2', '$mesto_istovara1', '$mesto_istovara2', '$tezina1',
-	'$tezina2', '$fk_tegljac', '$fk_prikolica', '$iznos1', '$iznos2', '$iznos', '$iznosEUR', '$kursEUR', '$sablon', '$fk_nalogodavac')";
+	'$tezina2', '$fk_tegljac', '$fk_prikolica', '$iznos1', '$iznos2', '$iznos', '$iznosEUR', '$kursEUR', '$sablon', '$fk_nalogodavac', '$ime_banke', '$racun_broj_banke')";
+	echo $sql;
 	$conn->query($sql);
 	
 ?>

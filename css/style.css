@@ -19,6 +19,6 @@ datalist {
 	background: #222222;
 }
 
-#statistika {
-	/* position: fixed; */
+.hidden {
+	display: none;
 }

@@ -68,6 +68,8 @@ $(function () {
 					// Start ubacivanja u inpute
 						$("#nalogodavac").val(data.fk_nalogodavac);
 						$("#racun_broj").val(data.racun_broj);
+						$("#ime_banke").val(data.ime_banke);
+						$("#racun_broj_banke").val(data.racun_broj_banke);
 						$("#valuta_placanja").val(data.valuta_placanja);
 						$("#mesto_prometa").val(data.mesto_prometa);
 						$("#mesto_izdavanja_racuna").val(data.mesto_izdavanja_racuna);

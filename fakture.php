@@ -34,24 +34,43 @@
                 <div class="form-row">
 				        <label for="nalogodavac">Nalogodavac:</label>
 				        <div class="input-group mb-3">
-				        <select class="custom-select" name="nalogodavac" id="nalogodavac">
-					           <option selected>Izaberite nalogodavca</option>
-					           <?php
+				        <input type="text" class="form-control" list="listaNalogodavci" id="nalogodavac">
+						<datalist id="listaNalogodavci">
+							<?php
                                     $sql = "SELECT id, ime FROM nalogodavci";
                                     $result = $conn->query($sql);
 
                                     if($result->num_rows > 0)
                                     {
                                         while($row = $result->fetch_assoc()) {
-                                            echo '<option value="' . $row["id"] . '">'. $row["ime"] . '</option>';
+                                            echo '<option id="' . $row['id'] . '"value="' . $row["ime"] . '"/>';
                                        }
                                     } else {
                                         print "0 podataka pronadjeno.";
                                     }
                                 ?>
-				        </select>
+						</datalist>
 				        </div>
 			     </div>
+				 <div class="form-row">
+					<div class="form-group col-md-3">
+						<label for="banka">Banka:</label>
+						<input type="text" list="banke" class="form-control" id="banka">
+						<datalist id="banke">
+							<?php
+								$sql = "SELECT id, ime FROM banke";
+								$result = $conn->query($sql);
+								if($result->num_rows > 0)
+									while($row = $result->fetch_assoc())
+										echo "<option id=\"banka" . $row['id'] . "\"value=\"" . $row['ime'] . "\"/>";
+							?>
+						</datalist>
+					</div>
+					<div style="display: block;" class="form-group col-md-3">
+						<label for="racun_broj_banke">Broj računa banke:</label>
+						<input type="text" class="form-control" id="racun_broj_banke">
+					</div>
+				 </div>
 				 <div class="form-row">
 					<div class="form-group col-md-3">
 						<label for="racun_broj">Komplet:</label>

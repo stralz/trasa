@@ -98,7 +98,7 @@ $(function() {
 		var racunBroj = document.getElementById("racun_broj").value;
 		var datumPrometaUsluge = vratiDatum("datum_prometa_usluge");
 		var rokPlacanjaUsluge = document.getElementById("rok_placanja_usluge").value.split(' ')[0];
-		var imeNalogodavca = document.getElementById("nalogodavac").options[document.getElementById("nalogodavac").selectedIndex].text;
+		var imeNalogodavca = $("#nalogodavac").val();
 		var today = new Date();
 		var tmpday = addDays(today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear(), parseInt(rokPlacanjaUsluge));
 		var tegljac_id = $('#tegljac').val();
@@ -107,6 +107,8 @@ $(function() {
 		var prikolica = document.getElementById("prikolica").options[document.getElementById("prikolica").selectedIndex].text;
 		var kursEUR = document.getElementById("kursEUR").text.replace(/\s/g, '').replace(',', '.');
 		kursEUR = kursEUR.substr(0, kursEUR - 2);
+		var imeBanke = $("#banka").val();
+		var racunBrojBanke = $("#racun_broj_banke").val();
 		
 		var brojNaloga1 = document.getElementById("broj_naloga1").value;
 		mestoOd1 = document.getElementById("od1").value;
@@ -156,6 +158,8 @@ $(function() {
 				valuta_placanja: tmpday,
 				tegljac: tegljac.substring(tegljac.indexOf(": "), tegljac.length),
 				prikolica: prikolica.substring(prikolica.indexOf(": ") + 2, prikolica.length),
+				banka_ime: imeBanke,
+				racun_broj_banke: racunBrojBanke,
 				
 				broj_naloga1: brojNaloga1,
 				od1: mestoOd1,
@@ -260,7 +264,7 @@ $(function() {
 					var mestoDo1Drzava = $("input:radio[name='do1Radio']:checked").closest('label').text();
 					var mestoOd2Drzava = $("input:radio[name='od2Radio']:checked").closest('label').text();
 					var mestoDo2Drzava = $("input:radio[name='do2Radio']:checked").closest('label').text();
-					var idNalogodavca = document.getElementById("nalogodavac").options[document.getElementById("nalogodavac").selectedIndex].value;
+					var idNalogodavca = $("#listaNalogodavci > option[value='" + imeNalogodavca + "'").attr("id");
 					
 					if(mestoOd1 && mestoDo1 && mestoOd2 && mestoDo2) {
 						$.post('php/relacije.php', {
@@ -300,6 +304,8 @@ $(function() {
 						fk_nalogodavac: idNalogodavca,
 						fk_tegljac: tegljac_id,
 						fk_prikolica: prikolica_id,
+						ime_banke: imeBanke,
+						racun_broj_banke: racunBrojBanke,
 						
 						broj_naloga1: brojNaloga1,
 						od1: mestoOd1,
@@ -321,6 +327,12 @@ $(function() {
 						iznosEUR: parseFloat(iznos / parseFloat(kursEUR).toFixed(2)).toFixed(2),
 						sablon: sablon
 					});
+					
+					$.post("php/banke.php", {
+						ime: imeBanke,
+						nalogodavac: idNalogodavca,
+						racun_broj: racunBrojBanke,
+					});
 				}
 			});
 		});
@@ -339,12 +351,16 @@ $(function() {
 			$("#treci-tab").text("+");
 			$("#prvi-tab").tab("show");
 		}
-		
 	});
 	
 	$('#nalogodavac').change(function () {
-		var tmp = document.getElementById("nalogodavac");
-		var imeNalogodavca = tmp.options[tmp.selectedIndex].text;
+		var imeNalogodavca = $("#nalogodavac").val();
+		if($("#listaNalogodavci > option[value='" + imeNalogodavca + "'").attr("id") == null)
+		{
+			if(confirm("Nalogodavac ne postoji, želite li da ga ubacite?"))
+				location.href = "podesavanja.php?ime=" + imeNalogodavca;
+		}
+		
 		$.post('php/ucitajNalogodavce.php', {
 			ime: imeNalogodavca
 		}, function(data) {
@@ -383,8 +399,7 @@ $(function() {
 	});
 	
 	$('#nalogodavac').change(function () {
-		var tmp = document.getElementById("nalogodavac");
-		var imeNalogodavca = tmp.options[tmp.selectedIndex].text;
+		var imeNalogodavca = $("#nalogodavac").val();
 		
 		if(imeNalogodavca.includes("d.o.o")) {
 			$(".brojNaloga1").css('display', 'none');
@@ -417,4 +432,88 @@ $(function() {
 		});
 		
 	});
+	
+	$("#posiljalac1").change(function () {
+		var z = $("#posiljalac1").val();
+		console.log(z);
+		if($("#listaPosiljalac1 > option[value='" + z + "'").val() == null)
+		{
+			console.log("z: " + z);
+			if(confirm("Pošiljalac ne postoji, želite li da ga ubacite?")) {
+				var tip = prompt("Pošiljalac, primalac ili oba?", "");
+				tip = tip.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+					return letter.toUpperCase();
+				});
+				$.post("php/ucitajNalogodavce.php", {
+					imeP: z,
+					tip: tip,
+				});
+			}
+		}
+	});
+	
+	$("#primalac1").change(function () {
+		var z = $("#primalac1").val();
+		console.log(z);
+		if($("#listaPrimalac1 > option[value='" + z + "'").val() == null)
+		{
+			if(confirm("Primalac ne postoji, želite li da ga ubacite?")) {
+				var tip = prompt("Pošiljalac, primalac ili oba?", "");
+				tip = tip.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+					return letter.toUpperCase();
+				});
+				$.post("php/ucitajNalogodavce.php", {
+					imeP: z,
+					tip: tip,
+				});
+			}
+		}
+	});
+	
+	$("#posiljalac2").change(function () {
+		var z = $("#posiljalac1").val();
+		console.log(z);
+		if($("#listaPosiljalac1 > option[value='" + z + "'").val() == null)
+		{
+			if(confirm("Pošiljalac ne postoji, želite li da ga ubacite?")) {
+				var tip = prompt("Pošiljalac, primalac ili oba?", "");
+				tip = tip.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+					return letter.toUpperCase();
+				});
+				$.post("php/ucitajNalogodavce.php", {
+					imeP: z,
+					tip: tip,
+				});
+			}
+		}
+	});
+	
+	$("#primalac2").change(function () {
+		var z = $("#primalac2").val();
+		console.log(z);
+		if($("#listaPrimalac1 > option[value='" + z + "'").val() == null)
+		{
+			if(confirm("Pošiljalac ne postoji, želite li da ga ubacite?")) {
+				var tip = prompt("Pošiljalac, primalac ili oba?", "");
+				tip = tip.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+					return letter.toUpperCase();
+				});
+				$.post("php/ucitajNalogodavce.php", {
+					imeP: z,
+					tip: tip,
+				});
+			}
+		}
+	});
+	
+	$("#banka").change(function () {
+		var b = $("#banka").val();
+		$.post('php/banke.php', {
+			ime: b,
+			pomocni: 12,
+		}, function (data) {
+			$("#racun_broj_banke").val(data);
+		});
+	});
+	
 });
