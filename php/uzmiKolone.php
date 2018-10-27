@@ -1,14 +1,14 @@
 <?php
 	include 'dbh.php';
 	header("Content-Type: application/json");
-	
+
 	if (isset($_POST['tabela'])) {
 		$tabela = $_POST['tabela'];
-		
+
 		$sql = "DESCRIBE " . $conn->escape_string($tabela);
 		$result = $conn->query($sql);
 		$rows = array();
-		
+
 		if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				if($row['Field'] != "id")
@@ -19,16 +19,16 @@
 			echo "null";
 		}
 	}
-	
+
 	if (isset($_POST['id'])) {
 		$id = $conn->escape_string($_POST['id']);
 		$sql = "SELECT racun_broj, komplet_racun_broj, ime_banke, racun_broj_banke, datum_izdavanja, valuta_placanja, datum_prometa, mesto_prometa, mesto_izdavanja_racuna,
 		broj_naloga1, broj_naloga2, od1, od2, do1, do2, cmr1, cmr2, mesto_utovara1, mesto_utovara2, mesto_istovara1,
 		mesto_istovara2, tezina1, tezina2, fk_tegljac, fk_prikolica, iznos1, iznos2, iznos, iznosEUR, kursEUR, sablon, nalogodavci.ime, fk_nalogodavac
 		FROM fakture INNER JOIN nalogodavci ON (fk_nalogodavac=nalogodavci.id) WHERE fakture.id=" . $id;
-		
+
 		$result = $conn->query($sql);
-		
+
 		if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				if(strpos($row['sablon'], '1') !== false) {
@@ -97,7 +97,6 @@
 					'fk_prikolica' => $row['fk_prikolica'],
 					]);
 				}
-				
 			}
 		}
 	}

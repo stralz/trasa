@@ -23,8 +23,8 @@
 		<script src="js/popper.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script defer src="js/all.js"></script>
-		
-		<script src="js/fakture.js"></script>
+
+		<script src="js/index.js"></script>
 		<script src="js/slovima.js"></script>
 	</head>
 	<body>
@@ -114,7 +114,7 @@
 							<?php
 								$sql = "SELECT id, marka, broj_registracije FROM prikolice";
 								$result = $conn->query($sql);
-								
+
 								if($result->num_rows > 0)
 								{
 									while($row = $result->fetch_assoc()) {
@@ -328,7 +328,7 @@
 
 				$brojac = 1;
 				if($result->num_rows > 0) {
-					echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>BROJ RAČUNA</th><th>DATUM IZDAVANJA</th></tr></thead>";								
+					echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>BROJ RAČUNA</th><th>DATUM IZDAVANJA</th></tr></thead>";
 					while ($row = $result->fetch_assoc()) {
 						echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>
 						<td>" . $row['komplet_racun_broj'] . "&nbsp; &nbsp; <a class=\"broj_registracije uredi_dugme\" href=\"#\"><i class=\"fas fa-edit\"></i></a></td><td>" . $row['datum_izdavanja'] . "</td></tr>";

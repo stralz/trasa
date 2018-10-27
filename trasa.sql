@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2018 at 01:35 PM
+-- Generation Time: Oct 27, 2018 at 12:00 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -33,6 +33,13 @@ CREATE TABLE `banke` (
   `ime` varchar(50) NOT NULL,
   `racun_broj` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `banke`
+--
+
+INSERT INTO `banke` (`id`, `ime`, `racun_broj`) VALUES
+(1, 'Banka1', '5434');
 
 -- --------------------------------------------------------
 
@@ -100,6 +107,23 @@ CREATE TABLE `fakture` (
   `lokacija` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `fakture`
+--
+
+INSERT INTO `fakture` (`id`, `racun_broj`, `komplet_racun_broj`, `datum_izdavanja`, `valuta_placanja`, `datum_prometa`, `mesto_prometa`, `mesto_izdavanja_racuna`, `broj_naloga1`, `broj_naloga2`, `od1`, `od2`, `do1`, `do2`, `cmr1`, `cmr2`, `mesto_utovara1`, `mesto_utovara2`, `mesto_istovara1`, `mesto_istovara2`, `tezina1`, `tezina2`, `fk_tegljac`, `fk_prikolica`, `iznos1`, `iznos2`, `iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`, `ime_banke`, `racun_broj_banke`, `lokacija`) VALUES
+(5, '', '1', '25.10.2018', '25.11.2018', '13.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Pristina', '', 'Napoli', '', '1234', '', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '', 34, 52, '12543.43', 'NaN', '12543.43', '105.83', '118.52', 'DinarskiSablon1Tura', 11, 'Banka1', '5434', ''),
+(6, '', '1', '25.10.2018', '25.11.2018', '13.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Beograd', '', 'Milano', '', '1234', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '1234', '', 34, 52, '12345.00', 'NaN', '12345.00', '104.16', '118.52', 'DinarskiSablon1Tura', 11, 'Banka1', '5434', ''),
+(7, '', '1', '25.10.2018', '25.11.2018', '20.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Beograd', '', 'Milano', '', '1234', '', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '', 34, 52, '12345.00', 'NaN', '12345.00', '104.16', '118.52', 'DinarskiSablon1Tura', 11, 'Banka1', '5434', ''),
+(8, '', '4', '25.10.2018', '25.11.2018', '12.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Beograd', 'Napoli', 'Napoli', 'Milano', '1234', '1234', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '1234', 36, 44, '12345.00', '1234.67', '13579.67', '114.58', '118.52', 'DinarskiSablon2Ture', 11, 'Banka1', '5434', ''),
+(9, '', '6', '25.10.2018', '25.11.2018', '19.10.2018', 'Beograd', 'Vidikovac', 0, 0, 'Beograd', 'Milano', 'Napoli', 'Beograd', '1234', '2134', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '1234', 32, 42, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 15, 'Banka1', '5434', ''),
+(10, '', '1', '25.10.2018', '25.11.2018', '19.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Beograd', 'Milano', 'Napoli', 'Milano', '1234', '1234', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '1234', 34, 52, '1234.00', '12345.00', '13579.00', '114.57', '118.52', 'DinarskiSablon2Ture', 11, 'Banka1', '5434', ''),
+(11, '', '9', '25.10.2018', '24.00.2019', '24.10.2018', 'Beograd', 'Vidikovac', 0, 0, 'Beograd', 'Milano', 'Milano', 'Napoli', '1234', '1234', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '1234', '12434', 38, 48, '1234.00', '1234.00', '2468.00', '20.82', '118.52', 'DinarskiSablon2Ture', 14, 'Banka1', '5434', ''),
+(12, '', '1', '25.10.2018', '25.11.2018', '11.10.2018', 'Beograd', 'Vidikovac', 0, 0, 'Milano', 'Milano', 'Napoli', 'Beograd', '1234', '1234', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '1234', 34, 52, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 15, 'Banka1', '5434', ''),
+(13, '', '1', '25.10.2018', '24.00.2019', '13.10.2018', 'Novi Beograd', 'Vidikovac', 0, 0, 'Milano', 'Beograd', 'Beograd', 'Napoli', '1234', '1234', 'Almex d.o.o.', '', 'Cartiera Dell\' Adda s.r.l.', '', '1234', '1234', 34, 52, '1234.00', '12345.00', '13579.00', '114.57', '118.52', 'DinarskiSablon2Ture', 13, 'Banka1', '5434', ''),
+(14, '', '7', '25.10.2018', '24.00.2019', '02.10.2018', 'Novi Beograd', 'Vidikovac', 0, 0, 'Milano', 'Milano', 'Napoli', 'Napoli', '1234', '1234', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '1234', '1234', 35, 50, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 13, 'Banka1', '5434', ''),
+(15, '', '3', '25.10.2018', '24.00.2019', '19.10.2018', 'Subotica', 'Vidikovac', 0, 0, 'Beograd', 'Milano', 'Milano', 'Napoli', '1234', '1234', 'Hbis Group Serbia Iron & Steel d.o.o.', 'Fas d.o.o.', 'Bcube S.p.A.', 'Fas d.o.o.', '1234', '1234', 30, 46, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 12, 'Banka1', '5434', '');
+
 -- --------------------------------------------------------
 
 --
@@ -149,6 +173,15 @@ CREATE TABLE `gradovi` (
   `ime` varchar(50) NOT NULL,
   `drzava` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gradovi`
+--
+
+INSERT INTO `gradovi` (`id`, `ime`, `drzava`) VALUES
+(1, 'Beograd', 'SRB'),
+(2, 'Milano', 'ITA'),
+(3, 'Napoli', 'ITA');
 
 -- --------------------------------------------------------
 
@@ -235,32 +268,25 @@ CREATE TABLE `nalogodavci_banke` (
   `fk_banke` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `nalogodavci_gradovi`
+-- Dumping data for table `nalogodavci_banke`
 --
 
-CREATE TABLE `nalogodavci_gradovi` (
-  `id` int(11) NOT NULL,
-  `fk_nalogodavac` int(11) NOT NULL,
-  `fk_grad` int(11) NOT NULL,
-  `broj` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nalogodavci_relacije`
---
-
-CREATE TABLE `nalogodavci_relacije` (
-  `id` int(11) NOT NULL,
-  `fk_od` int(11) NOT NULL,
-  `fk_do` int(11) NOT NULL,
-  `fk_nalogodavac` int(11) NOT NULL,
-  `broj` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `nalogodavci_banke` (`id`, `fk_nalogodavac`, `fk_banke`) VALUES
+(2, 11, 3),
+(3, 13, 3),
+(4, 13, 3),
+(5, 11, 1),
+(6, 11, 1),
+(7, 11, 1),
+(8, 11, 1),
+(9, 15, 1),
+(10, 11, 1),
+(11, 14, 1),
+(12, 15, 1),
+(13, 13, 1),
+(14, 13, 1),
+(15, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -322,18 +348,6 @@ INSERT INTO `prikolice` (`id`, `broj_registracije`, `marka`) VALUES
 (50, 'AC-17855', 'Schwarzmuller'),
 (51, 'AD-33066', 'Schwarzmuller'),
 (52, 'AA-28083', 'Schwarzmuller');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `relacije`
---
-
-CREATE TABLE `relacije` (
-  `id` int(11) NOT NULL,
-  `fk_od` int(11) NOT NULL,
-  `fk_do` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -443,6 +457,34 @@ CREATE TABLE `u_i_nalogodavac` (
   `fk_u_i` int(11) NOT NULL,
   `broj` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `u_i_nalogodavac`
+--
+
+INSERT INTO `u_i_nalogodavac` (`fk_nalogodavac`, `fk_u_i`, `broj`) VALUES
+(11, 20, 6),
+(11, 22, 5),
+(11, 23, 1),
+(11, 24, 2),
+(15, 20, 2),
+(15, 23, 1),
+(15, 22, 3),
+(14, 23, 1),
+(14, 20, 1),
+(14, 24, 1),
+(14, 25, 1),
+(15, 25, 1),
+(15, 21, 1),
+(13, 20, 2),
+(13, 25, 1),
+(13, 21, 1),
+(13, 22, 1),
+(13, 23, 1),
+(13, 24, 2),
+(12, 23, 1),
+(12, 25, 2),
+(12, 24, 1);
 
 -- --------------------------------------------------------
 
@@ -564,23 +606,6 @@ ALTER TABLE `nalogodavci_banke`
   ADD KEY `FK_nalogodavac` (`fk_nalogodavac`);
 
 --
--- Indexes for table `nalogodavci_gradovi`
---
-ALTER TABLE `nalogodavci_gradovi`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_nalogodavac` (`fk_nalogodavac`),
-  ADD KEY `fk_grad` (`fk_grad`);
-
---
--- Indexes for table `nalogodavci_relacije`
---
-ALTER TABLE `nalogodavci_relacije`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_nalogodavac` (`fk_nalogodavac`),
-  ADD KEY `nalogodavci_relacije_od_FK` (`fk_od`),
-  ADD KEY `nalogodavci_relacije_do_FK` (`fk_do`);
-
---
 -- Indexes for table `pregledi_prikolice`
 --
 ALTER TABLE `pregledi_prikolice`
@@ -600,14 +625,6 @@ ALTER TABLE `pregledi_tegljaci`
 --
 ALTER TABLE `prikolice`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `relacije`
---
-ALTER TABLE `relacije`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `gradovi1_FK` (`fk_od`),
-  ADD KEY `gradovi2_FK` (`fk_do`);
 
 --
 -- Indexes for table `sleperi_vozaci`
@@ -655,7 +672,7 @@ ALTER TABLE `vozaci`
 -- AUTO_INCREMENT for table `banke`
 --
 ALTER TABLE `banke`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `benzinske_stanice`
@@ -667,13 +684,13 @@ ALTER TABLE `benzinske_stanice`
 -- AUTO_INCREMENT for table `brojevi`
 --
 ALTER TABLE `brojevi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fakture`
 --
 ALTER TABLE `fakture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `gorivo`
@@ -685,7 +702,7 @@ ALTER TABLE `gorivo`
 -- AUTO_INCREMENT for table `gradovi`
 --
 ALTER TABLE `gradovi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `kip`
@@ -703,19 +720,7 @@ ALTER TABLE `nalogodavci`
 -- AUTO_INCREMENT for table `nalogodavci_banke`
 --
 ALTER TABLE `nalogodavci_banke`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `nalogodavci_gradovi`
---
-ALTER TABLE `nalogodavci_gradovi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `nalogodavci_relacije`
---
-ALTER TABLE `nalogodavci_relacije`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `pregledi_prikolice`
@@ -734,12 +739,6 @@ ALTER TABLE `pregledi_tegljaci`
 --
 ALTER TABLE `prikolice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
-
---
--- AUTO_INCREMENT for table `relacije`
---
-ALTER TABLE `relacije`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tegljaci`
@@ -812,21 +811,6 @@ ALTER TABLE `nalogodavci_banke`
   ADD CONSTRAINT `banka_FK` FOREIGN KEY (`fk_banke`) REFERENCES `banke` (`id`);
 
 --
--- Constraints for table `nalogodavci_gradovi`
---
-ALTER TABLE `nalogodavci_gradovi`
-  ADD CONSTRAINT `nalogodavci_gradovi_grad_FK` FOREIGN KEY (`fk_grad`) REFERENCES `gradovi` (`id`),
-  ADD CONSTRAINT `nalogodavci_gradovi_nalogodavac_FK` FOREIGN KEY (`fk_nalogodavac`) REFERENCES `nalogodavci` (`id`);
-
---
--- Constraints for table `nalogodavci_relacije`
---
-ALTER TABLE `nalogodavci_relacije`
-  ADD CONSTRAINT `nalogodavci_relacije_do_FK` FOREIGN KEY (`fk_do`) REFERENCES `gradovi` (`id`),
-  ADD CONSTRAINT `nalogodavci_relacije_nalogodavac_FK` FOREIGN KEY (`fk_nalogodavac`) REFERENCES `nalogodavci` (`id`),
-  ADD CONSTRAINT `nalogodavci_relacije_od_FK` FOREIGN KEY (`fk_od`) REFERENCES `gradovi` (`id`);
-
---
 -- Constraints for table `pregledi_prikolice`
 --
 ALTER TABLE `pregledi_prikolice`
@@ -838,13 +822,6 @@ ALTER TABLE `pregledi_prikolice`
 ALTER TABLE `pregledi_tegljaci`
   ADD CONSTRAINT `pregled_tegljac_FK` FOREIGN KEY (`fk_tegljac`) REFERENCES `tegljaci` (`id`),
   ADD CONSTRAINT `pregled_vozac_FK` FOREIGN KEY (`fk_vozac`) REFERENCES `vozaci` (`id`);
-
---
--- Constraints for table `relacije`
---
-ALTER TABLE `relacije`
-  ADD CONSTRAINT `gradovi1_FK` FOREIGN KEY (`fk_od`) REFERENCES `gradovi` (`id`),
-  ADD CONSTRAINT `gradovi2_FK` FOREIGN KEY (`fk_do`) REFERENCES `gradovi` (`id`);
 
 --
 -- Constraints for table `sleperi_vozaci`

@@ -24,7 +24,7 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/slovima.js"></script>
 		<script defer src="js/all.js"></script>
-		
+
 		<script src="js/obracuni.js"></script>
 	</head>
 	<body>
@@ -47,7 +47,7 @@
 								<datalist id="listTroskovi">
 									<?php
 										$sql = "SELECT DISTINCT naziv FROM troskovi";
-										
+
 										$result = $conn->query($sql);
 										if($result->num_rows > 0) {
 											while($row = $result->fetch_assoc()) {
@@ -137,9 +137,9 @@
 		</div>
 		<div class="container-fluid">
 			<!-- Gornji deo stranice, FAKTURA -->
-			
+
 			<div class="row" style="margin-top: 40px;">
-			
+
 				<div class="col-md-6" id="fakture">
 					<label for="faktura1">Faktura: </label> &nbsp;<a class="btn btn-success btn-sm" id="dodajFakturu" style="margin-bottom: 5px;"><i class="fas fa-plus"></i></a>
 					<input type="text" list="listaFaktura" id="faktura1" class="form-control">
@@ -147,7 +147,7 @@
 						<?php
 							$sql = "SELECT komplet_racun_broj FROM fakture";
 							$result = $conn->query($sql);
-							
+
 							if($result->num_rows > 0) {
 								while($row = $result->fetch_assoc()) {
 									echo "<option value=\"" . $row["komplet_racun_broj"] . "\">";
@@ -178,9 +178,9 @@
 					<h3 id="ostalo"><strong>Ostalo: </strong></h5>
 				</div>
 			</div>
-			
+
 			<!-- Srednji deo stranice, TROSKOVI -->
-			
+
 			<div class="row" style="margin-top: 40px;">
 				<div class="col-md-6">
 					<h3><strong>Troskovi</strong> <a id="otvoriModal" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalTrosak">
@@ -221,7 +221,7 @@
 					</table>
 				</div>
 			</div>
-			
+
 			<!-- Donji deo stranice, GORIVO-->
 			<div class="row" style="margin-top: 40px;">
 				<div class="col-md-9">
@@ -242,7 +242,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							
+
 						</tbody>
 						<thead>
 							<tr id="pomocniRed2">
@@ -267,7 +267,7 @@
 					</table>
 				</div>
 			</div>
-			
+
 			<!-- Donji deo stranice, KILOMETRAZA I POTROSNJA -->
 			<div class="row" style="margin-top: 40px;">
 				<div class="col-md-4">

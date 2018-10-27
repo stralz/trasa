@@ -1,7 +1,7 @@
 <?php
     include 'php/dbh.php';
 	include 'navbar.php';
-	
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,8 +24,8 @@
 		<script src="js/popper.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script defer src="js/all.js"></script>
-		
-		<script src="js/index.js"></script>
+
+		<script src="js/fakture.js"></script>
 		<script src="js/slovima.js"></script>
 	</head>
 	<body>
@@ -115,7 +115,7 @@
 							<?php
 								$sql = "SELECT id, marka, broj_registracije FROM prikolice";
 								$result = $conn->query($sql);
-								
+
 								if($result->num_rows > 0)
 								{
 									while($row = $result->fetch_assoc()) {
@@ -149,35 +149,23 @@
 								  <input type="text" list="listaGradovi" class="form-control" id="od1" autocomplete="off">
 								</div>
 								<datalist id="listaGradovi">
-									
+                                    <?php
+                                    $sql = "SELECT * FROM gradovi ORDER BY ime";
+                                    $result = $conn->query($sql);
+                                    if($result->num_rows > 0)
+                                        while($row = $result->fetch_assoc())
+                                            echo "<option value=\"" . $row["ime"] . "\">";
+                                    ?>
 								</datalist>
-								<div class="form-group col-md-1" style=" margin-right: -20px">
-									<div class="radio" name="od1Radio" style="margin-top: 20px; margin-bottom: -20px;">
-										<label><input type="radio" name="od1Radio">SRB</label>
-										<br>
-										<label><input type="radio" name="od1Radio">ITA</label>
-									</div>
+                                <div class="form-group col-md-1" style=" margin-right: -20px">
+									<button class="btn btn-success btn-small drzava" style="margin-top: 29px;margin-bottom: -20px;" id="od1Drzava">SRB</button>
 								</div>
 								<div class="form-group col-md-3">
 								  <label for="do1">Do:</label>
 								  <input type="text" list="listaGradovi" class="form-control" id="do1" autocomplete="off">
 								</div>
-								<div class="form-group col-md-1" style=" margin-right: -20px">
-									<div class="radio" name="do1Radio" style="margin-top: 20px; margin-bottom: -20px;">
-										<label><input type="radio" name="do1Radio">SRB</label>
-										<br>
-										<label><input type="radio" name="do1Radio">ITA</label>
-									</div>
-								</div>
-								<div class="form-group col-md-1">
-									<div class="btn-group">
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top:29px;">
-										<i class="fas fa-location-arrow"></i>
-										</button>
-										<div class="dropdown-menu" id="dropdownRelacije1">
-											
-										</div>
-									</div>
+                                <div class="form-group col-md-1" style=" margin-right: -20px">
+									<button class="btn btn-success btn-small drzava" style="margin-top: 29px;margin-bottom: -20px;" id="do1Drzava">SRB</button>
 								</div>
 							</div>
 							<div class="form-row">
@@ -252,33 +240,15 @@
 								  <label for="od2">Od:</label>
 								  <input type="text" list="listaGradovi" class="form-control" id="od2" autocomplete="off">
 								</div>
-								<div class="form-group col-md-1" style=" margin-right: -20px">
-									<div class="radio" name="od2Radio" style="margin-top: 20px; margin-bottom: -20px;">
-										<label><input type="radio" name="od2Radio">SRB</label>
-										<br>
-										<label><input type="radio" name="od2Radio">ITA</label>
-									</div>
+                                <div class="form-group col-md-1" style=" margin-right: -20px">
+									<button class="btn btn-success btn-small drzava" style="margin-top: 29px;margin-bottom: -20px;" id="od2Drzava">SRB</button>
 								</div>
 								<div class="form-group col-md-3">
 								  <label for="do2">Do:</label>
 								  <input type="text" list="listaGradovi" class="form-control" id="do2" autocomplete="off">
 								</div>
-								<div class="form-group col-md-1" style=" margin-right: -20px">
-									<div class="radio" name="do2Radio" style="margin-top: 20px; margin-bottom: -20px;">
-										<label><input type="radio" name="do2Radio">SRB</label>
-										<br>
-										<label><input type="radio" name="do2Radio">ITA</label>
-									</div>
-								</div>
-								<div class="form-group col-md-1">
-									<div class="btn-group">
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top:29px;">
-										<i class="fas fa-location-arrow"></i>
-										</button>
-										<div class="dropdown-menu" id="dropdownRelacije2">
-											
-										</div>
-									</div>
+                                <div class="form-group col-md-1" style=" margin-right: -20px">
+									<button class="btn btn-success btn-small drzava" style="margin-top: 29px;margin-bottom: -20px;" id="od2Drzava">SRB</button>
 								</div>
 							</div>
 							<div class="form-row">
