@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 27, 2018 at 12:00 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Host: localhost
+-- Generation Time: Oct 27, 2018 at 03:04 PM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -39,7 +39,7 @@ CREATE TABLE `banke` (
 --
 
 INSERT INTO `banke` (`id`, `ime`, `racun_broj`) VALUES
-(1, 'Banka1', '5434');
+(1, 'Banka1', '123414');
 
 -- --------------------------------------------------------
 
@@ -122,7 +122,14 @@ INSERT INTO `fakture` (`id`, `racun_broj`, `komplet_racun_broj`, `datum_izdavanj
 (12, '', '1', '25.10.2018', '25.11.2018', '11.10.2018', 'Beograd', 'Vidikovac', 0, 0, 'Milano', 'Milano', 'Napoli', 'Beograd', '1234', '1234', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '1234', 34, 52, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 15, 'Banka1', '5434', ''),
 (13, '', '1', '25.10.2018', '24.00.2019', '13.10.2018', 'Novi Beograd', 'Vidikovac', 0, 0, 'Milano', 'Beograd', 'Beograd', 'Napoli', '1234', '1234', 'Almex d.o.o.', '', 'Cartiera Dell\' Adda s.r.l.', '', '1234', '1234', 34, 52, '1234.00', '12345.00', '13579.00', '114.57', '118.52', 'DinarskiSablon2Ture', 13, 'Banka1', '5434', ''),
 (14, '', '7', '25.10.2018', '24.00.2019', '02.10.2018', 'Novi Beograd', 'Vidikovac', 0, 0, 'Milano', 'Milano', 'Napoli', 'Napoli', '1234', '1234', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '1234', '1234', 35, 50, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 13, 'Banka1', '5434', ''),
-(15, '', '3', '25.10.2018', '24.00.2019', '19.10.2018', 'Subotica', 'Vidikovac', 0, 0, 'Beograd', 'Milano', 'Milano', 'Napoli', '1234', '1234', 'Hbis Group Serbia Iron & Steel d.o.o.', 'Fas d.o.o.', 'Bcube S.p.A.', 'Fas d.o.o.', '1234', '1234', 30, 46, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 12, 'Banka1', '5434', '');
+(15, '', '3', '25.10.2018', '24.00.2019', '19.10.2018', 'Subotica', 'Vidikovac', 0, 0, 'Beograd', 'Milano', 'Milano', 'Napoli', '1234', '1234', 'Hbis Group Serbia Iron & Steel d.o.o.', 'Fas d.o.o.', 'Bcube S.p.A.', 'Fas d.o.o.', '1234', '1234', 30, 46, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 12, 'Banka1', '5434', ''),
+(16, '', '1', '27.10.2018', '27.11.2018', '13.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Beograd', '', 'Milano', '', '3123123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '12312312', '', 34, 52, '31241.00', 'NaN', '31241.00', '263.77', '118.44', 'DinarskiSablon1Tura', 11, 'Banka1', '123414', ''),
+(17, '', '1', '27.10.2018', '27.11.2018', '13.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Beograd', '', 'Milano', '', '3123123', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '12312312', '', 34, 52, '31241.00', 'NaN', '31241.00', '263.77', '118.44', 'DinarskiSablon1Tura', 11, 'Banka1', '123414', ''),
+(18, '', '5', '27.10.2018', '26.00.2019', '04.10.2018', 'Novi Beograd', 'Vidikovac', 0, 0, 'Milano', '', 'Milano', '', '312312', '', 'Fas d.o.o.', '', 'Bcube S.p.A.', '', '312312', '', 31, 40, '31241412.00', 'NaN', '31241412.00', '263774.16', '118.44', 'DinarskiSablon1Tura', 13, 'Banka1', '123414', ''),
+(19, '', '4', '27.10.2018', '26.00.2019', '26.10.2018', 'Subotica', 'Vidikovac', 0, 0, 'Beograd', '', 'Milano', '', '132', '', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '132312', '', 36, 44, '41241.00', 'NaN', '41241.00', '348.20', '118.44', 'DinarskiSablon1Tura', 12, 'Banka1', '123414', ''),
+(20, '', '7', '27.10.2018', '27.11.2018', '03.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Beograd', '', 'Milano', '', '12341', '', 'Almex d.o.o.', '', 'Bcube S.p.A.', '', '423423', '', 35, 50, '432423.00', 'NaN', '432423.00', '3650.99', '118.44', 'DinarskiSablon1Tura', 11, 'Banka1', '123414', ''),
+(21, '', '2', '27.10.2018', '27.11.2018', '11.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Milano', '', 'Napoli', '', '12312312', '', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '3123123', '', 33, 51, '12414.00', 'NaN', '12414.00', '104.81', '118.44', 'DinarskiSablon1Tura', 11, 'Banka1', '123414', ''),
+(22, '', '8', '27.10.2018', '26.00.2019', '13.10.2018', 'Novi Beograd', 'Vidikovac', 0, 0, 'Beograd', '', 'Napoli', '', '123414', '', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '124124', '', 37, 45, '31241.00', 'NaN', '31241.00', '263.77', '118.44', 'DinarskiSablon1Tura', 13, 'Banka1', '123414', '');
 
 -- --------------------------------------------------------
 
@@ -273,20 +280,13 @@ CREATE TABLE `nalogodavci_banke` (
 --
 
 INSERT INTO `nalogodavci_banke` (`id`, `fk_nalogodavac`, `fk_banke`) VALUES
-(2, 11, 3),
-(3, 13, 3),
-(4, 13, 3),
-(5, 11, 1),
-(6, 11, 1),
-(7, 11, 1),
-(8, 11, 1),
-(9, 15, 1),
-(10, 11, 1),
-(11, 14, 1),
-(12, 15, 1),
-(13, 13, 1),
-(14, 13, 1),
-(15, 12, 1);
+(16, 11, 1),
+(17, 11, 1),
+(18, 13, 1),
+(19, 12, 1),
+(20, 11, 1),
+(21, 11, 1),
+(22, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -463,10 +463,10 @@ CREATE TABLE `u_i_nalogodavac` (
 --
 
 INSERT INTO `u_i_nalogodavac` (`fk_nalogodavac`, `fk_u_i`, `broj`) VALUES
-(11, 20, 6),
-(11, 22, 5),
-(11, 23, 1),
-(11, 24, 2),
+(11, 20, 8),
+(11, 22, 8),
+(11, 23, 3),
+(11, 24, 4),
 (15, 20, 2),
 (15, 23, 1),
 (15, 22, 3),
@@ -476,15 +476,21 @@ INSERT INTO `u_i_nalogodavac` (`fk_nalogodavac`, `fk_u_i`, `broj`) VALUES
 (14, 25, 1),
 (15, 25, 1),
 (15, 21, 1),
-(13, 20, 2),
-(13, 25, 1),
+(13, 20, 3),
+(13, 25, 2),
 (13, 21, 1),
-(13, 22, 1),
+(13, 22, 2),
 (13, 23, 1),
-(13, 24, 2),
+(13, 24, 3),
 (12, 23, 1),
 (12, 25, 2),
-(12, 24, 1);
+(12, 24, 1),
+(11, 0, 10),
+(11, 25, 1),
+(13, 0, 4),
+(12, 20, 1),
+(12, 0, 2),
+(12, 22, 1);
 
 -- --------------------------------------------------------
 
@@ -690,7 +696,7 @@ ALTER TABLE `brojevi`
 -- AUTO_INCREMENT for table `fakture`
 --
 ALTER TABLE `fakture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `gorivo`
@@ -720,7 +726,7 @@ ALTER TABLE `nalogodavci`
 -- AUTO_INCREMENT for table `nalogodavci_banke`
 --
 ALTER TABLE `nalogodavci_banke`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `pregledi_prikolice`
@@ -807,35 +813,14 @@ ALTER TABLE `kompleti`
 -- Constraints for table `nalogodavci_banke`
 --
 ALTER TABLE `nalogodavci_banke`
-  ADD CONSTRAINT `FK_nalogodavac` FOREIGN KEY (`fk_nalogodavac`) REFERENCES `nalogodavci` (`id`),
-  ADD CONSTRAINT `banka_FK` FOREIGN KEY (`fk_banke`) REFERENCES `banke` (`id`);
+  ADD CONSTRAINT `banke_FK` FOREIGN KEY (`fk_banke`) REFERENCES `banke` (`id`),
+  ADD CONSTRAINT `nalogodavac_FK` FOREIGN KEY (`fk_nalogodavac`) REFERENCES `nalogodavci` (`id`);
 
 --
 -- Constraints for table `pregledi_prikolice`
 --
 ALTER TABLE `pregledi_prikolice`
   ADD CONSTRAINT `prikolica_FK` FOREIGN KEY (`fk_prikolica`) REFERENCES `prikolice` (`id`);
-
---
--- Constraints for table `pregledi_tegljaci`
---
-ALTER TABLE `pregledi_tegljaci`
-  ADD CONSTRAINT `pregled_tegljac_FK` FOREIGN KEY (`fk_tegljac`) REFERENCES `tegljaci` (`id`),
-  ADD CONSTRAINT `pregled_vozac_FK` FOREIGN KEY (`fk_vozac`) REFERENCES `vozaci` (`id`);
-
---
--- Constraints for table `sleperi_vozaci`
---
-ALTER TABLE `sleperi_vozaci`
-  ADD CONSTRAINT `sleperi_vozaci_ibfk_1` FOREIGN KEY (`fk_komplet`) REFERENCES `kompleti` (`id`),
-  ADD CONSTRAINT `sleperi_vozaci_ibfk_2` FOREIGN KEY (`fk_vozac`) REFERENCES `vozaci` (`id`);
-
---
--- Constraints for table `u_i_nalogodavac`
---
-ALTER TABLE `u_i_nalogodavac`
-  ADD CONSTRAINT `nalogodavac_FK` FOREIGN KEY (`fk_nalogodavac`) REFERENCES `nalogodavci` (`id`),
-  ADD CONSTRAINT `u_i_FK` FOREIGN KEY (`fk_u_i`) REFERENCES `uvoznici_izvoznici` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -6,6 +6,11 @@
 	<div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
 		<ul class="navbar-nav">
 			<li class="nav-item">
+				<a class="nav-link" href="fakture.php" style="margin-bottom: 3px;">
+					<button class="btn btn-success btn-sm">+ Napravi fakturu</button>
+				</a>
+			</li>
+			<li class="nav-item">
 				<a class="nav-link" href="index.php">Fakture</a>
 			</li>
 			<li class="nav-item">
@@ -18,5 +23,5 @@
 				<a class="nav-link" href="vp.php">Vozni park</a>
 			</li>
 		</ul>
-	</div>  
+	</div>
 </nav>
