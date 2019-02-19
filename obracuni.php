@@ -163,7 +163,7 @@
 						<input type="text" list="listaFaktura" id="faktura2" class="form-control">
 					</div>
 					<div id="sacuvajDugme">
-						<button id="sacuvaj" class="btn btn-primary btn-lg">
+						<button id="sacuvaj" class="btn btn-success btn-sm">
 							<i class="far fa-save"></i> Sačuvaj
 						</button>
 					</div>
