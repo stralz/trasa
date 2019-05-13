@@ -1,17 +1,13 @@
 <?php
 	include 'dbh.php';
-	
-	if(isset($_POST['racunBroj'])) {
-		$racunBroj = $conn->escape_string($_POST['racunBroj']);
-		
-		$sql = "SELECT * FROM brojevi";
-		$result = $conn->query($sql);
-		if($result->num_rows > 0) {
-			$row = $result->fetch_assoc();
-			echo $row['prvi'] . "-" . $racunBroj . "/" . $row['drugi'];
+
+	if(isset($_POST['prvi']) && isset($_POST['avansna'])) {
+		$prvi = $conn->escape_string($_POST['prvi']);
+		$avansna = $conn->escape_string($_POST['avansna']);
+
+		if ($avansna == "false") {
+			$sql = "UPDATE brojevi SET prvi='$prvi'";
+			$conn->query($sql);
 		}
-		
-		$sql = "UPDATE brojevi SET prvi=prvi + 1, drugi=drugi + 1";
-		$conn->query($sql);
 	}
 ?>

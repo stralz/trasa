@@ -113,7 +113,8 @@ function iznosiLitri() {
 	var faktura1 = $("#faktura1").val().split('-')[0];
 	var faktura2 = $("#faktura2").val().split('-')[0];
 	
-	$(".gorivoIznos" + faktura1).each(function () {if($(this).text().includes("EUR")) {
+	$(".gorivoIznos" + faktura1).each(function () { 
+		if($(this).text().includes("EUR")) {
 			var x = $(this).text();
 			x = x.substr(0, x.indexOf("EUR") - 1);
 			zbirEUR = parseFloat(+zbirEUR + +x).toFixed(2);

@@ -77,11 +77,6 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" id="buttonUvoznici_Izvoznici" href="#tableUvoznici_Izvoznici" role="tab" data-toggle="tab" aria-controls="uvoznici-izvoznici-tab-content" aria-selected="false">
-								Uvoznici/Izvoznici
-							</a>
-						</li>
-						<li class="nav-item">
 							<a class="nav-link" id="buttonVozaci" href="#tableVozaci" role="tab" data-toggle="tab" aria-controls="vozaci-tab-content" aria-selected="false">
 								Vozači
 							</a>

@@ -18,9 +18,9 @@
 		<!--[if IE]>
 			<script type="text/javascript" src="examples/vendor/jszip-utils-ie.js"></script>
 		<![endif]-->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
 		<script src="js/popper.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script defer src="js/all.js"></script>
@@ -31,302 +31,299 @@
 	<body>
 		<div class="container" style="margin-top: 40px;">
 			<form>
-                <div class="form-row">
-				        <label for="nalogodavac">Nalogodavac:</label>
-				        <div class="input-group mb-3">
-				        <input type="text" class="form-control" list="listaNalogodavci" id="nalogodavac">
+        <div class="form-row">
+					<div class="form-group mb-3 col-md-4">
+						<label for="nalogodavac">Nalogodavac:</label>
+						<input type="text" class="form-control" list="listaNalogodavci" id="nalogodavac" placeholder="Izaberite nalogodavca:" onmousedown="value = '';">
 						<datalist id="listaNalogodavci">
 							<?php
-                                    $sql = "SELECT id, ime FROM nalogodavci";
-                                    $result = $conn->query($sql);
-
-                                    if($result->num_rows > 0)
-                                    {
-                                        while($row = $result->fetch_assoc()) {
-                                            echo '<option id="' . $row['id'] . '"value="' . $row["ime"] . '"/>';
-                                       }
-                                    } else {
-                                        print "0 podataka pronadjeno.";
-                                    }
-                                ?>
-						</datalist>
-				        </div>
-			     </div>
-				 <div class="form-row">
-					<div class="form-group col-md-3">
-						<label for="banka">Banka:</label>
-						<input type="text" list="banke" class="form-control" id="banka">
-						<datalist id="banke">
-							<?php
-								$sql = "SELECT id, ime FROM banke";
-								$result = $conn->query($sql);
-								if($result->num_rows > 0)
-									while($row = $result->fetch_assoc())
-										echo "<option id=\"banka" . $row['id'] . "\"value=\"" . $row['ime'] . "\"/>";
-							?>
-						</datalist>
-					</div>
-					<div style="display: block;" class="form-group col-md-3">
-						<label for="racun_broj_banke">Broj računa banke:</label>
-						<input type="text" class="form-control" id="racun_broj_banke">
-					</div>
-				 </div>
-				 <div class="form-row">
-					<div class="form-group col-md-3">
-						<label for="racun_broj">Komplet:</label>
-						<input type="text" class="form-control" id="racun_broj">
-					</div>
-					<div class="form-group col-md-3">
-						<label for="datum_prometa_usluge">Datum prometa usluge:</label>
-						<input type="date" class="form-control" id="datum_prometa_usluge">
-					</div>
-					<div class="form-group col-md-3">
-						<label for="rok_placanja_usluge">Rok plaćanja usluge:</label>
-						<input type="text" class="form-control" id="rok_placanja_usluge">
-					</div>
-				</div>
-                 <div class="form-row">
-                    <div class="form-group col-md-4">
-                    <label for="tegljac">Tegljač:</label>
-				        <div class="input-group mb-3">
-							<select class="custom-select" id="tegljac">
-							   <option selected>Izaberite tegljač</option>
-							   <?php
-									$sql = "SELECT id, marka, broj_registracije FROM tegljaci";
+									$sql = "SELECT id, ime FROM nalogodavci";
 									$result = $conn->query($sql);
 
 									if($result->num_rows > 0)
 									{
 										while($row = $result->fetch_assoc()) {
-											echo '<option value="' . $row["id"] . '">'. $row["marka"] . ': ' . $row["broj_registracije"]. '</option>';
-										}
+											echo '<option id="' . $row['id'] . '"value="' . $row["ime"] . '"/>';
+									}
 									} else {
 										print "0 podataka pronadjeno.";
 									}
-							   ?>
-							</select>
-				        </div>
-                    </div>
-                     <div class="form-group col-md-4">
-                    <label for="prikolica">Prikolica:</label>
-				        <div class="input-group mb-3">
+								?>
+						</datalist>
+					</div>
+          <div class="form-group col-md-2 offset-md-1" id="vrsta_fakture" style="display: none;">
+            <br>
+            <label class="radio-inline"><input type="radio" name="vrsta_fakture" value="kla_faktura"checked> Klasična faktura</label>
+            &nbsp;&nbsp;
+            <label class="radio-inline"><input type="radio" name="vrsta_fakture" value="ava_faktura"> Avansna faktura</label>
+          </div>
+        </div>
+				<div class="form-row">
+					<div class="form-group col-md-3">
+						<label class="radio-inline"><input type="radio" name="kamion" value="nas_kamion"checked> Naš kamion</label>
+						&nbsp;&nbsp;
+						<label class="radio-inline"><input type="radio" name="kamion" value="ang_kamion"> Angažovani kamion</label>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-1">
+						<label for="broj_ture">Broj ture:</label>
+						<input type="text" class="form-control" id="broj_ture" value="<?php
+							$sql = "SELECT prvi FROM brojevi";
+							$result = $conn->query($sql);
+
+							if($result->num_rows > 0) {
+								$row = $result->fetch_assoc();
+								echo $row['prvi'] + 1;
+							}
+						?>">
+					</div>
+        </div>
+        <div class="form-row" id="utovar" style="display: none;">
+          <div class="form-group col-md-2">
+						<label for="datum_utovara">Datum utovara:</label>
+						<input type="date" class="form-control" id="datum_utovara">
+					</div>
+					<div class="form-group col-md-2 offset-md-1">
+						<label for="dan_utovara_kurs">Kurs na dan utovara:</label>
+						<div class="input-group">
+							<input type="text" class="form-control" id="dan_utovara_kurs">
+							<div class="input-group-append">
+								<span class="input-group-text">din.</span>
+							</div>
+						</div>
+					</div>
+        </div>
+        <div class="form-row" id="istovar" style="display: none;">
+          <div class="form-group col-md-2">
+						<label for="datum_istovara">Datum istovara:</label>
+						<input type="date" class="form-control" id="datum_istovara">
+					</div>
+					<div class="form-group col-md-2 offset-md-1">
+						<label for="dan_istovara_kurs">Kurs na dan istovara:</label>
+						<div class="input-group">
+							<input type="text" class="form-control" id="dan_istovara_kurs">
+							<div class="input-group-append">
+								<span class="input-group-text">din.</span>
+							</div>
+						</div>
+					</div>
+        </div>
+				<div class="form-row">
+					<div class="form-group col-md-1">
+						<label for="komplet_broj">Komplet:</label>
+						<input type="text" class="form-control" id="komplet_broj">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="datum_prometa_usluge">Datum prometa usluge:</label>
+						<input type="date" class="form-control" id="datum_prometa_usluge">
+					</div>
+          <div class="form-group col-md-2" id="kurs" style="display: none;">
+						<label for="kurs_rucni">Kurs EUR:</label>
+            <div class="input-group">
+							<input type="text" class="form-control" id="kurs_rucni">
+							<div class="input-group-append">
+								<span class="input-group-text">din.</span>
+							</div>
+						</div>
+          </div>
+					<div class="form-group col-md-3">
+						<label for="rok_placanja_usluge">Rok plaćanja usluge:</label>
+						<input type="text" class="form-control" id="rok_placanja_usluge">
+					</div>
+					<div class="form-group col-md-3" style="display: none;">
+						<label for="valuta_placanja">Valuta plaćanja:</label>
+						<input type="date" class="form-control" id="valuta_placanja">
+					</div>
+				</div>
+        <div class="form-row" id="nas_kamion">
+            <div class="form-group col-md-3">
+  						<label for="tegljac">Tegljač:</label>
+  						<div class="input-group mb-3">
+  							<select class="custom-select" id="tegljac">
+  								<option value="0" selected>Izaberite tegljač:</option>
+  								<?php
+  									$sql = "SELECT id, marka, broj_registracije FROM tegljaci";
+  									$result = $conn->query($sql);
+
+  									if($result->num_rows > 0)
+  									{
+  										while($row = $result->fetch_assoc()) {
+  											echo '<option value="' . $row["id"] . '">'. $row["marka"] . ': ' . $row["broj_registracije"]. '</option>';
+  										}
+  									} else {
+  										print "0 podataka pronadjeno.";
+  									}
+  								?>
+  							</select>
+  						</div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="prikolica">Prikolica:</label>
+				      <div class="input-group mb-3">
 				        <select class="custom-select" 	id="prikolica">
-							<option selected>Izaberite prikolicu</option>
-							<?php
-								$sql = "SELECT id, marka, broj_registracije FROM prikolice";
-								$result = $conn->query($sql);
+    							<option value="0" selected>Izaberite prikolicu:</option>
+    							<?php
+    								$sql = "SELECT id, marka, broj_registracije FROM prikolice";
+    								$result = $conn->query($sql);
 
-								if($result->num_rows > 0)
-								{
-									while($row = $result->fetch_assoc()) {
-										echo '<option value="' . $row['id'] . '">' . $row['marka'] . ': ' . $row['broj_registracije'] . '</option>';
-									}
-								} else {
-									print "0 podataka pronadjeno.";
-								}
-							?>
-							</select>
+    								if($result->num_rows > 0)
+    								{
+    									while($row = $result->fetch_assoc()) {
+    										echo '<option value="' . $row['id'] . '">' . $row['marka'] . ': ' . $row['broj_registracije'] . '</option>';
+    									}
+    								} else {
+    									print "0 podataka pronadjeno.";
+    								}
+    							?>
+  							</select>
 				        </div>
-                    </div>
-                </div>
+              </div>
+        </div>
+				<div class="form-row" id="ang_kamion" style="display: none;">
+					<div class="form-group col-md-3">
+						<label for="ang_tegljac">Angažovani tegljač:</label>
+						<input type="text" class="form-control" id="ang_tegljac">
+					</div>
+					<div class="form-group col-md-3">
+						<label for="ang_prikolica">Angažovana prikolica:</label>
+						<input type="text" class="form-control" id="ang_prikolica">
+					</div>
+				</div>
 			    <div class="form-group">
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item">
-							<a class="nav-link active" id="prvi-tab" data-toggle="tab" href="#prvi" role="tab" aria-controls="prvi" aria-selected="true">1</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" id="drugi-tab" data-toggle="tab" href="#drugi" role="tab" aria-controls="drugi" aria-selected="false">2</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" id="treci-tab" role="tab" href="#drugi">+</a>
-						</li>
-					</ul>
 					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade show active" id="prvi" role="tabpanel" aria-labelledby="prvi-tab">
-							<div class="form-row">
-								<div class="form-group col-md-3">
-								  <label for="od1">Od:</label>
-								  <input type="text" list="listaGradovi" class="form-control" id="od1" autocomplete="off">
-								</div>
-								<datalist id="listaGradovi">
-                                    <?php
-                                    $sql = "SELECT * FROM gradovi ORDER BY ime";
-                                    $result = $conn->query($sql);
-                                    if($result->num_rows > 0)
-                                        while($row = $result->fetch_assoc())
-                                            echo "<option value=\"" . $row["ime"] . "\">";
-                                    ?>
-								</datalist>
-                                <div class="form-group col-md-1" style=" margin-right: -20px">
-									<button class="btn btn-success btn-small drzava" style="margin-top: 29px;margin-bottom: -20px;" id="od1Drzava">SRB</button>
-								</div>
-								<div class="form-group col-md-3">
-								  <label for="do1">Do:</label>
-								  <input type="text" list="listaGradovi" class="form-control" id="do1" autocomplete="off">
-								</div>
-                                <div class="form-group col-md-1" style=" margin-right: -20px">
-									<button class="btn btn-success btn-small drzava" style="margin-top: 29px;margin-bottom: -20px;" id="do1Drzava">SRB</button>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+							  <label for="od">Od:</label>
+							  <input type="text" list="listaGradovi" class="form-control" id="od" autocomplete="off">
+							</div>
+							<datalist id="listaGradovi">
+                <?php
+                $sql = "SELECT * FROM gradovi ORDER BY ime";
+                $result = $conn->query($sql);
+                if($result->num_rows > 0)
+                    while($row = $result->fetch_assoc())
+                        echo "<option value=\"" . $row["ime"] . "\">";
+                ?>
+							</datalist>
+              <div class="form-group col-md-1" style=" margin-right: -20px">
+								<button class="btn btn-success btn-small drzava" style="margin-top: 29px;margin-bottom: -20px;" id="odDrzava">SRB</button>
+							</div>
+							<div class="form-group col-md-3">
+							  <label for="do">Do:</label>
+							  <input type="text" list="listaGradovi" class="form-control" id="do" autocomplete="off">
+							</div>
+              <div class="form-group col-md-1" style=" margin-right: -20px">
+								<button class="btn btn-success btn-small drzava" style="margin-top: 29px;margin-bottom: -20px;" id="doDrzava">I</button>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3 brojNaloga">
+								<label for="broj_naloga">Broj naloga:</label>
+								<input type="text" class="form-control" id="broj_naloga">
+							</div>
+              <div class="form-group col-md-3">
+								<label for="cmr">CMR:</label>
+								<input type="text" class="form-control" id="cmr">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="vrsta_robe">Vrsta robe:</label>
+								<input type="text" class="form-control" id="vrsta_robe">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="tezina">Težina:</label>
+								<input type="text" class="form-control" id="tezina">
+							</div>
+						</div>
+						<div class="form-row" id="cena_default">
+							<div class="form-group col-md-3">
+								<label for="iznos">Cena:</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="iznos">
+									<div class="input-group-append">
+									<span id="eurdin" class="input-group-text">&euro;</span>
+									</div>
 								</div>
 							</div>
-							<div class="form-row">
-								<div class="form-group col-md-6 brojNaloga1">
-									<label for="broj_naloga1">Broj naloga:</label>
-									<input type="text" class="form-control" id="broj_naloga1">
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="form-group col-md-3">
-									<label for="cmr1">CMR:</label>
-									<input type="text" class="form-control" id="cmr1">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="tezina1">Težina:</label>
-									<input type="text" class="form-control" id="tezina1">
-								</div>
-							</div>
-							<div class="form-row posiljalacPrimalac1">
-								<div class="form-group col-md-3">
-									<label for="mesto_utovara1">Pošiljalac:</label>
-									<input type="text" list="listaPosiljalac1" class="form-control" id="posiljalac1">
-									<datalist id="listaPosiljalac1">
-										<?php
-											$sql = "SELECT ime, u_i FROM uvoznici_izvoznici WHERE `u_i`=\"Izvoznik\" OR `u_i`=\"Oba\"";
-											$result = $conn->query($sql);
-
-											if($result->num_rows > 0)
-											{
-												while($row = $result->fetch_assoc()) {
-													echo "<option value=\"" . $row["ime"] . "\">";
-												}
-											}
-										?>
-									</datalist>
-								</div>
-								<div class="form-group col-md-3">
-									<label for="mesto_istovara1">Primalac:</label>
-									<input type="text" list="listaPrimalac1" class="form-control" id="primalac1">
-									<datalist id="listaPrimalac1">
-										<?php
-											$sql = "SELECT ime, u_i FROM uvoznici_izvoznici WHERE `u_i`=\"Uvoznik\" OR `u_i`=\"Oba\"";
-											$result = $conn->query($sql);
-
-											if($result->num_rows > 0)
-											{
-												while($row = $result->fetch_assoc()) {
-													echo "<option value=\"" . $row["ime"] . "\">";
-												}
-											} else {
-												print "0 podataka pronadjeno.";
-											}
-										?>
-									</datalist>
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="form-group col-md-3">
-									<label for="iznos1">Cena:</label>
-									<div class="input-group">
-										<input type="text" class="form-control" id="iznos1">
-										<div class="input-group-append">
-										<span id="eurdin" class="input-group-text">&euro;</span>
-										</div>
+							<div class="form-group col-md-3">
+								<label for="iznos_din">Cena u dinarima:</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="iznos_din">
+									<div class="input-group-append">
+										<span class="input-group-text">din.</span>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane fade" id="drugi" role="tabpanel" aria-labelledby="drugi-tab">
-							<div class="form-row">
-								<div class="form-group col-md-3">
-								  <label for="od2">Od:</label>
-								  <input type="text" list="listaGradovi" class="form-control" id="od2" autocomplete="off">
-								</div>
-                                <div class="form-group col-md-1" style=" margin-right: -20px">
-									<button class="btn btn-success btn-small drzava" style="margin-top: 29px;margin-bottom: -20px;" id="od2Drzava">SRB</button>
-								</div>
-								<div class="form-group col-md-3">
-								  <label for="do2">Do:</label>
-								  <input type="text" list="listaGradovi" class="form-control" id="do2" autocomplete="off">
-								</div>
-                                <div class="form-group col-md-1" style=" margin-right: -20px">
-									<button class="btn btn-success btn-small drzava" style="margin-top: 29px;margin-bottom: -20px;" id="od2Drzava">SRB</button>
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="form-group col-md-6 brojNaloga2">
-									<label for="broj_naloga2">Broj naloga:</label>
-									<input type="text" class="form-control" id="broj_naloga2">
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="form-group col-md-3">
-									<label for="cmr2">CMR:</label>
-									<input type="text" class="form-control" id="cmr2">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="tezina2">Težina:</label>
-									<input type="text" class="form-control" id="tezina2">
-								</div>
-							</div>
-							<div class="form-row posiljalacPrimalac2">
-								<div class="form-group col-md-3">
-									<label for="posiljalac2">Pošiljalac:</label>
-									<input type="text" list="listaPosiljalac2" class="form-control" id="posiljalac2">
-									<datalist id="listaPosiljalac2">
-										<?php
-											$sql = "SELECT ime, u_i FROM uvoznici_izvoznici WHERE `u_i`=\"Izvoznik\" OR `u_i`=\"Oba\"";
-											$result = $conn->query($sql);
-
-											if($result->num_rows > 0)
-											{
-												while($row = $result->fetch_assoc()) {
-													echo "<option value=\"" . $row["ime"] . "\">";
-												}
-											} else {
-												print "0 podataka pronadjeno.";
-											}
-										?>
-									</datalist>
-								</div>
-								<div class="form-group col-md-3">
-									<label for="primalac2">Primalac:</label>
-									<input type="text" list="listaPrimalac2" class="form-control" id="primalac2">
-									<datalist id="listaPrimalac2">
-										<?php
-											$sql = "SELECT ime, u_i FROM uvoznici_izvoznici WHERE `u_i`=\"Uvoznik\" OR `u_i`=\"Oba\"";
-											$result = $conn->query($sql);
-
-											if($result->num_rows > 0)
-											{
-												while($row = $result->fetch_assoc()) {
-													echo "<option value=\"" . $row["ime"] . "\">";
-												}
-											} else {
-												print "0 podataka pronadjeno.";
-											}
-										?>
-									</datalist>
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="form-group col-md-3">
-									<label for="iznos2">Cena:</label>
+            <div id="cena_milsped" style="display: none; margin-top: 20px;">
+              <div class="form-row">
+                <div class="form-group col-md-3">
+									<label for="cena_u_celosti_eur">Cena u celosti:</label>
 									<div class="input-group">
-										<input type="text" class="form-control" id="iznos2">
+										<input type="text" class="form-control" id="cena_u_celosti_eur">
 										<div class="input-group-append">
 										<span class="input-group-text">&euro;</span>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="tab-pane fade" id="treci" role="tabpanel" aria-labelledby="treci-tab"></div>
+								<div class="form-group col-md-3">
+									<label for="cena_domaci_deo_eur">Domaći deo:</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="cena_domaci_deo_eur">
+										<div class="input-group-append">
+											<span class="input-group-text">&euro;</span>
+										</div>
+									</div>
+								</div>
+                <div class="form-group col-md-3">
+									<label for="cena_inostrani_deo_eur">Inostrani deo:</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="cena_inostrani_deo_eur">
+										<div class="input-group-append">
+											<span class="input-group-text">&euro;</span>
+										</div>
+									</div>
+								</div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-3">
+									<label for="cena_u_celosti_din">Cena u celosti u dinarima:</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="cena_u_celosti_din">
+										<div class="input-group-append">
+										<span class="input-group-text">din.</span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group col-md-3">
+									<label for="cena_domaci_deo_din">Domaći deo u dinarima:</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="cena_domaci_deo_din">
+										<div class="input-group-append">
+											<span class="input-group-text">din.</span>
+										</div>
+									</div>
+								</div>
+                <div class="form-group col-md-3">
+									<label for="cena_inostrani_deo_din">Inostrani deo u dinarima:</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="cena_inostrani_deo_din">
+										<div class="input-group-append">
+											<span class="input-group-text">din.</span>
+										</div>
+									</div>
+								</div>
+              </div>
+            </div>
 					</div>
 			  </div>
-			 <button type="submit" class="btn btn-primary" id="napravi">Napravi</button>
+			 <button type="submit" class="btn btn-success" id="napravi">Napravi</button>
 			</form>
-            <?php
-                $conn->close();
-            ?>
+      <?php
+          $conn->close();
+      ?>
 		</div>
 		<a style="display: none;" id="kursEUR">
 			<?php

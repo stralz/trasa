@@ -64,137 +64,96 @@ $(function () {
 		$.post('php/uzmiKolone.php', {
 				'id' : idFakture,
 			}, function (data) {
-						$("#pomocniKurs").text(data.kursEUR);
-					// Start ubacivanja u inpute
-						$("#nalogodavac").val(data.fk_nalogodavac);
-						$("#racun_broj").val(data.racun_broj);
-						$("#ime_banke").val(data.ime_banke);
-						$("#racun_broj_banke").val(data.racun_broj_banke);
-						$("#valuta_placanja").val(data.valuta_placanja);
-						$("#mesto_prometa").val(data.mesto_prometa);
-						$("#mesto_izdavanja_racuna").val(data.mesto_izdavanja_racuna);
-						$("#tegljac").val(data.fk_tegljac);
-						$("#prikolica").val(data.fk_prikolica);
-						$("#od1").val(data.od1);
-						$("#do1").val(data.do1);
-						$("#cmr1").val(data.cmr1);
-						$("#tezina1").val(data.tezina1);
-						$("#iznos1").val(data.iznos1);
-						$("#mesto_utovara1").val(data.mesto_utovara1);
-						$("#mesto_istovara1").val(data.mesto_istovara1);
-						$("#komplet_racun_broj").val(data.komplet_racun_broj);
-						
-						var date = data.datum_izdavanja;
-						var day = date.substr(0, 2);
-						var month = date.substr(3, 2);
-						var year = date.substr(6, 4);
-						date = year + "-" + month + "-" + day;
-						$("#datum_izdavanja").val(date);
-						
-						date = data.valuta_placanja;
-						day = date.substr(0, 2);
-						month = date.substr(3, 2);
-						if(month >= 10)
-							month = "0" + month;
-						year = date.substr(6, 4);
-						date = year + "-" + month + "-" + day;
-						$("#valuta_placanja").val(date);
-					// End ubacivanja u inpute
-					
+				$("#pomocniKurs").text(data.kursEUR);
+			// Start ubacivanja u inpute
+				$("#nalogodavac").val(data.fk_nalogodavac);
+				$("#racun_broj").val(data.racun_broj);
+				$("#valuta_placanja").val(data.valuta_placanja);
+				$("#mesto_prometa").val(data.mesto_prometa);
+				$("#mesto_izdavanja_racuna").val(data.mesto_izdavanja_racuna);
+				$("#tegljac").val(data.fk_tegljac);
+				$("#prikolica").val(data.fk_prikolica);
+				$("#ang_tegljac").val(data.ang_tegljac);
+				$("#ang_prikolica").val(data.ang_prikolica);
+				$("#od").val(data.od);
+				$("#do").val(data.do);
+				$("#cmr").val(data.cmr);
+				$("#tezina").val(data.tezina);
+				$("#iznos").val(data.iznos);
+				$("#mesto_utovara").val(data.mesto_utovara);
+				$("#mesto_istovara").val(data.mesto_istovara);
+				$("#komplet_racun_broj").val(data.komplet_racun_broj);
+				
+				var date = data.datum_izdavanja;
+				var day = date.substr(0, 2);
+				var month = date.substr(3, 2);
+				var year = date.substr(6, 4);
+				date = year + "-" + month + "-" + day;
+				$("#datum_izdavanja").val(date);
+				
+				date = data.valuta_placanja;
+				day = date.substr(0, 2);
+				month = date.substr(3, 2);
+				if(month >= 10)
+					month = "0" + month;
+				year = date.substr(6, 4);
+				date = year + "-" + month + "-" + day;
+				$("#valuta_placanja").val(date);
+				
+				date = data.datum_prometa;
+				day = date.substr(0, 2);
+				month = date.substr(3, 2);
+				if(month >= 10)
+					month = "0" + month;
+				year = date.substr(6, 4);
+				date = year + "-" + month + "-" + day;	
+				$("#datum_prometa").val(date);
+				
+				if(data.ang_tegljac != null && data.ang_prikolica != null) {
+					$("#ang_kamion").show();
+					$("#nas_kamion").hide();
+				} else {
+					$("#ang_kamion").hide();
+					$("#nas_kamion").show();
+				}
+				
+				// End ubacivanja u inpute
 				if(data.sablon.includes("1")) {
 					if(data.sablon.includes("Dinarski")) {
 						// Sakrije broj naloga 1
-						$("#broj_naloga1").hide();
-						$("label[for='broj_naloga1']").hide();
+						$("#broj_naloga").parent().hide();
+						$("label[for='broj_naloga']").hide();
 						
 						// Ubacuje Posiljaoca 1
-						$("#mesto_utovara1").val(data.mesto_utovara1);
+						$("#mesto_utovara").val(data.mesto_utovara);
 						// Ubacuje Primaoca 1
-						$("#mesto_istovara1").val(data.mesto_istovara1);
+						$("#mesto_istovara").val(data.mesto_istovara);
 					} else {
 						// Sakrije mesto istovara 1
-						$("#mesto_istovara1").hide();
-						$("label[for='mesto_istovara1']").hide();
+						$("#mesto_istovara").hide();
+						$("label[for='mesto_istovara']").hide();
 						// Sakrije mesto utovara 1
-						$("#mesto_utovara1").hide();
-						$("label[for='mesto_utovara1']").hide();
+						$("#mesto_utovara").hide();
+						$("label[for='mesto_utovara']").hide();
 						
 						// Ubacuje Broj naloga 1
-						$("#broj_naloga1").val(data.broj_naloga1);
+						$("#broj_naloga").val(data.broj_naloga);
 					}
-					// Start sakrivanja svih sa '2' u imenu
-						$("#od2").hide();
-						$("label[for='od2']").hide();
-						$("#do2").hide();
-						$("label[for='do2']").hide();
-						$("#broj_naloga2").hide();
-						$("label[for='broj_naloga2']").hide();
-						$("#cmr2").hide();
-						$("label[for='cmr2']").hide();
-						$("#tezina2").hide();
-						$("label[for='tezina2']").hide();
-						$("#mesto_istovara2").hide();
-						$("label[for='mesto_istovara2']").hide();
-						$("#mesto_utovara2").hide();
-						$("label[for='mesto_utovara2']").hide();
-						$("#iznos2").hide();
-						$("label[for='iznos2']").hide();
-					// Kraj sakrivanja svih sa '2' u imenu
 				} else {
 					if(data.sablon.includes("Dinarski")) {
 						// Sakrije broj naloga 1
-						$("#broj_naloga1").hide();
-						$("label[for='broj_naloga1']").hide();
-						// Sakrije broj naloga 2
-						$("#broj_naloga2").hide();
-						$("label[for='broj_naloga2']").hide();
-						
-						// Ubacuje Posiljaoca 2
-						$("#mesto_utovara2").val(data.mesto_utovara2);
-						// Ubacuje Primaoca 2
-						$("#mesto_istovara2").val(data.mesto_istovara2);
-						// Ubacuje CMR 2
-						$("#cmr2").val(data.cmr2);
-						// Ubacuje Tezina 2
-						$("#tezina2").val(data.tezina2);
-						//Ubacuje  Iznos 2
-						$("#iznos2").val(data.iznos2);
-						// Ubacuje Od 2
-						$("#od2").val(data.od2);
-						// Ubacuje Do 2
-						$("#do2").val(data.do2);
-						// Ubacuje Posiljaoca 2
-						$("#mesto_utovara2").val(data.mesto_utovara2);
-						// Ubacuje Primaoca 2
-						$("#mesto_istovara2").val(data.mesto_istovara2);
+						$("#broj_naloga").parent().hide();
+						$("label[for='broj_naloga']").hide();
 					} else {
 						// Sakrije mesto istovara 1
-						$("#mesto_istovara1").hide();
-						$("label[for='mesto_istovara1']").hide();
+						$("#mesto_istovara").hide();
+						$("label[for='mesto_istovara']").hide();
 						// Sakrije mesto utovara 1
-						$("#mesto_utovara1").hide();
-						$("label[for='mesto_utovara1']").hide();
-						// Sakrije mesto istovara 2
-						$("#mesto_istovara2").hide();
-						$("label[for='mesto_istovara2']").hide();
-						// Sakrije mesto utovara 2
-						$("#mesto_utovara2").hide();
-						$("label[for='mesto_utovara2']").hide();
+						$("#mesto_utovara").hide();
+						$("label[for='mesto_utovara']").hide();
 						
 						// Ubacuje Broj naloga 1
-						$("#broj_naloga1").val(data.broj_naloga1);
-						// Ubacuje Broj naloga 2
-						$("#broj_naloga2").val("DDD");
-						// Ubacuje CMR 2
-						$("#cmr2").val(data.cmr2);
-						// Ubacuje Tezina 2
-						$("#tezina2").val(data.tezina2);
-						//Ubacuje  Iznos 2
-						$("#iznos2").val(data.iznos2);
-						// Ubacuje Od 2
-						$("#od2").val(data.od2);
-						// Ubacuje Do 2
-						$("#do2").val(data.do2);
+						$("#broj_naloga").val(data.broj_naloga);
 					}
 				}
 		});
@@ -259,28 +218,23 @@ $(function () {
 		else
 			domaci = false;
 		
-		if($("#broj_naloga2").attr("style").includes("display: none;"))
-			dveTure = false;
-		else
-			dveTure = true;
-		
 		var iznos = 0;
 		
 		if(domaci && dveTure) {
 			sablon = "DinarskiSablon2Ture";
-			iznos = obj1["iznos1"] + obj["iznos2"];
+			iznos = obj1["iznos"];
 			obj1["iznos"] = iznos;
 		} else if(domaci && !dveTure) {
 			sablon = "DinarskiSablon1Tura";
-			iznos = obj1["iznos1"];
+			iznos = obj1["iznos"];
 			obj1["iznos"] = iznos;
 		} else if(!domaci && dveTure) {
 			sablon = "DevizniSablon2Ture";
-			iznos = obj1["iznos1"] + obj["iznos2"];
+			iznos = obj1["iznos"];
 			obj1["iznos"] = iznos;
 		} else if(!domaci && !dveTure) {
 			sablon = "DevizniSablon1Tura";
-			iznos = obj1["iznos1"]
+			iznos = obj1["iznos"]
 			obj1["iznos"] = iznos;
 		}
 		
@@ -398,38 +352,40 @@ $(function () {
 			obj1[imeKolone] = inputi[i].value;
 		}
 		
-		var racunBroj = $("#komplet_racun_broj").val();
+		var racunBroj = $("#racun_broj").val();
 		var imeNalogodavca = document.getElementById("nalogodavac").options[document.getElementById("nalogodavac").selectedIndex].text;
 		obj1["ime_nalogodavca"] = imeNalogodavca;
 		obj1["kursEUR"] = $("#pomocniKurs").text().substr(0, $("#pomocniKurs").text().length - 2);
+		
+		if($("#racun_broj").val().includes("/AK/")) {
+			obj1["tegljac"] = $("#ang_tegljac").val();
+			obj1["prikolica"] = $("#ang_prikolica").val();
+		}
 		
 		if(imeNalogodavca.includes("d.o.o"))
 			domaci = true;
 		else
 			domaci = false;
 		
-		if($("#broj_naloga2").attr("style").includes("display: none;"))
-			dveTure = false;
-		else
-			dveTure = true;
+		dveTure = false;
 		
 		var iznos = 0;
 		
 		if(domaci && dveTure) {
 			sablon = "DinarskiSablon2Ture";
-			iznos = obj1["iznos1"] + obj["iznos2"];
+			iznos = obj1["iznos"];
 			obj1["iznos"] = iznos;
 		} else if(domaci && !dveTure) {
 			sablon = "DinarskiSablon1Tura";
-			iznos = obj1["iznos1"];
+			iznos = obj1["iznos"];
 			obj1["iznos"] = iznos;
 		} else if(!domaci && dveTure) {
 			sablon = "DevizniSablon2Ture";
-			iznos = obj1["iznos1"] + obj["iznos2"];
+			iznos = obj1["iznos"];
 			obj1["iznos"] = iznos;
 		} else if(!domaci && !dveTure) {
 			sablon = "DevizniSablon1Tura";
-			iznos = obj1["iznos1"]
+			iznos = obj1["iznos"]
 			obj1["iznos"] = iznos;
 		}
 		

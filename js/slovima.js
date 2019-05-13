@@ -23,8 +23,14 @@ function izBrojaUSlova(n, rod, padez) {
 		}
 		
 		var sh = [];
+		/*
+			if(n == 0)
+				return 0;
+			
+			je bilo ja sam stavio da return "";
+		*/
 		if(n == 0)
-			return 0;
+			return "";
         if (n == 1)
             return b[1][rod-1][padez-1];
         else if (n == 2)

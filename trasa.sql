@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2019 at 01:23 PM
+-- Generation Time: May 13, 2019 at 06:22 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -25,32 +25,13 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `banke`
---
-
-CREATE TABLE `banke` (
-  `id` int(11) NOT NULL,
-  `ime` varchar(50) NOT NULL,
-  `racun_broj` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `banke`
---
-
-INSERT INTO `banke` (`id`, `ime`, `racun_broj`) VALUES
-(1, 'Banka1', '5434');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `benzinske_stanice`
 --
 
 CREATE TABLE `benzinske_stanice` (
   `id` int(11) NOT NULL,
-  `naziv` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `naziv` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -60,9 +41,15 @@ CREATE TABLE `benzinske_stanice` (
 
 CREATE TABLE `brojevi` (
   `id` int(11) NOT NULL,
-  `prvi` int(11) NOT NULL,
-  `drugi` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `prvi` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `brojevi`
+--
+
+INSERT INTO `brojevi` (`id`, `prvi`) VALUES
+(1, 30);
 
 -- --------------------------------------------------------
 
@@ -72,57 +59,43 @@ CREATE TABLE `brojevi` (
 
 CREATE TABLE `fakture` (
   `id` int(11) NOT NULL,
-  `racun_broj` varchar(15) NOT NULL,
-  `komplet_racun_broj` varchar(30) NOT NULL,
-  `datum_izdavanja` varchar(15) NOT NULL,
-  `valuta_placanja` varchar(15) NOT NULL,
-  `datum_prometa` varchar(15) NOT NULL,
-  `mesto_prometa` varchar(25) NOT NULL,
-  `mesto_izdavanja_racuna` varchar(25) NOT NULL,
-  `broj_naloga1` int(25) NOT NULL,
-  `broj_naloga2` int(25) DEFAULT NULL,
-  `od1` varchar(25) NOT NULL,
-  `od2` varchar(25) DEFAULT NULL,
-  `do1` varchar(25) NOT NULL,
-  `do2` varchar(25) DEFAULT NULL,
-  `cmr1` varchar(25) NOT NULL,
-  `cmr2` varchar(25) DEFAULT NULL,
-  `mesto_utovara1` varchar(90) NOT NULL,
-  `mesto_utovara2` varchar(90) DEFAULT NULL,
-  `mesto_istovara1` varchar(90) NOT NULL,
-  `mesto_istovara2` varchar(90) DEFAULT NULL,
-  `tezina1` varchar(25) NOT NULL,
-  `tezina2` varchar(25) DEFAULT NULL,
-  `fk_tegljac` int(11) NOT NULL,
-  `fk_prikolica` int(11) NOT NULL,
-  `iznos1` varchar(25) NOT NULL,
-  `iznos2` varchar(25) DEFAULT NULL,
-  `iznos` varchar(25) NOT NULL,
-  `iznosEUR` varchar(25) NOT NULL,
-  `kursEUR` varchar(10) NOT NULL,
-  `sablon` varchar(50) NOT NULL,
+  `racun_broj` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `komplet_racun_broj` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `datum_izdavanja` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `valuta_placanja` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `datum_prometa` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `mesto_prometa` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `mesto_izdavanja_racuna` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `broj_naloga` int(25) NOT NULL,
+  `od` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `do` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `cmr` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `mesto_utovara` varchar(90) COLLATE utf8_unicode_ci NOT NULL,
+  `mesto_istovara` varchar(90) COLLATE utf8_unicode_ci NOT NULL,
+  `tezina` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `vrsta_robe` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fk_tegljac` int(11) DEFAULT NULL,
+  `fk_prikolica` int(11) DEFAULT NULL,
+  `ang_tegljac` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ang_prikolica` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `iznos` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `iznosEUR` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `kursEUR` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `sablon` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `fk_nalogodavac` int(11) NOT NULL,
-  `ime_banke` varchar(50) NOT NULL,
-  `racun_broj_banke` varchar(50) NOT NULL,
-  `lokacija` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `lokacija` varchar(150) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `fakture`
 --
 
-INSERT INTO `fakture` (`id`, `racun_broj`, `komplet_racun_broj`, `datum_izdavanja`, `valuta_placanja`, `datum_prometa`, `mesto_prometa`, `mesto_izdavanja_racuna`, `broj_naloga1`, `broj_naloga2`, `od1`, `od2`, `do1`, `do2`, `cmr1`, `cmr2`, `mesto_utovara1`, `mesto_utovara2`, `mesto_istovara1`, `mesto_istovara2`, `tezina1`, `tezina2`, `fk_tegljac`, `fk_prikolica`, `iznos1`, `iznos2`, `iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`, `ime_banke`, `racun_broj_banke`, `lokacija`) VALUES
-(5, '', '1', '25.10.2018', '25.11.2018', '13.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Pristina', '', 'Napoli', '', '1234', '', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '', 34, 52, '12543.43', 'NaN', '12543.43', '105.83', '118.52', 'DinarskiSablon1Tura', 11, 'Banka1', '5434', ''),
-(6, '', '1', '25.10.2018', '25.11.2018', '13.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Beograd', '', 'Milano', '', '1234', '', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '1234', '', 34, 52, '12345.00', 'NaN', '12345.00', '104.16', '118.52', 'DinarskiSablon1Tura', 11, 'Banka1', '5434', ''),
-(7, '', '1', '25.10.2018', '25.11.2018', '20.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Beograd', '', 'Milano', '', '1234', '', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '', 34, 52, '12345.00', 'NaN', '12345.00', '104.16', '118.52', 'DinarskiSablon1Tura', 11, 'Banka1', '5434', ''),
-(8, '', '4', '25.10.2018', '25.11.2018', '12.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Beograd', 'Napoli', 'Napoli', 'Milano', '1234', '1234', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '1234', 36, 44, '12345.00', '1234.67', '13579.67', '114.58', '118.52', 'DinarskiSablon2Ture', 11, 'Banka1', '5434', ''),
-(9, '', '6', '25.10.2018', '25.11.2018', '19.10.2018', 'Beograd', 'Vidikovac', 0, 0, 'Beograd', 'Milano', 'Napoli', 'Beograd', '1234', '2134', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '1234', 32, 42, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 15, 'Banka1', '5434', ''),
-(10, '', '1', '25.10.2018', '25.11.2018', '19.10.2018', 'Lozovik', 'Vidikovac', 0, 0, 'Beograd', 'Milano', 'Napoli', 'Milano', '1234', '1234', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '1234', 34, 52, '1234.00', '12345.00', '13579.00', '114.57', '118.52', 'DinarskiSablon2Ture', 11, 'Banka1', '5434', ''),
-(11, '', '9', '25.10.2018', '24.00.2019', '24.10.2018', 'Beograd', 'Vidikovac', 0, 0, 'Beograd', 'Milano', 'Milano', 'Napoli', '1234', '1234', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '1234', '12434', 38, 48, '1234.00', '1234.00', '2468.00', '20.82', '118.52', 'DinarskiSablon2Ture', 14, 'Banka1', '5434', ''),
-(12, '', '1', '25.10.2018', '25.11.2018', '11.10.2018', 'Beograd', 'Vidikovac', 0, 0, 'Milano', 'Milano', 'Napoli', 'Beograd', '1234', '1234', 'Almex d.o.o.', '', 'Cartiera Di Bosco Marengo S.p.A.', '', '1234', '1234', 34, 52, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 15, 'Banka1', '5434', ''),
-(13, '', '1', '25.10.2018', '24.00.2019', '13.10.2018', 'Novi Beograd', 'Vidikovac', 0, 0, 'Milano', 'Beograd', 'Beograd', 'Napoli', '1234', '1234', 'Almex d.o.o.', '', 'Cartiera Dell\' Adda s.r.l.', '', '1234', '1234', 34, 52, '1234.00', '12345.00', '13579.00', '114.57', '118.52', 'DinarskiSablon2Ture', 13, 'Banka1', '5434', ''),
-(14, '', '7', '25.10.2018', '24.00.2019', '02.10.2018', 'Novi Beograd', 'Vidikovac', 0, 0, 'Milano', 'Milano', 'Napoli', 'Napoli', '1234', '1234', 'Hbis Group Serbia Iron & Steel d.o.o.', '', 'Bcube S.p.A.', '', '1234', '1234', 35, 50, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 13, 'Banka1', '5434', ''),
-(15, '', '3', '25.10.2018', '24.00.2019', '19.10.2018', 'Subotica', 'Vidikovac', 0, 0, 'Beograd', 'Milano', 'Milano', 'Napoli', '1234', '1234', 'Hbis Group Serbia Iron & Steel d.o.o.', 'Fas d.o.o.', 'Bcube S.p.A.', 'Fas d.o.o.', '1234', '1234', 30, 46, '12345.00', '12345.00', '24690.00', '208.32', '118.52', 'DinarskiSablon2Ture', 12, 'Banka1', '5434', '');
+INSERT INTO `fakture` (`id`, `racun_broj`, `komplet_racun_broj`, `datum_izdavanja`, `valuta_placanja`, `datum_prometa`, `mesto_prometa`, `mesto_izdavanja_racuna`, `broj_naloga`, `od`, `do`, `cmr`, `mesto_utovara`, `mesto_istovara`, `tezina`, `vrsta_robe`, `fk_tegljac`, `fk_prikolica`, `ang_tegljac`, `ang_prikolica`, `iznos`, `iznosEUR`, `kursEUR`, `sablon`, `fk_nalogodavac`, `lokacija`) VALUES
+(40, '27/AK/19', '27/AK/19', '12.05.2019', '30.07.2019', '03.05.2019', 'San Paolo D` Argon', 'Vidikovac', 123, 'Beograd', 'Genova', '123', '', '', '123', '123', NULL, NULL, '123', '213', '100', '0.85', '117.97', 'DevizniSablon1Tura', 16, ''),
+(41, '28/AK/19', '28/AK/19', '12.05.2019', '30.07.2019', '10.05.2019', 'San Paolo D` Argon', 'Vidikovac', 64537, 'Beograd', 'Genova', '6647', '', '', '19761', 'Kukuruz i bicikle', NULL, NULL, 'FSDF', 'SFS', '1400', '11.87', '117.97', 'DevizniSablon1Tura', 16, ''),
+(42, '29/AK/19', '29/AK/19', '12.05.2019', '11.05.2019', '10.05.2019', 'Novi Beograd', 'Vidikovac', 0, '123', '321', '123', '', '', '52353', 'kukuruz i kajmak', NULL, NULL, 'TELGHJAC', 'MARA', '369', '3.00', '123.00', 'DinarskiSablon1Tura', 13, ''),
+(43, '29/34-52/19', '29/34-52/19', '12.05.2019', '12.06.2019', '16.05.2019', 'Lozovik', 'Vidikovac', 0, '456', '654', '123', '', '', '123', '123', 34, 52, '', '', '123', '1.04', '117.97', 'DinarskiSablon1Tura', 11, ''),
+(44, '30/34-52/19', '30/34-52/19', '12.05.2019', '12.06.2019', '11.05.2019', 'Lozovik', 'Vidikovac', 0, '789', '978', '123', '', '', '123', '123', 34, 52, '', '', '123', '1.04', '117.97', 'DinarskiSablon1Tura', 11, '');
 
 -- --------------------------------------------------------
 
@@ -133,7 +106,7 @@ INSERT INTO `fakture` (`id`, `racun_broj`, `komplet_racun_broj`, `datum_izdavanj
 CREATE TABLE `fakture_gorivo` (
   `fk_fakture` int(11) NOT NULL,
   `fk_gorivo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -144,7 +117,7 @@ CREATE TABLE `fakture_gorivo` (
 CREATE TABLE `fakture_troskovi` (
   `fk_fakture` int(11) NOT NULL,
   `fk_troskovi` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -154,13 +127,13 @@ CREATE TABLE `fakture_troskovi` (
 
 CREATE TABLE `gorivo` (
   `id` int(11) NOT NULL,
-  `datum` varchar(12) NOT NULL,
+  `datum` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `kilometraza` int(11) NOT NULL,
-  `kolicina_litara` varchar(11) NOT NULL,
-  `cena_po_litru` varchar(11) NOT NULL,
-  `iznos` varchar(20) NOT NULL,
+  `kolicina_litara` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `cena_po_litru` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `iznos` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `fk_benzinska_stanica` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -170,9 +143,9 @@ CREATE TABLE `gorivo` (
 
 CREATE TABLE `gradovi` (
   `id` int(11) NOT NULL,
-  `ime` varchar(50) NOT NULL,
-  `drzava` varchar(12) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `ime` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `drzava` varchar(12) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `gradovi`
@@ -180,8 +153,16 @@ CREATE TABLE `gradovi` (
 
 INSERT INTO `gradovi` (`id`, `ime`, `drzava`) VALUES
 (1, 'Beograd', 'SRB'),
-(2, 'Milano', 'ITA'),
-(3, 'Napoli', 'ITA');
+(2, 'Milano', 'I'),
+(3, 'Napoli', 'I'),
+(4, 'Gornji Milanovac', 'SRB'),
+(5, 'Genova', 'I'),
+(6, '123', 'SRB'),
+(7, '321', 'ITA'),
+(8, '456', 'I'),
+(9, '654', 'SRB'),
+(10, '789', 'SRB'),
+(11, '978', 'I');
 
 -- --------------------------------------------------------
 
@@ -195,7 +176,7 @@ CREATE TABLE `kip` (
   `pocetna_kilometraza` int(11) NOT NULL,
   `zavrsna_kilometraza` int(11) NOT NULL,
   `potrosnja` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -208,7 +189,7 @@ CREATE TABLE `kompleti` (
   `fk_tegljac` int(11) NOT NULL,
   `fk_prikolica` int(11) NOT NULL,
   `broj` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `kompleti`
@@ -234,14 +215,14 @@ INSERT INTO `kompleti` (`id`, `fk_tegljac`, `fk_prikolica`, `broj`) VALUES
 
 CREATE TABLE `nalogodavci` (
   `id` int(11) NOT NULL,
-  `ime` varchar(50) NOT NULL,
-  `mesto` varchar(50) NOT NULL,
-  `adresa` varchar(50) NOT NULL,
+  `ime` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `mesto` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `adresa` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `postanski_broj` int(11) NOT NULL,
-  `pib` varchar(50) NOT NULL,
-  `pak` varchar(50) NOT NULL,
-  `rok_placanja` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `pib` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `pak` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `rok_placanja` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `nalogodavci`
@@ -253,40 +234,8 @@ INSERT INTO `nalogodavci` (`id`, `ime`, `mesto`, `adresa`, `postanski_broj`, `pi
 (13, 'Milsped d.o.o.', 'Novi Beograd', 'Bulevar Zorana Djindjica 121', 11000, '100423446', '', '60'),
 (14, 'Maverick Logistic Solutions d.o.o.', 'Beograd', 'Urosa Martinovica 19/3', 11070, '109647276', '', '60'),
 (15, 'Kolibri Oil d.o.o.', 'Beograd', 'Mokroluska 32', 11000, '100372851', '', '30'),
-(16, 'Autotrasporti Cambianica s.r.l.', 'San Paolo D’ Argon', 'Via Bergamo 12', 24060, 'IT 00 231 300 161', '', '60'),
+(16, 'Autotrasporti Cambianica s.r.l', 'San Paolo D` Argon', 'Via Bergamo 12', 24060, 'IT 00 231 300 161', '', '60'),
 (17, 'Ubv Torino s.r.l.', 'San Mauro Torinese', 'Corso Piemonte 19/21', 10099, 'IT 10 593 090 011', '', '60');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nalogodavci_banke`
---
-
-CREATE TABLE `nalogodavci_banke` (
-  `id` int(11) NOT NULL,
-  `fk_nalogodavac` int(11) NOT NULL,
-  `fk_banke` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `nalogodavci_banke`
---
-
-INSERT INTO `nalogodavci_banke` (`id`, `fk_nalogodavac`, `fk_banke`) VALUES
-(2, 11, 3),
-(3, 13, 3),
-(4, 13, 3),
-(5, 11, 1),
-(6, 11, 1),
-(7, 11, 1),
-(8, 11, 1),
-(9, 15, 1),
-(10, 11, 1),
-(11, 14, 1),
-(12, 15, 1),
-(13, 13, 1),
-(14, 13, 1),
-(15, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -297,10 +246,10 @@ INSERT INTO `nalogodavci_banke` (`id`, `fk_nalogodavac`, `fk_banke`) VALUES
 CREATE TABLE `pregledi_prikolice` (
   `id` int(11) NOT NULL,
   `fk_prikolica` int(11) NOT NULL,
-  `registracija` varchar(30) NOT NULL,
-  `sertifikat` varchar(30) NOT NULL,
-  `sesto_mesecni` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `registracija` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `sertifikat` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `sesto_mesecni` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -312,11 +261,11 @@ CREATE TABLE `pregledi_tegljaci` (
   `id` int(11) NOT NULL,
   `fk_tegljac` int(11) NOT NULL,
   `fk_vozac` int(11) NOT NULL,
-  `registracija` varchar(30) NOT NULL,
-  `sertifikat` varchar(30) NOT NULL,
-  `sesto_mesecni` varchar(30) NOT NULL,
-  `tahograf` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `registracija` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `sertifikat` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `sesto_mesecni` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `tahograf` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -326,9 +275,9 @@ CREATE TABLE `pregledi_tegljaci` (
 
 CREATE TABLE `prikolice` (
   `id` int(11) NOT NULL,
-  `broj_registracije` varchar(50) DEFAULT NULL,
-  `marka` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `broj_registracije` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `marka` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `prikolice`
@@ -360,7 +309,7 @@ CREATE TABLE `sleperi_vozaci` (
   `od` date DEFAULT NULL,
   `do` date DEFAULT NULL,
   `fk_vozac` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `sleperi_vozaci`
@@ -386,11 +335,11 @@ INSERT INTO `sleperi_vozaci` (`fk_komplet`, `od`, `do`, `fk_vozac`) VALUES
 
 CREATE TABLE `tegljaci` (
   `id` int(11) NOT NULL,
-  `broj_registracije` varchar(50) DEFAULT NULL,
-  `marka` varchar(50) NOT NULL,
-  `model` varchar(50) NOT NULL,
-  `tip_tahografa` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `broj_registracije` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `marka` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `model` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `tip_tahografa` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tegljaci`
@@ -416,75 +365,11 @@ INSERT INTO `tegljaci` (`id`, `broj_registracije`, `marka`, `model`, `tip_tahogr
 
 CREATE TABLE `troskovi` (
   `id` int(11) NOT NULL,
-  `naziv` varchar(40) NOT NULL,
-  `datum` varchar(10) NOT NULL,
+  `naziv` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `datum` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `iznos` float NOT NULL,
-  `valuta` varchar(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `uvoznici_izvoznici`
---
-
-CREATE TABLE `uvoznici_izvoznici` (
-  `id` int(11) NOT NULL,
-  `ime` varchar(50) NOT NULL,
-  `u_i` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `uvoznici_izvoznici`
---
-
-INSERT INTO `uvoznici_izvoznici` (`id`, `ime`, `u_i`) VALUES
-(20, 'Almex d.o.o.', 'Izvoznik'),
-(21, 'Cartiera Dell\' Adda s.r.l.', 'Uvoznik'),
-(22, 'Cartiera Di Bosco Marengo S.p.A.', 'Uvoznik'),
-(23, 'Hbis Group Serbia Iron & Steel d.o.o.', 'Izvoznik'),
-(24, 'Bcube S.p.A.', 'Oba'),
-(25, 'Fas d.o.o.', 'Oba');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `u_i_nalogodavac`
---
-
-CREATE TABLE `u_i_nalogodavac` (
-  `fk_nalogodavac` int(11) NOT NULL,
-  `fk_u_i` int(11) NOT NULL,
-  `broj` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `u_i_nalogodavac`
---
-
-INSERT INTO `u_i_nalogodavac` (`fk_nalogodavac`, `fk_u_i`, `broj`) VALUES
-(11, 20, 6),
-(11, 22, 5),
-(11, 23, 1),
-(11, 24, 2),
-(15, 20, 2),
-(15, 23, 1),
-(15, 22, 3),
-(14, 23, 1),
-(14, 20, 1),
-(14, 24, 1),
-(14, 25, 1),
-(15, 25, 1),
-(15, 21, 1),
-(13, 20, 2),
-(13, 25, 1),
-(13, 21, 1),
-(13, 22, 1),
-(13, 23, 1),
-(13, 24, 2),
-(12, 23, 1),
-(12, 25, 2),
-(12, 24, 1);
+  `valuta` varchar(3) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -494,13 +379,13 @@ INSERT INTO `u_i_nalogodavac` (`fk_nalogodavac`, `fk_u_i`, `broj`) VALUES
 
 CREATE TABLE `vozaci` (
   `id` int(11) NOT NULL,
-  `ime` varchar(50) NOT NULL,
-  `prezime` varchar(50) NOT NULL,
-  `br_pasosa` varchar(50) NOT NULL,
+  `ime` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `prezime` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `br_pasosa` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `procenat` int(11) DEFAULT NULL,
-  `uverenje` char(10) NOT NULL,
-  `lekarsko` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `uverenje` char(10) COLLATE utf8_unicode_ci NOT NULL,
+  `lekarsko` varchar(10) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `vozaci`
@@ -521,12 +406,6 @@ INSERT INTO `vozaci` (`id`, `ime`, `prezime`, `br_pasosa`, `procenat`, `uverenje
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `banke`
---
-ALTER TABLE `banke`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `benzinske_stanice`
@@ -598,14 +477,6 @@ ALTER TABLE `nalogodavci`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `nalogodavci_banke`
---
-ALTER TABLE `nalogodavci_banke`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `banka_FK` (`fk_banke`),
-  ADD KEY `FK_nalogodavac` (`fk_nalogodavac`);
-
---
 -- Indexes for table `pregledi_prikolice`
 --
 ALTER TABLE `pregledi_prikolice`
@@ -646,19 +517,6 @@ ALTER TABLE `troskovi`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `uvoznici_izvoznici`
---
-ALTER TABLE `uvoznici_izvoznici`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `u_i_nalogodavac`
---
-ALTER TABLE `u_i_nalogodavac`
-  ADD KEY `u_i_FK` (`fk_u_i`),
-  ADD KEY `nalogodavac_FK` (`fk_nalogodavac`);
-
---
 -- Indexes for table `vozaci`
 --
 ALTER TABLE `vozaci`
@@ -667,12 +525,6 @@ ALTER TABLE `vozaci`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `banke`
---
-ALTER TABLE `banke`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `benzinske_stanice`
@@ -684,13 +536,13 @@ ALTER TABLE `benzinske_stanice`
 -- AUTO_INCREMENT for table `brojevi`
 --
 ALTER TABLE `brojevi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `fakture`
 --
 ALTER TABLE `fakture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `gorivo`
@@ -702,7 +554,7 @@ ALTER TABLE `gorivo`
 -- AUTO_INCREMENT for table `gradovi`
 --
 ALTER TABLE `gradovi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `kip`
@@ -715,12 +567,6 @@ ALTER TABLE `kip`
 --
 ALTER TABLE `nalogodavci`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `nalogodavci_banke`
---
-ALTER TABLE `nalogodavci_banke`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `pregledi_prikolice`
@@ -751,12 +597,6 @@ ALTER TABLE `tegljaci`
 --
 ALTER TABLE `troskovi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `uvoznici_izvoznici`
---
-ALTER TABLE `uvoznici_izvoznici`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `vozaci`
