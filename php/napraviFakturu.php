@@ -36,14 +36,21 @@
 
 	$fk_nalogodavac = $conn->escape_string($_POST["fk_nalogodavac"]);
 
+	$avansna = $conn->escape_string($_POST["avansna"]);
+	$uvoz = $conn->escape_string($_POST["uvoz"]);
+
+	$ceo_deo = $conn->escape_string($_POST["ceo_deo"]);
+	$domaci_deo = $conn->escape_string($_POST["domaci_deo"]);
+	$inostrani_deo = $conn->escape_string($_POST["inostrani_deo"]);
+
 	if($fk_tegljac == 0 && $fk_prikolica == 0) {
-		$sql = "INSERT INTO fakture (id, racun_broj, komplet_racun_broj, datum_izdavanja, valuta_placanja, datum_prometa, mesto_prometa, mesto_izdavanja_racuna, broj_naloga, od, do, cmr, mesto_utovara, mesto_istovara, tezina, vrsta_robe, fk_tegljac, fk_prikolica, ang_tegljac, ang_prikolica, iznos, iznosEUR, kursEUR, sablon, fk_nalogodavac, lokacija) VALUES
-		('NULL', '$racun_broj', '$komplet_racun_broj', '$datum_izdavanja', '$valuta_placanja', '$datum_prometa', '$mesto_prometa', '$mesto_izdavanja_racuna', '$broj_naloga', '$od', '$do', '$cmr', '$mesto_utovara', '$mesto_istovara', '$tezina', '$vrsta_robe', NULL, NULL, '$ang_tegljac', '$ang_prikolica','$iznos', '$iznosEUR', '$kursEUR', '$sablon', '$fk_nalogodavac', '$lokacija')";
+		$sql = "INSERT INTO fakture (id, racun_broj, komplet_racun_broj, datum_izdavanja, valuta_placanja, datum_prometa, mesto_prometa, mesto_izdavanja_racuna, broj_naloga, od, do, cmr, mesto_utovara, mesto_istovara, tezina, vrsta_robe, fk_tegljac, fk_prikolica, ang_tegljac, ang_prikolica, iznos, iznosEUR, kursEUR, sablon, fk_nalogodavac, avansna, uvoz, ceo_deo, domaci_deo, inostrani_deo) VALUES
+		('NULL', '$racun_broj', '$komplet_racun_broj', '$datum_izdavanja', '$valuta_placanja', '$datum_prometa', '$mesto_prometa', '$mesto_izdavanja_racuna', '$broj_naloga', '$od', '$do', '$cmr', '$mesto_utovara', '$mesto_istovara', '$tezina', '$vrsta_robe', NULL, NULL, '$ang_tegljac', '$ang_prikolica','$iznos', '$iznosEUR', '$kursEUR', '$sablon', '$fk_nalogodavac', $avansna, $uvoz, '$ceo_deo', '$domaci_deo', '$inostrani_deo')";
 		echo $sql;
 		$conn->query($sql);
 	} else {
-		$sql = "INSERT INTO fakture (id, racun_broj, komplet_racun_broj, datum_izdavanja, valuta_placanja, datum_prometa, mesto_prometa, mesto_izdavanja_racuna, broj_naloga, od, do, cmr, mesto_utovara, mesto_istovara, tezina, vrsta_robe, fk_tegljac, fk_prikolica, ang_tegljac, ang_prikolica, iznos, iznosEUR, kursEUR, sablon, fk_nalogodavac, lokacija) VALUES
-		('NULL', '$racun_broj', '$komplet_racun_broj', '$datum_izdavanja', '$valuta_placanja', '$datum_prometa', '$mesto_prometa', '$mesto_izdavanja_racuna', '$broj_naloga', '$od', '$do', '$cmr', '$mesto_utovara', '$mesto_istovara', '$tezina', '$vrsta_robe','$fk_tegljac', '$fk_prikolica', '$ang_tegljac', '$ang_prikolica','$iznos', '$iznosEUR', '$kursEUR', '$sablon', '$fk_nalogodavac', '$lokacija')";
+		$sql = "INSERT INTO fakture (id, racun_broj, komplet_racun_broj, datum_izdavanja, valuta_placanja, datum_prometa, mesto_prometa, mesto_izdavanja_racuna, broj_naloga, od, do, cmr, mesto_utovara, mesto_istovara, tezina, vrsta_robe, fk_tegljac, fk_prikolica, ang_tegljac, ang_prikolica, iznos, iznosEUR, kursEUR, sablon, fk_nalogodavac, avansna, uvoz, ceo_deo, domaci_deo, inostrani_deo) VALUES
+		('NULL', '$racun_broj', '$komplet_racun_broj', '$datum_izdavanja', '$valuta_placanja', '$datum_prometa', '$mesto_prometa', '$mesto_izdavanja_racuna', '$broj_naloga', '$od', '$do', '$cmr', '$mesto_utovara', '$mesto_istovara', '$tezina', '$vrsta_robe','$fk_tegljac', '$fk_prikolica', '$ang_tegljac', '$ang_prikolica','$iznos', '$iznosEUR', '$kursEUR', '$sablon', '$fk_nalogodavac', $avansna, $uvoz, '$ceo_deo', '$domaci_deo', '$inostrani_deo')";
 		echo $sql;
 		$conn->query($sql);
 	}

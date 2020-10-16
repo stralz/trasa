@@ -51,6 +51,10 @@
 								?>
 						</datalist>
 					</div>
+          <div class="form-group col-md-2">
+            <label for="datum_izdavanja_racuna">Datum izdavanja:</label>
+            <input type="date" class="form-control" id="datum_izdavanja_racuna" value="<?php echo date("Y-m-d"); ?>">
+          </div>
           <div class="form-group col-md-2 offset-md-1" id="vrsta_fakture" style="display: none;">
             <br>
             <label class="radio-inline"><input type="radio" name="vrsta_fakture" value="kla_faktura"checked> Klasična faktura</label>
@@ -67,8 +71,8 @@
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-1">
-						<label for="broj_ture">Broj ture:</label>
-						<input type="text" class="form-control" id="broj_ture" value="<?php
+						<label for="broj_fakture">Broj fakture:</label>
+						<input type="text" class="form-control" id="broj_fakture" value="<?php
 							$sql = "SELECT prvi FROM brojevi";
 							$result = $conn->query($sql);
 
@@ -78,14 +82,18 @@
 							}
 						?>">
 					</div>
+					<div class="form-group col-md-1">
+						<label for="broj_ture">Broj ture:</label>
+						<input type="text" class="form-control" id="broj_ture">
+					</div>
         </div>
         <div class="form-row" id="utovar" style="display: none;">
           <div class="form-group col-md-2">
-						<label for="datum_utovara">Datum utovara:</label>
+						<label for="datum_utovara">Datum:</label>
 						<input type="date" class="form-control" id="datum_utovara">
 					</div>
-					<div class="form-group col-md-2 offset-md-1">
-						<label for="dan_utovara_kurs">Kurs na dan utovara:</label>
+					<div class="form-group col-md-2">
+						<label for="dan_utovara_kurs">Kurs na datum:</label>
 						<div class="input-group">
 							<input type="text" class="form-control" id="dan_utovara_kurs">
 							<div class="input-group-append">
@@ -96,13 +104,28 @@
         </div>
         <div class="form-row" id="istovar" style="display: none;">
           <div class="form-group col-md-2">
-						<label for="datum_istovara">Datum istovara:</label>
+						<label for="datum_istovara">Datum fakturisanja:</label>
 						<input type="date" class="form-control" id="datum_istovara">
 					</div>
-					<div class="form-group col-md-2 offset-md-1">
-						<label for="dan_istovara_kurs">Kurs na dan istovara:</label>
+					<div class="form-group col-md-3">
+						<label for="dan_istovara_kurs">Kurs na datum fakturisanja:</label>
 						<div class="input-group">
 							<input type="text" class="form-control" id="dan_istovara_kurs">
+							<div class="input-group-append">
+								<span class="input-group-text">din.</span>
+							</div>
+						</div>
+					</div>
+        </div>
+        <div class="form-row" id="fakturisanje" style="display: none;">
+          <div class="form-group col-md-2">
+						<label for="datum_fakturisanja">Datum:</label>
+						<input type="date" class="form-control" id="datum_fakturisanja">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="dan_fakturisanja_kurs">Kurs na datum:</label>
+						<div class="input-group">
+							<input type="text" class="form-control" id="dan_fakturisanja_kurs">
 							<div class="input-group-append">
 								<span class="input-group-text">din.</span>
 							</div>
@@ -132,8 +155,8 @@
 						<input type="text" class="form-control" id="rok_placanja_usluge">
 					</div>
 					<div class="form-group col-md-3" style="display: none;">
-						<label for="valuta_placanja">Valuta plaćanja:</label>
-						<input type="date" class="form-control" id="valuta_placanja">
+  						<label for="valuta_placanja">Valuta plaćanja:</label>
+						<input type="text" class="form-control" id="valuta_placanja">
 					</div>
 				</div>
         <div class="form-row" id="nas_kamion">
@@ -183,11 +206,35 @@
 				<div class="form-row" id="ang_kamion" style="display: none;">
 					<div class="form-group col-md-3">
 						<label for="ang_tegljac">Angažovani tegljač:</label>
-						<input type="text" class="form-control" id="ang_tegljac">
+						<input type="text" class="form-control" id="ang_tegljac" list="listaAngazovanihTegljaca">
+            <datalist id="listaAngazovanihTegljaca">
+              <?php
+                $sql = "SELECT * FROM ang_tegljaci";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                  while ($row = $result->fetch_assoc()) {
+                    echo "<option id=\"{$row["id"]}\" value=\"{$row["broj_registracije"]}\"/>";
+                  }
+                }
+              ?>
+            </datalist>
 					</div>
 					<div class="form-group col-md-3">
 						<label for="ang_prikolica">Angažovana prikolica:</label>
-						<input type="text" class="form-control" id="ang_prikolica">
+						<input type="text" class="form-control" id="ang_prikolica" list="listaAngazovanihPrikolica">
+            <datalist id="listaAngazovanihPrikolica">
+              <?php
+                $sql = "SELECT * FROM ang_prikolice";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                  while ($row = $result->fetch_assoc()) {
+                    echo "<option id=\"{$row["id"]}\" value=\"{$row["broj_registracije"]}\"/>";
+                  }
+                }
+              ?>
+            </datalist>
 					</div>
 				</div>
 			    <div class="form-group">
@@ -230,7 +277,10 @@
 						<div class="form-row">
 							<div class="form-group col-md-3">
 								<label for="vrsta_robe">Vrsta robe:</label>
-								<input type="text" class="form-control" id="vrsta_robe">
+								<input type="text" class="form-control" id="vrsta_robe" list="listaVrstaRobe">
+                <datalist id="listaVrstaRobe">
+
+                </datalist>
 							</div>
 							<div class="form-group col-md-3">
 								<label for="tezina">Težina:</label>

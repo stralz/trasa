@@ -75,7 +75,7 @@
 								</div>
 								<div class="form-group col-md-3">
 									<label for="valuta_placanja">Rok plaćanja usluge:</label>
-									<input type="date" class="form-control" id="valuta_placanja">
+									<input type="text" class="form-control" id="valuta_placanja">
 								</div>
 							</div>
 							<div class="form-row">
@@ -197,6 +197,54 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="prebaciModal">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title pull-left">Prebacivanje iz avansne u klasičnu</h2>
+						<button class="close" type="button" data-dismiss="modal" onclick="clearModalBody()">x</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-row">
+								<div class="form-group col-md-2">
+									<label for="p_broj_fakture">Broj fakture:</label>
+									<input type="text" id="p_broj_fakture" class="form-control">
+								</div>
+								<div class="form-group col-md-2">
+									<label for="p_broj_ture">Broj ture:</label>
+									<input type="text" id="p_broj_ture" class="form-control">
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-3">
+									<label for="p_datum_prometa_usluge">Datum prometa usluge:</label>
+									<input type="date" id="p_datum_prometa_usluge" class="form-control">
+								</div>
+								<div class="from-group col-md-3">
+									<label for="p_datum_izdavanja">Datum izdavanja:</label>
+									<input type="date" id="p_datum_izdavanja" class="form-control">
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-3">
+									<label for="p_cmr">CMR:</label>
+									<input type="text" id="p_cmr" class="form-control">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="p_tezina">Težina:</label>
+									<input type="text" id="p_tezina" class="form-control">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<a class="btn" id="otvori">Otvori</a>
+						<a class="btn btn-success" id="prebaci">Prebaci</a>
+					</div>
+				</div>
+			</div>
+		</div>
 		<br><br>
 		<div class="container">
 			<table class="table table-bordered table-hover" id="faktureTabela">
@@ -210,7 +258,11 @@
 						echo "<thead class=\"thead\"><tr class=\"table-active\"><th>br.</th><th>BROJ RAČUNA</th><th>DATUM IZDAVANJA</th></tr></thead>";
 						while ($row = $result->fetch_assoc()) {
 							echo "<tr id=\"" . $row['id'] . "\"><td class=\"text-center\">" . $brojac++ . ". &nbsp; <a href=\"#\" class=\"obrisi\"><i class=\"fas fa-minus-circle\" style=\"color: red;\"></i></a></td>
-							<td>" . $row['komplet_racun_broj'] . "&nbsp; &nbsp; <a class=\"broj_registracije uredi_dugme\" href=\"#\"><i class=\"fas fa-edit\"></i></a></td><td>" . $row['datum_izdavanja'] . "</td></tr>";
+							<td>" . $row['komplet_racun_broj'] . "&nbsp; &nbsp; <a class=\"uredi_dugme\" href=\"#\"><i class=\"fas fa-edit\"></i></a>";
+							if ($row["avansna"] == 1) {
+								echo "&nbsp;&nbsp;<a class=\"prebaci_dugme\" href=\"#\" data-toggle=\"modal\" data-target=\"#prebaciModal\"><i class=\"fas fa-sync\" style=\"color: orange;\"></i></a>";
+							}
+							echo "</td><td>" . $row['datum_izdavanja'] . "</td></tr>";
 						}
 					}
 					else {

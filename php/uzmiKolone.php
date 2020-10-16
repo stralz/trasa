@@ -23,7 +23,8 @@
 	if (isset($_POST['id'])) {
 		$id = $conn->escape_string($_POST['id']);
 		$sql = "SELECT racun_broj, komplet_racun_broj, datum_izdavanja, valuta_placanja, datum_prometa, mesto_prometa, mesto_izdavanja_racuna,
-		broj_naloga, od, do, cmr, mesto_utovara, mesto_istovara, tezina, fk_tegljac, fk_prikolica, ang_tegljac, ang_prikolica, iznos, iznosEUR, kursEUR, sablon, nalogodavci.ime, fk_nalogodavac
+		broj_naloga, od, do, cmr, mesto_utovara, mesto_istovara, vrsta_robe, tezina, fk_tegljac, fk_prikolica, ang_tegljac, ang_prikolica, iznos,
+		iznosEUR, kursEUR, sablon, nalogodavci.ime, fk_nalogodavac, avansna, uvoz, ceo_deo, domaci_deo, inostrani_deo
 		FROM fakture INNER JOIN nalogodavci ON (fk_nalogodavac=nalogodavci.id) WHERE fakture.id=" . $id;
 
 		$result = $conn->query($sql);
@@ -42,6 +43,7 @@
 				'od' => $row['od'],
 				'do' => $row['do'],
 				'cmr' => $row['cmr'],
+				'vrsta_robe' => $row['vrsta_robe'],
 				'mesto_utovara' => $row['mesto_utovara'],
 				'mesto_istovara' => $row['mesto_istovara'],
 				'tezina' => $row['tezina'],
@@ -55,6 +57,11 @@
 				'fk_prikolica' => $row['fk_prikolica'],
 				'ang_tegljac' => $row['ang_tegljac'],
 				'ang_prikolica' => $row['ang_prikolica'],
+				'avansna' => $row["avansna"],
+				'uvoz' => $row["uvoz"],
+				'ceo_deo' => $row["ceo_deo"],
+				'domaci_deo' => $row["domaci_deo"],
+				'inostrani_deo' => $row["inostrani_deo"]
 				]);
 			}
 		}

@@ -27,7 +27,7 @@
 		$rokk = $conn->escape_string($_POST['rok']);
 		$imeNalogodavca = $conn->escape_string($_POST['ime']);
 
-		$sql = "UPDATE nalogodavci SET rok_placanja = " . $rokk . " WHERE ime LIKE('$imeNalogodavca')";
+		$sql = "UPDATE nalogodavci SET rok_placanja = '$rokk' WHERE ime LIKE('$imeNalogodavca')";
 		$conn->query($sql);
 	}
 
@@ -53,8 +53,8 @@
 		}
 	}
 
-	if(isset($_POST['broj']) && isset($_POST['tegljac_id']) && isset($_POST['prikolica_id'])) {
-		$broj = $conn->escape_string($_POST['broj']);
+	if(isset($_POST['komplet_broj']) && isset($_POST['tegljac_id']) && isset($_POST['prikolica_id'])) {
+		$komplet_broj = $conn->escape_string($_POST['komplet_broj']);
 		$tegljac_id = $conn->escape_string($_POST['tegljac_id']);
 		$prikolica_id = $conn->escape_string($_POST['prikolica_id']);
 
@@ -65,16 +65,14 @@
 				ON tegljaci.id = kompleti.fk_tegljac
 				INNER JOIN prikolice
 				ON prikolice.id = kompleti.fk_prikolica
-				WHERE kompleti.broj =" . $broj . "
-				AND kompleti.fk_tegljac=" . $tegljac_id . "
-				AND kompleti.fk_prikolica=" . $prikolica_id . "";
+				WHERE kompleti.broj ='$komplet_broj'
+				AND kompleti.fk_tegljac=$tegljac_id
+				AND kompleti.fk_prikolica=$prikolica_id";
 			$result = $conn->query($sql);
 			if($result->num_rows > 0) {
 				$row = $result->fetch_assoc();
 			} else {
-				$sql = "UPDATE kompleti
-						SET fk_tegljac=" . $tegljac_id . ", fk_prikolica=" . $prikolica_id .
-						" WHERE kompleti.broj=" . $broj . ";";
+				$sql = "UPDATE kompleti SET fk_tegljac= $tegljac_id, fk_prikolica='$prikolica_id' WHERE kompleti.broj='$komplet_broj';";
 				$conn->query($sql);
 			}
 		}

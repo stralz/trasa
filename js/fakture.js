@@ -8,8 +8,10 @@ var primalac2 = "";
 var sablon = "";
 var ang_kamion = false;
 var ava_faktura = false;
+var uvoz = false;
 var kursNaDanUtovara = 0;
 var kursNaDanIstovara = 0;
+var kursNaDanFakturisanja = 0;
 var kursNaDan = 0;
 
 function vratiDatum(datepicker) {
@@ -19,6 +21,15 @@ function vratiDatum(datepicker) {
 	var month = date[1];
 	var year = date[0];
 	return day + '.' + month + '.' + year;
+}
+
+function vratiDecimalu(decimala) {
+	if (decimala > 0 && decimala < 10)
+		return "0" + decimala + "/100";
+	else if (decimala == "")
+		return "00/100";
+	else
+		return decimala + "/100";
 }
 
 function danas() {
@@ -38,6 +49,17 @@ function danas() {
 	return dd + '.' + mm + '.' + yyyy;
 }
 
+function format_novac(n, c, d, t) {
+  var c = isNaN(c = Math.abs(c)) ? 2 : c,
+    d = d == undefined ? "." : d,
+    t = t == undefined ? "," : t,
+    s = n < 0 ? "-" : "",
+    i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
+    j = (j = i.length) > 3 ? j % 3 : 0;
+
+  return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
+
 function dateToString(date) {
 	var dd = date.getDate();
 	var mm = date.getMonth() + 1;
@@ -54,40 +76,6 @@ function dateToString(date) {
 	return dd + '.' + mm + '.' + yyyy;
 }
 
-function addDays(date, days) {
-	if(!domaci) {
-		var result = new Date(date.split('.')[2], date.split('.')[1], date.split('.')[0]);
-		var result1 = new Date(result);
-
-		if(result1.getMonth() == 11) {
-			result = new Date(result1.getFullYear() + 1, 0, 1);
-		} else {
-			result = new Date(result1.getFullYear(), result1.getMonth() + 1, 1);
-		}
-
-		result.setDate(result.getDate() + days);
-
-		var dd = result.getDate();
-		var mm = result.getMonth();
-		if(mm < 10)
-			mm = "0" + mm;
-		var yyyy = result.getFullYear();
-
-		return dd + '.' + mm + '.' + yyyy;
-	} else {
-		var result = new Date(date.split('.')[2], date.split('.')[1], date.split('.')[0]);
-		result.setDate(result.getDate() + days);
-
-		var dd = result.getDate();
-		var mm = result.getMonth();
-		if(mm < 10)
-			mm = "0" + mm;
-		var yyyy = result.getFullYear();
-
-		return dd + '.' + mm + '.' + yyyy;
-	}
-}
-
 function dveDecimale(x) {
 	return parseFloat(x).toFixed(2);
 }
@@ -96,18 +84,22 @@ $(function() {
 	$("#napravi").click(function(e) {
 		e.preventDefault();
 
-		var brojTure = $("#broj_ture").val();
-
 		var komplet_racun_broj = "";
 
+		var brojFakture = $("#broj_fakture").val();
+		var brojTure = $("#broj_ture").val();
+
 		var datum_prometa_usluge = vratiDatum("datum_prometa_usluge");
-		var rokPlacanjaUsluge = document.getElementById("rok_placanja_usluge").value.split(' ')[0];
+		var rokPlacanjaUsluge = document.getElementById("rok_placanja_usluge").value;
+
+		var komplet_broj = $("#komplet_broj").val();
 
 		var imeNalogodavca = $("#nalogodavac").val();
 		var idNalogodavca = $("#listaNalogodavci > option[value='" + imeNalogodavca + "'").attr("id");
 
+		var datum_izdavanja = vratiDatum("datum_izdavanja_racuna");
 		var today = new Date();
-		var valuta_placanja = addDays(today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear(), parseInt(rokPlacanjaUsluge));
+		var valuta_placanja;
 
 		var tegljac_id = $('#tegljac').val();
 		var prikolica_id = $('#prikolica').val();
@@ -117,45 +109,44 @@ $(function() {
 		var angTegljac = $("#ang_tegljac").val();
 		var angPrikolica = $("#ang_prikolica").val();
 
-		// Kurs na danasnji dan.
-		var kursEURDanas = document.getElementById("kursEUR").text.replace(/\s/g, '').replace(',', '.');
-		kursEURDanas = kursEURDanas.substr(0, kursEURDanas - 2);
-		// Kurs koji ce se koristiti.
-		var kursEUR = kursEURDanas;
+		var brojNaloga = $("#broj_naloga").val();
 
-		var brojNaloga = document.getElementById("broj_naloga").value;
+		var mestoOd = $("#od").val();
+		var mestoDo = $("#do").val();
 
-		var mestoOd = document.getElementById("od").value;
-		var mestoOdD;
-		var mestoDo = document.getElementById("do").value;
-		var mestoDoD;
+		var _cmr = $("#cmr").val();
+		var _tezina = $("#tezina").val();
+		var vrsta_robe = $("#vrsta_robe").val();
 
-		var _cmr = document.getElementById("cmr").value;
-		var _tezina = document.getElementById("tezina").value;
-		var vrsta_robe = document.getElementById("vrsta_robe").value;
-
-		var iznos = document.getElementById("iznos").value;
+		var iznos = $("#iznos").val();
+		var iznos_din = $("#iznos_din").val();
+		if (iznos_din != "")
+			iznos = iznos_din;
 		var intPart = parseInt(iznos);
-		var decimala = parseInt(Math.floor(100 * (iznos - intPart)));
+		var decimala = iznos - Math.floor(iznos);
+		decimala = Math.round(decimala * 100) / 100;
+		decimala = decimala.toString().substr(2, 2);
 
 		/*
 			Provera koji je nalogodavac u pitanju, da li je Milsped ili Kontinental
 		*/
-		var datum_istovara, datum_utovara, datum_avans;
+		var datum_istovara, datum_utovara, datum_avans, datum_fakturisanja;
 
 		var cena_u_celosti_eur, cena_u_celosti_din;
 		var cena_domaci_deo_eur, cena_domaci_deo_din;
 		var cena_inostrani_deo_eur, cena_inostrani_deo_din;
 
-		if(idNalogodavca == 12) { // Onda je Kontinental.
-			datum_utovara = vratiDatum("datum_utovara");
-		} else if(idNalogodavca == 13) { // onda je Milsped.
+		if(idNalogodavca == 13) { // Onda je Milsped;
+
 			if(ava_faktura) {
-				valuta_placanja = vratiDatum("valuta_placanja");
+				valuta_placanja = $("#valuta_placanja").val();
+				datum_prometa_usluge = vratiDatum("datum_prometa_usluge");
 				kursEUR = $("#kurs_rucni").val();
 			}
-			else
+			else {
 				datum_istovara = vratiDatum("datum_istovara");
+				datum_prometa_usluge = vratiDatum("datum_prometa_usluge");
+			}
 
 			cena_u_celosti_eur = $("#cena_u_celosti_eur").val();
 			cena_u_celosti_din = $("#cena_u_celosti_din").val();
@@ -165,45 +156,33 @@ $(function() {
 
 			cena_inostrani_deo_eur = $("#cena_inostrani_deo_eur").val();
 			cena_inostrani_deo_din = $("#cena_inostrani_deo_din").val();
+
+			valuta_placanja = rokPlacanjaUsluge;
+		} else {
+			valuta_placanja = rokPlacanjaUsluge;
 		}
 
 		if(ang_kamion) {
-			komplet_racun_broj = brojTure + "/AK/" + (today.getFullYear() - 2000);
-			console.log(komplet_racun_broj);
-		} else {
-			komplet_racun_broj = brojTure + "/" + tegljac_id + "-" + prikolica_id + "/" + (today.getFullYear() - 2000);
-			console.log(komplet_racun_broj);
+			if (ava_faktura)
+				komplet_racun_broj = brojFakture + "/AK/" + (today.getFullYear() - 2000);
+			else
+				komplet_racun_broj = brojFakture + "/AK/" + (today.getFullYear() - 2000);
+		 } else {
+			if (ava_faktura)
+				komplet_racun_broj = brojFakture + "/" +  komplet_broj + "/" + (today.getFullYear() - 2000);
+			else
+				komplet_racun_broj = brojFakture + "/" + brojTure + "-" + komplet_broj + "/" + (today.getFullYear() - 2000);
 		}
 
 		var racunBroj = komplet_racun_broj;
 
-		if (id_nalogodavca == 13) { // 13, zato sto je Milsped-ov ID = 13.
-			if (ava_faktura) {
-				valuta_placanja = vratiDatum("valuta_placanja");
-			} else {
-				var dd = datum_prometa_usluge.split('.')[0];
-				var mm = datum_prometa_usluge.split('.')[1];
-				var yyyy = datum_prometa_usluge.split('.')[2];
-
-				if(dd <= 15) dd = 8;
-				else dd = 22;
-
-				mm = +mm + 2;
-				if(mm > 12) {
-					mm = +mm - 12;
-					yyyy++;
-				}
-				valuta_placanja = dd + "." + mm + "." + yyyy;
-			}
-		}
-
 		$.post("php/racunBroj.php", {
-			prvi: brojTure,
+			prvi: brojFakture,
 			avansna: ava_faktura
 		}, function (data) {
 			obj = {
 				racun_broj: racunBroj,
-				datum_izdavanja: danas(),
+				datum_izdavanja: datum_izdavanja,
 				datum_prometa: datum_prometa_usluge,
 				ime_nalogodavca: imeNalogodavca,
 				valuta_placanja: valuta_placanja,
@@ -214,13 +193,13 @@ $(function() {
 				od: mestoOd,
 				do: mestoDo,
 				cmr: _cmr,
-				tezina: _tezina,
+				tezina: format_novac(_tezina, 2, ',', '.') + " kg",
 				vrsta_robe: vrsta_robe,
 
-				kursEUR: dveDecimale(kursEUR),
-				iznos: iznos,
-				slovima: izBrojaUSlova(intPart, 2, 1) + " dinara i " + decimala + "/100",
-				iznosEUR: dveDecimale(iznos / dveDecimale(kursEUR)),
+				kursEUR: format_novac(kursEUR, 4, ',', '.'),
+				iznos: format_novac(dveDecimale(iznos), 2),
+				slovima: izBrojaUSlova(intPart, 1, 1),
+				iznosEUR: format_novac(dveDecimale(iznos / dveDecimale(kursEUR)), 2),
 			};
 
 			// Provera da li je angazovani kamion ili nije.
@@ -235,26 +214,51 @@ $(function() {
 			if(idNalogodavca == 12) { // Onda je Kontinental.
 				obj["datum_utovara"] = datum_utovara;
 				obj["dan_utovara_kurs"] = kursNaDanUtovara;
+				obj["iznos"] = format_novac(iznos_din, 2);
+
+				obj["slovima"] = obj["slovima"] + " dinara i " + vratiDecimalu(decimala);
 			} else if(idNalogodavca == 13) { // onda je Milsped.
 				if(!ava_faktura) {
 					obj["datum_istovara"] = datum_istovara;
 					obj["dan_istovara_kurs"] = kursNaDanIstovara;
 				}
 
-				obj["cena_u_celosti_eur"] = cena_u_celosti_eur;
-				obj["cena_u_celosti_din"] = cena_u_celosti_din;
+				obj["cena_u_celosti_eur"] = format_novac(cena_u_celosti_eur, 2);
+				obj["cena_u_celosti_din"] = format_novac(cena_u_celosti_din, 2);
 
-				obj["cena_domaci_deo_eur"] = cena_domaci_deo_eur;
-				obj["cena_domaci_deo_din"] = cena_domaci_deo_din;
+				obj["cena_domaci_deo_eur"] = format_novac(cena_domaci_deo_eur, 2);
+				obj["cena_domaci_deo_din"] = format_novac(cena_domaci_deo_din, 2);
 
-				obj["cena_inostrani_deo_eur"] = cena_inostrani_deo_eur;
-				obj["cena_inostrani_deo_din"] = cena_inostrani_deo_din;
+				obj["cena_inostrani_deo_eur"] = format_novac(cena_inostrani_deo_eur, 2);
+				obj["cena_inostrani_deo_din"] = format_novac(cena_inostrani_deo_din, 2);
 
 				iznos = +cena_u_celosti_din;
-				console.log("CENA U CELOSTI DIN:" +  cena_u_celosti_din);
-				console.log("CENA U CELOSTI DIN 2:" +  +cena_u_celosti_din);
-			} else if(idNalogodavca == 16) {
-				iznos = +$("#iznos").val();
+				obj["iznos"] = format_novac(cena_u_celosti_din, 2);
+				obj["iznosEUR"] = format_novac(cena_u_celosti_eur, 2);
+
+				// Posto je kod Milspeda iznos cena_u_celosti_din.
+				intPart = parseInt(iznos);
+				console.log("IZNOS: " + intPart);
+				decimala = iznos - Math.floor(iznos);
+				decimala = Math.round(decimala * 100) / 100;
+				decimala = decimala.toString().substr(2, 2);
+
+				obj["slovima"] = izBrojaUSlova(intPart, 1, 1) + " dinara i " + vratiDecimalu(decimala);
+			} else if(idNalogodavca == 16) { // Cambianica
+				iznos = $("#iznos").val();
+				obj["iznos"] = format_novac($("#iznos").val(), 2);
+				obj["slovima"] = "hiljadučetiristo EUR";
+				kursEUR = 0;
+			} else if(idNalogodavca == 11) { // Todorovic
+				obj["iznos"] = format_novac($("#iznos_din").val(), 2);
+				iznos = $("#iznos_din").val();
+
+				obj["slovima"] = obj["slovima"] + " dinara i " + vratiDecimalu(decimala);
+			} else {
+				if (iznos_din != null)
+					obj["iznos"] = format_novac(iznos_din, 2);
+
+				obj["slovima"] = obj["slovima"] + " dinara i " + vratiDecimalu(decimala);
 			}
 
 			function uradi(param) {
@@ -274,16 +278,12 @@ $(function() {
 				obj.mesto_izdavanja_racuna = mesto;
 			}
 
-			// Provera koji je sablon u pitanju.
-			// I na osnovu provere zadaje sablon.
-			if(domaci && dveTure) {
-				sablon = "DinarskiSablon2Ture";
-			} else if(domaci && !dveTure) {
-				sablon = "DinarskiSablon1Tura";
-			} else if(!domaci && dveTure) {
-				sablon = "DevizniSablon2Ture";
-			} else if(!domaci && !dveTure) {
-				sablon = "DevizniSablon1Tura";
+			function _gradovi(param) {
+				var mesto_od_d = param.od;
+				var mesto_do_d = param.do;
+
+				obj.mesto_od_d = mesto_od_d;
+				obj.mesto_do_d = mesto_do_d;
 			}
 
 			$.post('php/ucitajNalogodavce.php', {
@@ -292,6 +292,7 @@ $(function() {
 				'od': mestoOd,
 				'do': mestoDo,
 				'broj': racunBroj,
+				'komplet_broj' : komplet_broj,
 				'tegljac_id': tegljac_id,
 				'prikolica_id': prikolica_id,
 			}, function(data) {
@@ -309,18 +310,89 @@ $(function() {
 						do: mestoDo,
 						doDrzava: mestoDoDrzava,
 					}, function (gradovi) {
-							mestoOdD = gradovi.od;
-							mestoDoD = gradovi.do;
+							if(idNalogodavca == 13) { // 13 zato sto je Milsped-ov ID = 13.
+								obj["domaci_deo"] = format_novac(cena_domaci_deo_din, 2);
+								obj["inostrani_deo"] = format_novac(cena_inostrani_deo_din, 2);
+							}
 
-							if(idNalogodavca == 13) {
-								obj["od"] = obj["od"] + " - Granica (SRB)";
-								obj["do"] = "Granica (SRB) - " + obj["do"];
+							obj["mestoOdDrzava"] = mestoOdDrzava;
+							obj["mestoDoDrzava"] = mestoDoDrzava;
 
-								obj["domaci_deo"] = cena_domaci_deo_din;
-								obj["inostrani_deo"] = cena_inostrani_deo_din;
+							if (mestoOdDrzava == "I") {
+								uvoz = true;
+							}
 
-								obj["mestoOdD"] = mestoOdD;
-								obj["mestoDoD"] = mestoDoD;
+							// Inicijalizujemo promenljivu nazivDokumenta kako bi u nju
+							// sacuvali potrebni naziv za dokument koji ce biti generisan.
+							var nazivDokumenta;
+
+							// Proveravamo koji je nalogodavac izabran,
+							// i da li je izvozna ili uvozna faktura.
+							//
+							// Takodje dajemo naziv dokumentu koji ce biti generisan.
+							if(idNalogodavca == 13) { // 13 zato sto je Milsped-ov ID = 13.
+								if(uvoz) {
+									if (ava_faktura) {
+										obj["racun_broj"] = "Avansni račun br. AVR " + obj["racun_broj"];
+										sablon = "Milsped_uvoz_ava";
+									} else {
+										obj["racun_broj"] = "Račun br. " + obj["racun_broj"];
+										sablon = "Milsped_uvoz";
+									}
+
+									if (ang_kamion)
+										nazivDokumenta = brojFakture + " M uvoz";
+									else
+										nazivDokumenta = brojFakture + " Mn uvoz";
+
+								} else {
+									if (ava_faktura) {
+											obj["racun_broj"] = "Avansni račun br. AVR " + obj["racun_broj"];
+											sablon = "Milsped_izvoz_ava";
+									} else {
+											obj["racun_broj"] = "Račun br. " + obj["racun_broj"];
+											sablon = "Milsped_izvoz";
+									}
+
+									if (ang_kamion)
+										nazivDokumenta = brojFakture + " M";
+									else
+										nazivDokumenta = brojFakture + " Mn";
+
+								}
+							} else if(idNalogodavca == 16) { // Zato sto je Cambianica ID = 16.
+								if (mestoOdDrzava == "I")
+									sablon = "Cambianica_uvoz";
+								else
+									sablon = "Cambianica_izvoz";
+
+								obj["racun_broj"] = "Račun br. " + obj["racun_broj"];
+
+								nazivDokumenta = brojFakture + " cn";
+
+							} else if(idNalogodavca == 11) { // Zato sto je Todorovic ID = 11.
+								if(uvoz)
+									sablon = "Todorovic_uvoz";
+								else
+									sablon = "Todorovic_izvoz";
+
+								obj["racun_broj"] = "Račun br. " + obj["racun_broj"];
+
+								nazivDokumenta = brojFakture + " T";
+
+							} else if(idNalogodavca == 12) { // Zato sto je Kontinental ID = 12.
+								if(uvoz)
+									sablon = "Kontinental_uvoz";
+								else
+									sablon = "Kontinental_izvoz";
+
+								obj["racun_broj"] = "Račun br. " + obj["racun_broj"];
+
+								if (ang_kamion)
+									nazivDokumenta = brojFakture + " K";
+								else
+									nazivDokumenta = brojFakture + " Kn";
+
 							}
 
 							loadFile("sabloni/" + sablon + ".docx",function(error,content){
@@ -350,9 +422,30 @@ $(function() {
 									type:"blob",
 									mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 								})
-								saveAs(out, racunBroj + ".docx")
+								saveAs(out, nazivDokumenta + ".docx")
 							});
 					});
+
+					/*
+						Ovde ubacujemo vrstu robe u bazu i povezujemo je
+						sa nalogdavcem koji je izabran ukoliko ta vrsta vrsta robe
+						vec ne postoji u nasoj bazi.
+					*/
+					$.post('php/vrstaRobe.php', {
+						id: idNalogodavca,
+						naziv: vrsta_robe
+					});
+
+					/*
+						Ovde ubacujemo angazovanog tegljaca i angazovanu prikolicu
+						u bazu, ukoliko ona ne postoji.
+					*/
+					if (angTegljac != "" && angPrikolica != "") {
+						$.post('php/angazovaniKamion.php', {
+							ang_tegljac: angTegljac,
+							ang_prikolica: angPrikolica
+						});
+					}
 
 					/*
 						Ubacuje fakturu u bazu.
@@ -363,7 +456,7 @@ $(function() {
 						racun_broj: racunBroj,
 						komplet_racun_broj: komplet_racun_broj,
 
-						datum_izdavanja: danas(),
+						datum_izdavanja: datum_izdavanja,
 						valuta_placanja: valuta_placanja,
 						datum_prometa: datum_prometa_usluge,
 
@@ -386,18 +479,22 @@ $(function() {
 						tezina: _tezina,
 						vrsta_robe: vrsta_robe,
 
-						kursEUR: dveDecimale(kursEUR),
+						kursEUR: kursEUR,
 						iznos: iznos,
 						iznosEUR: dveDecimale(iznos / dveDecimale(kursEUR)),
-						sablon: sablon
+						sablon: sablon,
+						avansna: (ava_faktura ? 1 : 0),
+						uvoz: (uvoz ? 1 : 0),
+						ceo_deo: format_novac(cena_u_celosti_din, 2),
+						domaci_deo: format_novac(cena_domaci_deo_din, 2),
+						inostrani_deo: format_novac(cena_inostrani_deo_din, 2)
 					});
 				}
 			});
 		});
 	});
 
-	$('#nalogodavac').change(function () {
-		// zasto ovo postoji.
+	$("#nalogodavac").change(function () {
 		var imeNalogodavca = $("#nalogodavac").val();
 		id_nalogodavca = $("#listaNalogodavci > option[value='" + imeNalogodavca + "'").attr("id");
 
@@ -405,28 +502,75 @@ $(function() {
 		{
 			if(confirm("Nalogodavac ne postoji, želite li da ga ubacite?"))
 				location.href = "podesavanja.php?ime=" + imeNalogodavca;
-		} else if (id_nalogodavca == 13) { // 13, zato sto je Milsped-ov ID = 13.
-			$("#rok_placanja_usluge").parent().hide();
+		} else if (id_nalogodavca == 13) { // 13, zato sto je Milsped-ov ID = 13;
+			$("#rok_placanja_usluge").parent().show();
+			$("#iznos_din").parent().parent().hide();
 			$("#vrsta_fakture").show();
 			$("#utovar").hide();
 			$("#istovar").show();
+			$("#fakturisanje").hide();
+			$("#hide").show();
 			$("#cena_milsped").show();
 			$("#cena_default").hide();
-		} else if (id_nalogodavca == 12) { // 12, zato sto je Kontinental-ov ID = 12.
+			$("#datum_prometa_usluge").parent().show();
+		} else if (id_nalogodavca == 12) { // 12, zato sto je Kontinental-ov ID = 12;
 			$("#rok_placanja_usluge").parent().show();
+			$("#iznos_din").parent().parent().show();
 			$("#vrsta_fakture").hide();
 			$("#utovar").show();
 			$("#istovar").hide();
+			$("#fakturisanje").hide();
 			$("#cena_milsped").hide();
 			$("#cena_default").show();
-		} else {
+			$("#datum_prometa_usluge").parent().show();
+			$("#valuta_placanja").parent().hide();
+		} else if(id_nalogodavca == 11) { // 11, zato sto je Todorovic-ev ID = 11;
 			$("#rok_placanja_usluge").parent().show();
+			$("#iznos_din").parent().parent().show();
 			$("#vrsta_fakture").hide();
 			$("#utovar").hide();
 			$("#istovar").hide();
+			$("#fakturisanje").show();
 			$("#cena_milsped").hide();
 			$("#cena_default").show();
+			$("#datum_prometa_usluge").parent().show();
+			$("#valuta_placanja").parent().hide();
+		} else if(id_nalogodavca == 16) {
+			$("#rok_placanja_usluge").parent().show();
+			$("#iznos_din").parent().parent().hide();
+			$("#vrsta_fakture").hide();
+			$("#utovar").hide();
+			$("#istovar").hide();
+			$("#fakturisanje").hide();
+			$("#cena_milsped").hide();
+			$("#cena_default").show();
+			$("#datum_prometa_usluge").parent().show();
+			$("#valuta_placanja").parent().hide();
+		} else {
+			$("#rok_placanja_usluge").parent().show();
+			$("#iznos_din").parent().parent().show();
+			$("#vrsta_fakture").hide();
+			$("#utovar").hide();
+			$("#istovar").hide();
+			$("#fakturisanje").hide();
+			$("#cena_milsped").hide();
+			$("#cena_default").show();
+			$("#datum_prometa_usluge").parent().show();
+			$("#valuta_placanja").parent().hide();
 		}
+
+		/*
+			Ovde treba da se ubace vrste robe u polje,
+			u odnosu na to koji je nalogodavac izabran;
+		*/
+		$.post('php/vrstaRobe.php', {
+			id: id_nalogodavca
+		}, function(data) {
+			if (data !== null) {
+				$("#listaVrstaRobe").empty();
+				$("#listaVrstaRobe").append(data);
+			}
+		});
 
 		$.post('php/ucitajNalogodavce.php', {
 			ime: imeNalogodavca
@@ -453,18 +597,6 @@ $(function() {
 		});
 	});
 
-	$('#nalogodavac').change(function () {
-		var imeNalogodavca = $("#nalogodavac").val();
-
-		if(imeNalogodavca.includes("d.o.o")) {
-			$(".brojNaloga").css('display', 'none');
-			domaci = true;
-		} else {
-			$(".brojNaloga").css('display', 'block');
-			domaci = false;
-		}
-	});
-
 	$(".drzava").click(function (e) {
 		e.preventDefault();
 		if($("#odDrzava").text().trim() == "SRB")
@@ -485,13 +617,13 @@ $(function() {
 			$("#ang_kamion").hide();
 			$("#nas_kamion").show();
 			$("#komplet_broj").parent().show();
-			$("#datum_prometa_usluge").parent().addClass("offset-md-1");     // menja offset
+			$("#broj_ture").parent().show();
 		} else {
 			ang_kamion = true;
 			$("#nas_kamion").hide();
 			$("#ang_kamion").show();
 			$("#komplet_broj").parent().hide();
-			$("#datum_prometa_usluge").parent().removeClass("offset-md-1");  // menja offset
+			$("#broj_ture").parent().hide();
 		}
 	});
 
@@ -509,9 +641,16 @@ $(function() {
 			kursNaDanUtovara = data;
 		});
 
-		$("#dan_utovara_kurs").val(parseFloat(kursNaDanUtovara));
-		$.ajaxSetup({async: true});
-		kursEUR = kursNaDanUtovara;
+		if (kursNaDanUtovara != null) {
+			$("#dan_utovara_kurs").val(parseFloat(kursNaDanUtovara));
+			$.ajaxSetup({async: true});
+			kursEUR = kursNaDanUtovara;
+		}
+	});
+
+	$("#dan_utovara_kurs").on('change', function () {
+		if ($(this).val() != null)
+			kursEUR = $(this).val();
 	});
 
 	$('#datum_istovara').on('change', function () {
@@ -526,34 +665,62 @@ $(function() {
 			kursNaDanIstovara = data;
 		});
 
-		$("#dan_istovara_kurs").val(parseFloat(kursNaDanIstovara));
-		$.ajaxSetup({async: true});
-		kursEUR = kursNaDanIstovara;
+		if (kursNaDanIstovara != null) {
+			$("#dan_istovara_kurs").val(parseFloat(kursNaDanIstovara));
+			$.ajaxSetup({async: true});
+			kursEUR = kursNaDanIstovara;
+		}
 	});
+
+	$("#dan_istovara_kurs").on('change', function () {
+		if ($(this).val() != null)
+			kursEUR = $(this).val();
+	});
+
+	$("#datum_fakturisanja").on('change', function () {
+		var datum_fakturisanja = vratiDatum("datum_fakturisanja");
+		var novi_datum = datum_fakturisanja.split('.')[0] + "-" + datum_fakturisanja.split('.')[1] + "-" + datum_fakturisanja.split('.')[2];
+
+		$.ajaxSetup({async: false});
+		$.post("php/kursNaDan.php", {
+			datum: novi_datum,
+		}, function (data) {
+			kursNaDanFakturisanja = data;
+		});
+
+		if (kursNaDanFakturisanja != null) {
+			$("#dan_fakturisanja_kurs").val(parseFloat(kursNaDanFakturisanja));
+			$.ajaxSetup({async: true});
+			kursEUR = kursNaDanFakturisanja;
+		}
+	});
+
+	$("#dan_fakturisanja_kurs").on('change', function () {
+		if ($(this).val() != null)
+			kursEUR = $(this).val();
+	});
+
 	// </Datumi>
 	//
 
 	// <Cene za Milsped>
 	//
 	$("#cena_u_celosti_eur").change(function () {
-		if($("#kurs_rucni").val() == "")
-			$("#cena_u_celosti_din").val(dveDecimale(+this.value * +kursEUR));
-		else
-			$("#cena_u_celosti_din").val(dveDecimale(+this.value * +($("#kurs_rucni").val())));
-	});
+		var celost_eur = $(this).val();
+		var celost_din = dveDecimale(+this.value * +kursEUR);
+		$("#cena_u_celosti_din").val(celost_din);
 
-	$("#cena_domaci_deo_eur").change(function () {
-		if($("#kurs_rucni").val() == "")
-			$("#cena_domaci_deo_din").val(dveDecimale(+this.value * +kursEUR));
-		else
-			$("#cena_domaci_deo_din").val(dveDecimale(+this.value * +($("#kurs_rucni").val())));
-	});
+		var domaci_eur = dveDecimale(celost_eur * 10 / 100);
+		console.log("domaci_eur: " + domaci_eur);
+		var domaci_din = dveDecimale(+domaci_eur * +kursEUR);
+		$("#cena_domaci_deo_eur").val(domaci_eur);
+		$("#cena_domaci_deo_din").val(domaci_din);
 
-	$("#cena_inostrani_deo_eur").change(function () {
-		if($("#kurs_rucni").val() == "")
-			$("#cena_inostrani_deo_din").val(dveDecimale(+this.value * +kursEUR));
-		else
-			$("#cena_inostrani_deo_din").val(dveDecimale(+this.value * +($("#kurs_rucni").val())));
+		var inostrani_eur = dveDecimale(celost_eur - domaci_eur);
+		var inostrani_din = dveDecimale(+celost_din - +domaci_din);
+		console.log("inostrani_eur: " + inostrani_eur);
+		$("#cena_inostrani_deo_eur").val(inostrani_eur);
+		$("#cena_inostrani_deo_din").val(inostrani_din);
 	});
 	// </Cene za Milsped>
 	//
@@ -564,11 +731,26 @@ $(function() {
 			$("#istovar").show();
 			$("#valuta_placanja").parent().hide();
 			$("#kurs").hide();
+			$("#broj_ture").parent().show();
+			$("#datum_prometa_usluge").parent().show();
 		} else {
 			ava_faktura = true;
 			$("#istovar").hide();
-			$("#valuta_placanja").parent().show();
 			$("#kurs").show();
+			$("#broj_ture").parent().hide();
+			$("#datum_prometa_usluge").parent().show();
 		}
+	});
+
+	$("#iznos").on('change', function () {
+		iznos = $(this).val();
+		if (id_nalogodavca == 11)
+			$("#iznos_din").val(dveDecimale(Math.round(dveDecimale((+iznos * +kursEUR) - (10 * kursEUR)))));
+		else
+			$("#iznos_din").val(dveDecimale((+iznos * +kursEUR)));
+	});
+
+	$("#kurs_rucni").on('change', function () {
+		kursEUR = $(this).val();
 	});
 });
